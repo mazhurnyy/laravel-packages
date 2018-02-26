@@ -13,7 +13,7 @@ use App;
 //use Blade;
 
 
-class LaravelPackagesServiceProvider extends ServiceProvider
+class MazhurnyyServiceProvider extends ServiceProvider
 {
 
     public function boot()

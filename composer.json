@@ -24,7 +24,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mazhurnyy\\LaravelPackagesServiceProvider"
+                "Mazhurnyy\\MazhurnyyServiceProvider"
             ],
             "aliases": {
 
