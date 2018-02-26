@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "mazhurnyy\\laravel-packages\\": "src/"
+            "Mazhurnyy\\": "src/"
 
         }
     },
@@ -24,7 +24,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mazhurnyy\\LaravelPackages\\LaravelPackagesServiceProvider"
+                "Mazhurnyy\\LaravelPackagesServiceProvider"
             ],
             "aliases": {
 

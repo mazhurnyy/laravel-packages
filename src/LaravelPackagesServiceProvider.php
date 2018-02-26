@@ -6,7 +6,7 @@
  * Time: 15:08
  */
 
-namespace Mazhurnyy\LaravelPackages;
+namespace Mazhurnyy;
 
 use Illuminate\Support\ServiceProvider;
 use App;
