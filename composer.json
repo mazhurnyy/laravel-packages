@@ -1,0 +1,35 @@
+{
+    "name": "mazhurnyy/laravel-packages",
+    "description": "Laravel 5.*",
+    "version":"master",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "BBM",
+            "email": "mazhurnyy@mail.ru"
+        }
+    ],
+    "require": {},
+
+    "require-dev": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "mazhurnyy\\laravel-packages\\": "src/"
+
+        }
+    },
+
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mazhurnyy\\LaravelPackages\\LaravelPackagesServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "minimum-stability": "dev"
+}
