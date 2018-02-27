@@ -50,6 +50,11 @@ class MazhurnyyServiceProvider extends ServiceProvider
 
     public function register()
     {
+        // Обработка файлов
+
+        $this->app->bind('SaveFile', function () {
+            return new Mazhurnyy\SaveFile\SaveFile();
+        });
 /*
         $this->app->singleton(LaravelFileProcessing::class, function () {
             return new LaravelFileProcessing();
