@@ -23,7 +23,7 @@
         "Mazhurnyy\\Provider\\MazhurnyyServiceProvider"
       ],
       "aliases": {
-        "SaveFile": "Mazhurnyy\\Facades\\SaveFile",
+        "SaveFile": "Mazhurnyy\\Facades\\SaveFile"
       }
     }
   },
