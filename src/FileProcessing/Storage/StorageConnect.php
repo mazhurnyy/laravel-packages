@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BBM
- * Date: 13.07.2017
- * Time: 20:33
- */
 
-namespace Mazhurnyy\Services;
+namespace Mazhurnyy\FileProcessing\Storage;
 
-use Mazhurnyy\Services\Storage\Selectel;
+use Mazhurnyy\FileProcessing\Storage\Selectel;
 
 /**
  * Подключение к хранилищу данных
@@ -27,7 +21,8 @@ class StorageConnect
      */
     public function __construct()
     {
-        $this->storage_driver();
+        $storage_driver = config('mazhurnyy.storage_driver');
+        $this->$storage_driver();
     }
 
 

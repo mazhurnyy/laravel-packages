@@ -58,7 +58,6 @@ class FileProcessing extends Controller
     {
 
  //       $this->storage_driver = config('mazhurnyy.storage_driver');
-
  //       $this->storage = new StorageConnect();
 //        $this->setType();
 //        $this->getEssenceType($this->type);

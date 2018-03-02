@@ -6,7 +6,7 @@
  * Time: 13:16
  */
 
-namespace App\FileProcessing\Traits;
+namespace Mazhurnyy\FileProcessing\Traits;
 
 use App\Models\File;
 use App\Models\Fileable;

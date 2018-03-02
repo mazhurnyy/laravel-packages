@@ -8,7 +8,6 @@
 
 namespace Mazhurnyy\FileProcessing;
 
-
 use App\Models\File;
 use App\Models\Prefix;
 //use App\Traits\File;
@@ -21,7 +20,6 @@ use Mazhurnyy\FileProcessing\Traits\ModelTrait;
 use Illuminate\Support\Facades\Storage;
 
 use Intervention\Image\ImageManagerStatic as Image;
-
 
 /**
  * Class SaveFile

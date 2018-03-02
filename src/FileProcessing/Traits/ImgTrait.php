@@ -6,7 +6,7 @@
  * Time: 13:16
  */
 
-namespace App\FileProcessing\Traits;
+namespace Mazhurnyy\FileProcessing\Traits;
 
 use App\Models\Prefix;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -35,12 +35,6 @@ trait ImgTrait
      * Путь к файлу
      */
     private $path;
-
-    /**
-     * @var int ID текущей записи
-     */
-    private $id;
-
 
     /**
      * @var string

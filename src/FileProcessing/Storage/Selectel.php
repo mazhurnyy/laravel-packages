@@ -7,7 +7,7 @@
  * Time: 15:16
  */
 
-namespace Mazhurnyy\Services\Storage\Selectel;
+namespace Mazhurnyy\FileProcessing\Storage;
 
 use ArgentCrusade\Selectel\CloudStorage\Api\ApiClient;
 use ArgentCrusade\Selectel\CloudStorage\CloudStorage;
@@ -24,7 +24,7 @@ class Selectel
     /**
      * подключение к хранилищу selectel
      */
-    protected static function getContainer()
+    public function getContainer()
     {
         $apiClient = new ApiClient(config('mazhurnyy.selectel.username'), config('mazhurnyy.selectel.password'));
         $storage = new CloudStorage($apiClient);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\FileProcessing\Traits;
+namespace Mazhurnyy\FileProcessing\Traits;
 
 use App\Models\ObjectType;
 use App\Models\Extension;
@@ -106,12 +106,12 @@ trait FileTraits
 
 
 
-
+/*
     private function setDirection()
     {
         $this->direction = request()->input('direction') ?? null;
     }
-
+*/
     protected function setFileId()
     {
         // todo поменять на file_id, поле скрипта
