@@ -6,7 +6,7 @@
  * Time: 15:32
  */
 
-namespace Mazhurnyy\Facade;
+namespace Mazhurnyy\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
