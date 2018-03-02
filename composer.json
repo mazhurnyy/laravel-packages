@@ -23,7 +23,11 @@
         "Mazhurnyy\\Provider\\MazhurnyyServiceProvider"
       ],
       "aliases": {
-        "SaveFile": "Mazhurnyy\\Facades\\SaveFile"
+        "FileProcessing": "Mazhurnyy\\Facades\\FileProcessing",
+        "Filters": "Mazhurnyy\\Facades\\Filters",
+        "SiteBlade": "Mazhurnyy\\Facades\\SiteBlade",
+        "SiteMeta": "Mazhurnyy\\Facades\\SiteMeta",
+        "SiteLogs": "Mazhurnyy\\Facades\\SiteLogs"
       }
     }
   },

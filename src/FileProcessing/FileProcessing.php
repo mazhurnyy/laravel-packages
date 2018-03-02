@@ -6,17 +6,17 @@
  * Time: 13:16
  */
 
-namespace Mazhurnyy\SaveFile;
+namespace Mazhurnyy\FileProcessing;
 
 
 use App\Models\File;
 use App\Models\Prefix;
 //use App\Traits\File;
 
-use Mazhurnyy\Services\StorageConnect;
-use Mazhurnyy\SaveFile\Traits\FileTraits;
-use Mazhurnyy\SaveFile\Traits\ImgTrait;
-use Mazhurnyy\SaveFile\Traits\ModelTrait;
+use Mazhurnyy\FileProcessing\Storage\StorageConnect;
+use Mazhurnyy\FileProcessing\Traits\FileTraits;
+use Mazhurnyy\FileProcessing\Traits\ImgTrait;
+use Mazhurnyy\FileProcessing\Traits\ModelTrait;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -29,7 +29,7 @@ use Intervention\Image\ImageManagerStatic as Image;
  *
  * @package App\Services
  */
-class SaveFile
+class FileProcessing
 {
     use FileTraits, ImgTrait, ModelTrait;
     /**

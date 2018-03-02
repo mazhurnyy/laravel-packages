@@ -72,7 +72,7 @@ class FileProcessing extends Controller
      */
     public function fileAdd()
     {
-        \SaveFile::fileAdd();
+        \FileProcessing::fileAdd();
 
         return back();
     }

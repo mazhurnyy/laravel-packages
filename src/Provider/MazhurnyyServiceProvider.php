@@ -19,7 +19,7 @@ class MazhurnyyServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes.php');
 
         //Указываем, что файлы из папки config должны быть опубликованы при установке
         $this->publishes([__DIR__ . '/../config/' => config_path() . '/']);
@@ -52,9 +52,26 @@ class MazhurnyyServiceProvider extends ServiceProvider
     {
         // Обработка файлов
 
-        $this->app->bind('SaveFile', function () {
-            return new Mazhurnyy\SaveFile\SaveFile();
+        $this->app->bind('FileProcessing', function () {
+            return new Mazhurnyy\FileProcessing\FileProcessing();
         });
+
+        $this->app->bind('SiteBlade', function () {
+            return new Mazhurnyy\Filters\Filters();
+        });
+
+        $this->app->bind('SiteBlade', function () {
+            return new Mazhurnyy\Site\Blade\SiteBlade();
+        });
+/*
+        $this->app->bind('SiteBlade', function () {
+            return new Mazhurnyy\Site\Logs\SiteLogs();
+        });
+ */
+        $this->app->bind('SiteBlade', function () {
+            return new Mazhurnyy\Site\Meta\SiteMeta();
+        });
+
 /*
         $this->app->singleton(LaravelFileProcessing::class, function () {
             return new LaravelFileProcessing();

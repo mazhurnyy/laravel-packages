@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Facade;
  *
  * @package App\Facades
  */
-class SiteMeta extends Facade
+class SiteLogs extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'SiteMeta';
+        return 'SiteLogs';
     }
 }

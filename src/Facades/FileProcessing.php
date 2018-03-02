@@ -10,12 +10,12 @@ namespace Mazhurnyy\Facade;
 
 use Illuminate\Support\Facades\Facade;
 
-class SaveFile extends Facade
+class FileProcessing extends Facade
 {
 
     protected static function getFacadeAccessor()
     {
-        return 'SaveFile';
+        return 'FileProcessing';
     }
 
 }
