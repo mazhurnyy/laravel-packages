@@ -53,15 +53,15 @@ class MazhurnyyServiceProvider extends ServiceProvider
         // Обработка файлов
 
         $this->app->bind('FileProcessing', function () {
-            return new Mazhurnyy\FileProcessing\FileProcessing();
+            return new \Mazhurnyy\FileProcessing\FileProcessing();
         });
 
         $this->app->bind('SiteBlade', function () {
-            return new Mazhurnyy\Filters\Filters();
+            return new \Mazhurnyy\Filters\Filters();
         });
 
         $this->app->bind('SiteBlade', function () {
-            return new Mazhurnyy\Site\Blade\SiteBlade();
+            return new \Mazhurnyy\Site\Blade\SiteBlade();
         });
 /*
         $this->app->bind('SiteBlade', function () {
@@ -69,7 +69,7 @@ class MazhurnyyServiceProvider extends ServiceProvider
         });
  */
         $this->app->bind('SiteBlade', function () {
-            return new Mazhurnyy\Site\Meta\SiteMeta();
+            return new \Mazhurnyy\Site\Meta\SiteMeta();
         });
 
 /*
