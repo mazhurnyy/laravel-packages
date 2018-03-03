@@ -41,7 +41,10 @@ trait FileTraits
     {
         return $this->id;
     }
-
+    private function setFileId()
+    {
+        $this->file_id = request()->input('file_id') ?? null;
+    }
     /**
      * получаем экземпляр файла
      */
@@ -105,13 +108,10 @@ trait FileTraits
 
     /**
      * получаем модель типа сущности
-     * @param $type
-     *
-     * @return mixed
      */
-    protected function getObjectType($type)
+    protected function getObjectType()
     {
-        $this->objectType = ObjectType::whereType($type)->firstOrFail();
+        $this->objectType = ObjectType::whereType($this->type)->firstOrFail();
     }
 
     /**

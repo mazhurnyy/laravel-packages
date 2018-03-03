@@ -1,6 +1,6 @@
 <?php
 
-namespace Mazhurnyy\FileProcessing\Storage;
+namespace Mazhurnyy\FileProcessing;
 
 use ArgentCrusade\Selectel\CloudStorage\Api\ApiClient;
 use ArgentCrusade\Selectel\CloudStorage\CloudStorage;
@@ -17,6 +17,10 @@ class StorageConnect
      * @var object контейнер хранения файлов
      */
     protected $container;
+    /**
+     * @var int
+     */
+    private $size_img = 0;
     /**
      * @var string выбираем драйвер для записи файла
      */
@@ -38,7 +42,8 @@ class StorageConnect
     public function saveFile($url, $file, $params = [])
     {
         $storage_driver = 'set' . config('mazhurnyy.storage_driver');
-        $this->size     = $this->$storage_driver($file, $url, $params);
+        $this->$storage_driver($file, $url, $params);
+        return $this->size_img;
     }
 
     /**
@@ -52,13 +57,20 @@ class StorageConnect
     {
         $this->getContainerSelectel();
         $this->container->uploadFromStream($url, $file, $params);
-        $file       = $this->container->files()->find($url);
-        $this->size = $file->size();
+        $file           = $this->container->files()->find($url);
+        $this->size_img = $file->size();
     }
 
 
     private function getContainerSelectel()
     {
+
+        /* todo
+        |  в файл vendor\argentcrusade\selectel-cloud-storage\src\FileUploader.php добавлены недостающие параметры заголовка
+        | 'contentLength'      => 'Content-Length',
+        | 'metaLocation'       => 'X-Object-Meta-Location',
+        */
+
         $apiClient       = new ApiClient(
             config('mazhurnyy.disks.selectel.username'), config('mazhurnyy.disks.selectel.password')
         );

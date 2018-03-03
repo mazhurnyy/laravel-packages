@@ -20,35 +20,15 @@ use Intervention\Image\ImageManagerStatic as Image;
  */
 trait ImgTrait
 {
-
-//    private $storage;
     /**
      * @var object изображение
      */
-//    private $img;
-    /**
-     * @var string уникальное имя файла
-     */
-//    private $token;
+    protected $img;
 
     /**
-     * Путь к файлу
+     * @var object характеристики изображения
      */
-   // private $path;
-
-    /**
-     * @var string
-     */
-    //   private $path_img;
-
- //   private $jpg_extensions_id;
-
-    /**
-     * характеристики изображения
-     *
-     * @var object
-     */
- //   public $img_settings;
+    public $img_settings;
 
     /**
      * @var array размеры сохраняемой картинки и сжатие
@@ -73,8 +53,6 @@ trait ImgTrait
         $this->resizePhoto();
 
         //     Storage::disk('temp')->deleteDirectory($this->getTokenPath($token));
-
-        return $size;
     }
 
     /**
@@ -105,9 +83,10 @@ trait ImgTrait
     {
         if (isset($this->img_settings->width))
         {
-            // todo сделать еще обрезку по ширине, если больше заданной
-//            $this->img->heighten($this->proportions['height'])->fit($this->proportions['width'], $this->proportions['height']);
-            $this->img->heighten($this->img_settings->height);
+             $this->img->heighten($this->img_settings->height);
+            if ($this->img->width() > $this->img_settings->width) {
+                $this->img->fit($this->img_settings->width,$this->img_settings->height);
+            }
             $path    = $this->path . '-' . $this->img_settings->prefix;
             $quality = $this->img_settings->quality;
         } else
@@ -123,9 +102,9 @@ trait ImgTrait
             'contentDisposition' => 'inline',
         ];
 
-        // todo перенести настройки пути в конфиг
+        $this->size = $this->storage->saveFile($this->img,$url,$params);
 
-        $this->storage->saveFile($this->img,$url,$params);
+        \Log::info($this->size . '----' . $url);
         //$this->storage->container->uploadFromStream($url, $this->img, $params);
     }
 

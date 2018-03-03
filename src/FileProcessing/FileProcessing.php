@@ -9,11 +9,9 @@
 namespace Mazhurnyy\FileProcessing;
 
 use Illuminate\Support\Facades\Validator;
-use Mazhurnyy\FileProcessing\Storage\StorageConnect;
 use Mazhurnyy\FileProcessing\Traits\FileTraits;
 use Mazhurnyy\FileProcessing\Traits\ImgTrait;
 use Mazhurnyy\FileProcessing\Traits\ModelTrait;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class SaveFile
@@ -43,6 +41,10 @@ class FileProcessing
     protected $type_files;
 
     protected $storage;
+    /**
+     * @var int размер файла в байтах
+     */
+    protected $size;
 
 
     public function __construct()
@@ -50,7 +52,7 @@ class FileProcessing
         $this->storage = new StorageConnect();
         $this->setType();
         $this->setId();
-        $this->getObjectType($this->type);
+        $this->getObjectType();
         $this->type_files = config('mazhurnyy.type_files');
     }
 
@@ -60,9 +62,6 @@ class FileProcessing
      */
     public function fileAdd()
     {
-dump(\Auth::user());
-dump(\Auth::id());
-
         $this->setFile();
         $ext = $this->getExt();
         $this->validatorFile(request()->all())->validate();
@@ -78,6 +77,19 @@ dump(\Auth::id());
         return back();
     }
 
+
+    /**
+     * мягкое удаление файла
+     */
+    public function fileDelete()
+    {
+        $this->setFileId();
+        $this->deleteFile();
+
+        return back();
+    }
+
+
     /**
      * обрабатывем рисунок, конвертируем в  jpg и сохраняем на диск и делаем запись в базу
      */
@@ -86,9 +98,6 @@ dump(\Auth::id());
         $this->getExtensionId('jpg');
         $this->setToken();
         $this->size = $this->imgProcessing();
-
-        dump($this->path);
-        dump($this->size);
     }
 
 
@@ -103,7 +112,7 @@ dump(\Auth::id());
     {
         return Validator::make(
             $data, [
-                     'slide' => 'mimes:' . implode(',', array_collapse($this->type_files)),
+                     'file' => 'mimes:' . implode(',', array_collapse($this->type_files)),
                  ]
         );
     }

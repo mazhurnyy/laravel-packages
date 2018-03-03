@@ -21,9 +21,8 @@ use App\Models\FileVersion;
  */
 trait ModelTrait
 {
-
     /**
-     *
+     * добавляем запись о файле в базу
      */
     protected function addFileInfo()
     {
@@ -31,39 +30,39 @@ trait ModelTrait
         $model->increment('images');
         $this->file_model = File::create(
             [
-                'token' => $this->token,
-                'size' => $this->size,
+                'token'        => $this->token,
+                'size'         => $this->size,
                 'extension_id' => $this->extensions_id,
-                'order' => $model->images,
-                'alias' => $model->alias,
+                'order'        => $model->images,
+                'alias'        => $model->alias,
             ]
         );
         Fileable::create(
             [
-                'file_id' => $this->file_model->id,
-                'fileable_type' => $this->essenceType->model,
-                'fileable_id' => $model->id,
+                'file_id'       => $this->file_model->id,
+                'fileable_type' => $this->objectType->model,
+                'fileable_id'   => $model->id,
             ]
         );
     }
 
+    /**
+     * добавляем информацию о версии файла с префиксом, для изображений
+     */
     protected function addFileVersion()
     {
         FileVersion::create(
             [
                 'file_id' => $this->file_model->id,
-                'prefix' => $this->img_settings->prefix,
+                'prefix'  => $this->img_settings->prefix,
+                'size'    => $this->size,
             ]
         );
     }
 
     protected function deleteFile()
     {
-
-// todo пока количество неуменьшаем, проблема с сортировкой
-        //       $model = $this->essenceType->model::find($this->id);
-        //       $model->decrement('images');
-
+        // todo дописать полноен удаление файла по крону
         File::destroy($this->file_id);
     }
 }

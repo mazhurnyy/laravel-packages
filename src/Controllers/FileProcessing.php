@@ -76,20 +76,15 @@ class FileProcessing extends Controller
 
         return back();
     }
-
-
     /**
      * мягкое удаление файла
      */
     public function fileDelete()
     {
-        $this->setId();
-        $this->setFileId();
-        $this->deleteFile();
+        \SaveFile::fileDelete();
 
         return back();
     }
-
 
     /**
      * сохранение файлов презентации, отдельные изображения или файл презентации
