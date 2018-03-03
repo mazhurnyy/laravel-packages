@@ -37,6 +37,11 @@ trait FileTraits
     {
         $this->id = request()->input('id') ?? null;
     }
+    private function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * получаем экземпляр файла
      */
@@ -45,10 +50,15 @@ trait FileTraits
         $this->file = Input::file('file');
     }
 
-
-
-
-
+    /**
+     * получаем расширение текущего файла
+     *
+     * @return mixed
+     */
+    protected function getExt()
+    {
+        return $this->file->getClientOriginalExtension();
+    }
 
     /**
      * возвращаем путь (каталоги) к файлу по токену
@@ -57,12 +67,13 @@ trait FileTraits
      *
      * @return string
      */
-    public function getTokenPath($token)
+      public function getTokenPath($token)
     {
         return '/' . substr($token, 0, 2) . '/' . substr($token, 2, 2) . '/' . substr($token, 4, 2) . '/';
     }
-
-
+    /**
+     * генерируем уникальный токен для имени файла
+     */
     protected function setToken()
     {
         $token = strtoupper(md5(uniqid(rand(), true)));
@@ -73,11 +84,12 @@ trait FileTraits
         $this->token = $token;
     }
 
+    /*
     protected function setDirTemp()
     {
         $this->dirTemp = strtoupper(md5(uniqid(rand(), true)));
     }
-
+*/
 
     /**
      * получаем ID типа расширения
@@ -88,7 +100,7 @@ trait FileTraits
      */
     protected function getExtensionId($type = null)
     {
-        $this->extensions_id = Extension::whereTitle($type)->first()->id;
+        $this->extensions_id = Extension::whereName($type)->first()->id;
     }
 
     /**
@@ -102,26 +114,23 @@ trait FileTraits
         $this->objectType = ObjectType::whereType($type)->firstOrFail();
     }
 
-
-
-
-
-/*
-    private function setDirection()
+    /**
+     * путь к файлу на диске
+     */
+    private function getPath()
     {
-        $this->direction = request()->input('direction') ?? null;
-    }
-*/
-    protected function setFileId()
-    {
-        // todo поменять на file_id, поле скрипта
-
-        $this->file_id = request()->input('file_id') ?? null;
+        $this->path = $this->getTokenPath($this->token) . $this->token . '/' . $this->getAlias();
     }
 
-    private function getId()
+    /**
+     * получить алиас объекта
+     * @return mixed
+     */
+    private function getAlias()
     {
-        return $this->id;
+        return  $this->objectType->model::find($this->id)->alias;
     }
+
+
 
 }

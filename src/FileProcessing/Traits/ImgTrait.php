@@ -21,54 +21,46 @@ use Intervention\Image\ImageManagerStatic as Image;
 trait ImgTrait
 {
 
-    private $storage;
+//    private $storage;
     /**
      * @var object изображение
      */
-    private $img;
+//    private $img;
     /**
      * @var string уникальное имя файла
      */
-    private $token;
+//    private $token;
 
     /**
      * Путь к файлу
      */
-    private $path;
+   // private $path;
 
     /**
      * @var string
      */
     //   private $path_img;
 
-    private $jpg_extensions_id;
+ //   private $jpg_extensions_id;
 
     /**
      * характеристики изображения
      *
      * @var object
      */
-    public $img_settings;
+ //   public $img_settings;
 
     /**
      * @var array размеры сохраняемой картинки и сжатие
      */
-    private $proportions = [
+
+ /*   private $proportions = [
         'width'   => '',
         'height'  => '',
         'quality' => '90',
     ];
+*/
 
-    /*
-        public function __construct()
-        {
-            // todo
-            |  в файл vendor\argentcrusade\selectel-cloud-storage\src\FileUploader.php добавлены недостающие параметры заголовка
-            | 'contentLength'      => 'Content-Length',
-            | 'metaLocation'       => 'X-Object-Meta-Location',
-            /
-        }
-    */
     /**
      * @return string
      */
@@ -77,7 +69,7 @@ trait ImgTrait
         $this->getExtensionId('jpg');
         $this->getPath();
         $this->img = Image::make($this->file);
-        $size      = $this->img->filesize();
+        $this->size      = $this->img->filesize();
         $this->resizePhoto();
 
         //     Storage::disk('temp')->deleteDirectory($this->getTokenPath($token));
@@ -85,12 +77,15 @@ trait ImgTrait
         return $size;
     }
 
-
+    /**
+     * создаем файлы заданных размеров для текущего типа
+     */
     protected function resizePhoto()
     {
-        $this->proportions = Prefix::whereEssenceTypeId($this->essenceType->id)->get();
+        $this->proportions = Prefix::whereObjectTypeId($this->objectType->id)->get();
         $this->img->backup();
         $this->updatePhoto(); // записываем оригинал
+        $this->size = $this->img->filesize();
         $this->addFileInfo();
         foreach ($this->proportions AS $key => $proportion)
         {
@@ -103,10 +98,9 @@ trait ImgTrait
     }
 
     /**
-     * записываем файл с изображениеам на сервер
+     * записываем файл с изображениеам на диск, указанный в конфиге
      * $this->proportions - размеры изображения
      */
-
     protected function updatePhoto()
     {
         if (isset($this->img_settings->width))
@@ -131,28 +125,8 @@ trait ImgTrait
 
         // todo перенести настройки пути в конфиг
 
-        $this->storage->container->uploadFromStream($url, $this->img, $params);
-    }
-
-
-    private function getPath()
-    {
-        $this->path = $this->getTokenPath($this->token) . $this->token . '/' . $this->getAlias();
-    }
-
-    private function getAlias()
-    {
-        return $this->essenceType->model::find($this->id)->alias;
-    }
-
-    /**
-     * получаем расширение текущего файла
-     *
-     * @return mixed
-     */
-    protected function getExt()
-    {
-        return $this->file->getClientOriginalExtension();
+        $this->storage->saveFile($this->img,$url,$params);
+        //$this->storage->container->uploadFromStream($url, $this->img, $params);
     }
 
 }

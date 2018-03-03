@@ -26,7 +26,7 @@ return [
             'pdf'
         ],
         // - изображение
-        'img'=>[
+        'images'=>[
             'jpg',
             'gif',
             'png',

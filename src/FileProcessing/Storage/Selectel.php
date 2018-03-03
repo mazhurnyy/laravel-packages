@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: BBM
@@ -24,11 +23,11 @@ class Selectel
     /**
      * подключение к хранилищу selectel
      */
-    public function getContainer()
+    public function container()
     {
-        $apiClient = new ApiClient(config('mazhurnyy.selectel.username'), config('mazhurnyy.selectel.password'));
+        $apiClient = new ApiClient(config('mazhurnyy.disks.selectel.username'), config('mazhurnyy.disks.selectel.password'));
         $storage = new CloudStorage($apiClient);
-        return $storage->getContainer(config('mazhurnyy.selectel.container'));
+        $this->container = $storage->getContainer(config('mazhurnyy.disks.selectel.container'));
     }
 
 }

@@ -27,7 +27,7 @@ trait ModelTrait
      */
     protected function addFileInfo()
     {
-        $model = $this->essenceType->model::find($this->id);
+        $model = $this->objectType->model::find($this->id);
         $model->increment('images');
         $this->file_model = File::create(
             [

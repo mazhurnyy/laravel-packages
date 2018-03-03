@@ -8,18 +8,12 @@
 
 namespace Mazhurnyy\FileProcessing;
 
-use App\Models\File;
-use App\Models\Prefix;
-//use App\Traits\File;
-
+use Illuminate\Support\Facades\Validator;
 use Mazhurnyy\FileProcessing\Storage\StorageConnect;
 use Mazhurnyy\FileProcessing\Traits\FileTraits;
 use Mazhurnyy\FileProcessing\Traits\ImgTrait;
 use Mazhurnyy\FileProcessing\Traits\ModelTrait;
-
-use Illuminate\Support\Facades\Storage;
-
-use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class SaveFile
@@ -39,20 +33,21 @@ class FileProcessing
      */
     protected $id;
     /**
-     * @var object объект типа сущности
+     * @var object объект текущего типа сущности
      */
     protected $objectType;
 
     /**
-     * типы возможных файлов
-     *
-     * @var array
+     * @var array типы возможных файлов
      */
     protected $type_files;
 
+    protected $storage;
+
+
     public function __construct()
     {
-        $storage = new StorageConnect();
+        $this->storage = new StorageConnect();
         $this->setType();
         $this->setId();
         $this->getObjectType($this->type);
@@ -65,15 +60,53 @@ class FileProcessing
      */
     public function fileAdd()
     {
-        $this->setFile();
-        
-   dd($this->type_files);
-        
-  //      in_array($method = $this->type, $this->types_file) ? $this->$method() : abort(404);
+dump(\Auth::user());
+dump(\Auth::id());
 
-   //     return back();
+        $this->setFile();
+        $ext = $this->getExt();
+        $this->validatorFile(request()->all())->validate();
+
+        foreach ($this->type_files AS $key => $type)
+        {
+            if (in_array($ext, $type))
+            {
+                $this->$key();
+            }
+        }
+
+        return back();
     }
 
+    /**
+     * обрабатывем рисунок, конвертируем в  jpg и сохраняем на диск и делаем запись в базу
+     */
+    private function images()
+    {
+        $this->getExtensionId('jpg');
+        $this->setToken();
+        $this->size = $this->imgProcessing();
+
+        dump($this->path);
+        dump($this->size);
+    }
+
+
+    /**
+     * Проверка всех доступных типов файлов, указанных в конфиге
+     *
+     * @param array $data
+     *
+     * @return mixed
+     */
+    private function validatorFile(array $data, $mimes = null)
+    {
+        return Validator::make(
+            $data, [
+                     'slide' => 'mimes:' . implode(',', array_collapse($this->type_files)),
+                 ]
+        );
+    }
 
 
 

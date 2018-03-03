@@ -59,6 +59,7 @@ trait LogChanged
             'updated_at',
             'visited_at',
             'used_at',
+            'stopped_at',
             'id',
             'random',
             'count',
