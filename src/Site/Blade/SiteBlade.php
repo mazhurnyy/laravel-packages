@@ -6,7 +6,7 @@
  * Time: 15:34
  */
 
-namespace App\Services;
+namespace Mazhurnyy\Site\Blade;
 
 /**
  * Class SiteBlade

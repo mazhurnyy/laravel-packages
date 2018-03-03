@@ -8,15 +8,15 @@
  * Time: 12:45
  */
 
-namespace App\Services\SiteLog;
+namespace Mazhurnyy\Services\SiteLog;
 
-use App\Models\LogChanged as Changed;
-use App\Models\LogChangedData as ChangedData;
-use App\Models\Table;
+use Mazhurnyy\Models\LogChanged as Changed;
+use Mazhurnyy\Models\LogChangedData as ChangedData;
+use Mazhurnyy\Models\Table;
 
 /**
  * Class LogChanged
- * @package App\Entities
+ * @package Mazhurnyy\Entities
  */
 trait LogChanged
 {

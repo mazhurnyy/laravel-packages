@@ -6,15 +6,15 @@
  * Time: 16:38
  */
 
-namespace App\Services\SiteLog;
+namespace Mazhurnyy\Services\SiteLog;
 
-use App\Models\LogDelete as Delete;
-use App\Models\LogDeleteData as DeleteData;
-use App\Models\Table;
+use Mazhurnyy\Models\LogDelete as Delete;
+use Mazhurnyy\Models\LogDeleteData as DeleteData;
+use Mazhurnyy\Models\Table;
 
 /**
  * Trait LogDelete
- * @package App\Services\SiteLog
+ * @package Mazhurnyy\Services\SiteLog
  */
 trait LogDelete
 {

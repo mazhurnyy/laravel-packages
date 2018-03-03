@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Mazhurnyy\FileProcessing\Traits\FileTraits;
 use Mazhurnyy\FileProcessing\Traits\ImgTrait;
 use Mazhurnyy\FileProcessing\Traits\ModelTrait;
+use Mazhurnyy\Models\File;
 
 /**
  * Class SaveFile
@@ -87,6 +88,48 @@ class FileProcessing
         $this->deleteFile();
 
         return back();
+    }
+
+    /**
+     * сортировка файлов сущности
+     */
+    public function fileOrder()
+    {
+        $this->setFileId();
+        $this->setDirection();
+        $file = $this->getFileInfo();
+
+        $object = $this->objectType->model::whereId($this->id)->firstOrFail();
+        if ($this->direction == 'left' && $file->order > 1)
+        {
+            $file_beside = File::fileEssence($this->objectType->model, $this->id)
+                ->whereOrder($file->order - 1)
+                ->withTrashed()
+                ->first();
+            if ($file_beside)
+            {
+                $file_beside->increment('order');
+            }
+            if ($file)
+            {
+                $file->decrement('order');
+            }
+        } elseif ($this->direction == 'right' && $file->order < $object->images)
+        {
+            $file_beside = File::fileObject($this->objectType->model, $this->id)
+                ->whereOrder($file->order + 1)
+                ->withTrashed()
+                ->first();
+            if ($file_beside)
+            {
+                $file_beside->decrement('order');
+            }
+            if ($file)
+            {
+                $file->increment('order');
+            }
+        }
+
     }
 
 

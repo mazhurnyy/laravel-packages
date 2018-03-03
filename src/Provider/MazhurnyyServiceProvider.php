@@ -63,21 +63,12 @@ class MazhurnyyServiceProvider extends ServiceProvider
         $this->app->bind('SiteBlade', function () {
             return new \Mazhurnyy\Site\Blade\SiteBlade();
         });
-/*
-        $this->app->bind('SiteBlade', function () {
-            return new Mazhurnyy\Site\Logs\SiteLogs();
-        });
- */
+
         $this->app->bind('SiteBlade', function () {
             return new \Mazhurnyy\Site\Meta\SiteMeta();
         });
 
-/*
-        $this->app->singleton(LaravelFileProcessing::class, function () {
-            return new LaravelFileProcessing();
-        });
-*/
-  //      $this->app->alias(LaravelLocalization::class, 'laravellocalization');
+
 
     }
 }

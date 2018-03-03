@@ -6,7 +6,7 @@
  * Time: 23:02
  */
 
-namespace App\Services;
+namespace Mazhurnyy\Services;
 
 use App\ModelFilters\FilterSettings;
 

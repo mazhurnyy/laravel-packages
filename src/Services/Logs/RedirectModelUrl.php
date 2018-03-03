@@ -6,15 +6,15 @@
  * Time: 14:30
  */
 
-namespace App\Services\SiteLog;
+namespace Mazhurnyy\Services\SiteLog;
 
-use App\Models\PersonTypeActivity;
+use Mazhurnyy\Models\PersonTypeActivity;
 
 
 /**
  * Определяем новый и страрый Url для роутов, при изменении алиаса модели
  *
- * @package App\Services
+ * @package Mazhurnyy\Services
  */
 trait RedirectModelUrl
 {

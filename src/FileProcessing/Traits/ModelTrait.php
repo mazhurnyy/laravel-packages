@@ -65,4 +65,32 @@ trait ModelTrait
         // todo дописать полноен удаление файла по крону
         File::destroy($this->file_id);
     }
+
+    /**
+     * получаем информацию о текущем файле по его ид, включая удаленные
+     */
+    private function getFileInfo()
+    {
+       return File::whereId($this->file_id)->withTrashed()->first();
+    }
+
+    /**
+     * получаем ID типа расширения
+     *
+     * @param $type
+     *
+     * @return mixed
+     */
+    protected function getExtensionId($type = null)
+    {
+        $this->extensions_id = Extension::whereName($type)->first()->id;
+    }
+
+    /**
+     * получаем модель типа сущности
+     */
+    protected function getObjectType()
+    {
+        $this->objectType = ObjectType::whereType($this->type)->firstOrFail();
+    }
 }

@@ -6,15 +6,15 @@
  * Time: 2:05
  */
 
-namespace App\Services\SiteLog;
+namespace Mazhurnyy\Services\SiteLog;
 
-use App\Models\Response3xx;
+use Mazhurnyy\Models\Response3xx;
 
 /**
  * Class LogResponse
  * Работа с логом редиректов
  *
- * @package App\Services
+ * @package Mazhurnyy\Services
  */
 trait LogResponse
 {
@@ -29,7 +29,8 @@ trait LogResponse
      */
     private $alias;
 
-
+    // todo  переделаь метод получить старый - новый роут, - где прописавыть для моделей
+    
     /**
      * добавляем запись в лог редиектов 301 при  смене алиаса
      *

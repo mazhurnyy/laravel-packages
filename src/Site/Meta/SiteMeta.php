@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Mazhurnyy\Site\Meta;
 
 /**
  * Class SiteMeta

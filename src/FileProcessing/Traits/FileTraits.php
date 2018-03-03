@@ -54,6 +54,14 @@ trait FileTraits
     }
 
     /**
+     * направление сортировки
+     */
+    private function setDirection()
+    {
+        $this->direction = request()->input('direction') ?? null;
+    }
+    
+    /**
      * получаем расширение текущего файла
      *
      * @return mixed
@@ -94,25 +102,7 @@ trait FileTraits
     }
 */
 
-    /**
-     * получаем ID типа расширения
-     *
-     * @param $type
-     *
-     * @return mixed
-     */
-    protected function getExtensionId($type = null)
-    {
-        $this->extensions_id = Extension::whereName($type)->first()->id;
-    }
 
-    /**
-     * получаем модель типа сущности
-     */
-    protected function getObjectType()
-    {
-        $this->objectType = ObjectType::whereType($this->type)->firstOrFail();
-    }
 
     /**
      * путь к файлу на диске

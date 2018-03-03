@@ -46,6 +46,16 @@ class FileProcessingController extends Controller
     /**
      * Изменение сортировки слайдов
      */
+    public function fileOrder()
+    {
+        FileProcessing::fileOrder();
+
+        return back();
+    }
+    
+    /**
+     * Изменение сортировки слайдов
+     */
     /*
     public function fileOrder()
     {
