@@ -10,60 +10,17 @@ namespace Mazhurnyy\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Mazhurnyy\Facades\FileProcessing;
+//use RobbieP\CloudConvertLaravel\Facades\CloudConvert;
 
-
-use RobbieP\CloudConvertLaravel\Facades\CloudConvert;
-
-class FileProcessing extends Controller
+class FileProcessingController extends Controller
 {
-//    use FileTraits, ImgFileTrait, SaveModelTrait;
-
-    /**
-     * @var array типы возможных файлов
-     */
-//    public $types_file;
-    /**
-     * @var string драйвер диска для хранения файлов
-     */
-//    public $storage_driver;
-    /**
-     * @var string тип сущности
-     */
- //   protected $type;
-    /**
-     * @var string
-     */
- //   protected $extensions_id;
-    /**
-     * @var object
-     */
- //   protected $essenceType;
-    /**
-     * @var int
-     */
- //   protected $size = 0;
-    /**
-     * @var object
-     */
- //   protected $file;
- //   protected $file_id;
- //   protected $direction;
 
     /**
      * constructor
      */
     public function __construct()
     {
-
- //       $this->storage_driver = config('mazhurnyy.storage_driver');
-
- //       $this->storage = new StorageConnect();
-//        $this->setType();
-//        $this->getEssenceType($this->type);
-//        $this->types_file = config('file_processing.types_file');
-
         parent::__construct();
     }
 
@@ -72,7 +29,7 @@ class FileProcessing extends Controller
      */
     public function fileAdd()
     {
-        \SaveFile::fileAdd();
+        FileProcessing::fileAdd();
 
         return back();
     }
@@ -81,29 +38,15 @@ class FileProcessing extends Controller
      */
     public function fileDelete()
     {
-        \SaveFile::fileDelete();
+        FileProcessing::fileDelete();
 
         return back();
     }
 
     /**
-     * сохранение файлов презентации, отдельные изображения или файл презентации
-     */
-    protected function gallery()
-    {
-        $presentation = [
-            'ppt',
-            'pptx',
-            'pdf',
-        ];
-        $this->validatorPresentation(request()->all())->validate();
-        in_array($this->getExt(), $presentation) ? $this->savePresentation() : $this->saveImg();
-    }
-
-
-    /**
      * Изменение сортировки слайдов
      */
+    /*
     public function fileOrder()
     {
         // todo трабла с удаленными файлами
@@ -146,12 +89,13 @@ class FileProcessing extends Controller
 
         return back();
     }
-
+*/
     /**
      * @param array $data
      *
      * @return mixed
      */
+/*
     protected function validatorPresentation(array $data)
     {
         return Validator::make(
@@ -160,13 +104,14 @@ class FileProcessing extends Controller
             ]
         );
     }
-
+*/
     //--------------------------------------------
 
 
     /**
      * конвертация презентации в форматах ppt,pptx,pdf в jpg, запись на диск и в базу данных
      */
+    /*
     private function savePresentation()
     {
         ini_set('max_execution_time', 6000);
@@ -197,17 +142,7 @@ class FileProcessing extends Controller
             $path . $this->dirTemp . '/temp.jpg'
         );
     }
+*/
 
-
-    /**
-     *
-     */
-    private function saveImg()
-    {
-        $this->extensions_id = $this->getExtensionId('jpg');
-        $this->setToken();
-        $this->size = $this->imgProcessing();
-
-    }
 
 }
