@@ -6,7 +6,7 @@
  * Time: 2:05
  */
 
-namespace Mazhurnyy\Services\SiteLog;
+namespace Mazhurnyy\Services\Logs;
 
 use Mazhurnyy\Models\Response3xx;
 

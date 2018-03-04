@@ -2,8 +2,6 @@
 
 namespace Mazhurnyy\FileProcessing\Traits;
 
-use App\Models\ObjectType;
-use App\Models\Extension;
 use Illuminate\Support\Facades\Input;
 
 /**
@@ -14,14 +12,16 @@ use Illuminate\Support\Facades\Input;
  */
 trait FileTraits
 {
-
     /**
-     * @var object модель нового файла
+     * @var int ID файла
      */
-//    public $file_model;
+    protected $file_id;
 
-//    protected $dirTemp;
-
+    protected $file;
+    /**
+     * @var string направление сортировки
+     */
+    protected $direction;
 
     /**
      * устанавливаем тип объекта
@@ -30,6 +30,7 @@ trait FileTraits
     {
         $this->type = request()->input('type') ?? null;
     }
+
     /**
      * ID объекта
      */
@@ -37,14 +38,17 @@ trait FileTraits
     {
         $this->id = request()->input('id') ?? null;
     }
+
     private function getId()
     {
         return $this->id;
     }
+
     private function setFileId()
     {
         $this->file_id = request()->input('file_id') ?? null;
     }
+
     /**
      * получаем экземпляр файла
      */
@@ -60,7 +64,7 @@ trait FileTraits
     {
         $this->direction = request()->input('direction') ?? null;
     }
-    
+
     /**
      * получаем расширение текущего файла
      *
@@ -78,10 +82,11 @@ trait FileTraits
      *
      * @return string
      */
-      public function getTokenPath($token)
+    public function getTokenPath($token)
     {
         return '/' . substr($token, 0, 2) . '/' . substr($token, 2, 2) . '/' . substr($token, 4, 2) . '/';
     }
+
     /**
      * генерируем уникальный токен для имени файла
      */
@@ -89,7 +94,8 @@ trait FileTraits
     {
         $token = strtoupper(md5(uniqid(rand(), true)));
         if (substr($token, 0, 2) == 'AD' || substr($token, 2, 2) == 'AD' ||
-            substr($token, 4, 2) == 'AD') {
+            substr($token, 4, 2) == 'AD')
+        {
             $this->setToken();
         }
         $this->token = $token;
@@ -103,7 +109,6 @@ trait FileTraits
 */
 
 
-
     /**
      * путь к файлу на диске
      */
@@ -114,13 +119,13 @@ trait FileTraits
 
     /**
      * получить алиас объекта
+     *
      * @return mixed
      */
     private function getAlias()
     {
-        return  $this->objectType->model::find($this->id)->alias;
+        return $this->objectType->model::find($this->id)->alias;
     }
-
 
 
 }

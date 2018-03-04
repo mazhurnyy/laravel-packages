@@ -97,39 +97,16 @@ class FileProcessing
     {
         $this->setFileId();
         $this->setDirection();
-        $file = $this->getFileInfo();
+        $file = $this->getFileInfo(); // информация о текущем файле
 
-        $object = $this->objectType->model::whereId($this->id)->firstOrFail();
+        $images = $this->objectType->model::whereId($this->id)->firstOrFail()->images;
         if ($this->direction == 'left' && $file->order > 1)
         {
-            $file_beside = File::fileEssence($this->objectType->model, $this->id)
-                ->whereOrder($file->order - 1)
-                ->withTrashed()
-                ->first();
-            if ($file_beside)
-            {
-                $file_beside->increment('order');
-            }
-            if ($file)
-            {
-                $file->decrement('order');
-            }
-        } elseif ($this->direction == 'right' && $file->order < $object->images)
+            $this->shiftFile($file, -1);
+        } elseif ($this->direction == 'right' && $file->order < $images)
         {
-            $file_beside = File::fileObject($this->objectType->model, $this->id)
-                ->whereOrder($file->order + 1)
-                ->withTrashed()
-                ->first();
-            if ($file_beside)
-            {
-                $file_beside->decrement('order');
-            }
-            if ($file)
-            {
-                $file->increment('order');
-            }
+            $this->shiftFile($file, 1);
         }
-
     }
 
 
@@ -143,6 +120,37 @@ class FileProcessing
         $this->size = $this->imgProcessing();
     }
 
+    private function shiftFile($file, $shift)
+    {
+        $file_beside = File::fileObject($this->objectType->model, $this->id)
+            ->whereOrder($file->order + $shift)
+            ->withTrashed()
+            ->first();
+
+        $sql = File::fileObject($this->objectType->model, $this->id)
+            ->whereOrder($file->order + $shift)
+            ->withTrashed()
+            ->toSql();
+
+        if ($shift > 0)   // перемещаем вверх
+        {
+            $file_beside->order = $file_beside->order - 1;
+            $file_beside->save();
+            $file->increment('order');
+        } else    // перемещаем вниз
+        {
+            //          $file_beside->increment('order');
+            $file_beside->order = $file_beside->order + 1;
+            $file_beside->save();
+            $file->decrement('order');
+        }
+
+        if (!empty($file_beside->deleted_at))
+        {
+            $this->shiftFile($file, $shift);
+        }
+
+    }
 
     /**
      * Проверка всех доступных типов файлов, указанных в конфиге

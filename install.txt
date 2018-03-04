@@ -34,6 +34,13 @@ protected $listen = [ ........
         'Mazhurnyy\Events\ExtensionSaved'             => ['Mazhurnyy\Listeners\ChangeDatabase',],
         'Mazhurnyy\Events\ExtensionDeleting'          => ['Mazhurnyy\Listeners\DeleteDatabase',],
 
+        /** галереи пользователей */
+        'Mazhurnyy\Events\GallerySaved'    => [
+            'Mazhurnyy\Listeners\ChangeDatabase',
+            'Mazhurnyy\Listeners\ChangeAlias',
+        ],
+        'Mazhurnyy\Events\GalleryDeleting' => ['Mazhurnyy\Listeners\DeleteDatabase',],
+
         /** Объекты */
         'Mazhurnyy\Events\FileSaved'                  => ['Mazhurnyy\Listeners\ChangeDatabase',],
         'Mazhurnyy\Events\FileDeleting'               => ['Mazhurnyy\Listeners\DeleteDatabase',],

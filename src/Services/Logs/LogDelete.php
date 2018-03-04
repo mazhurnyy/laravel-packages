@@ -6,7 +6,7 @@
  * Time: 16:38
  */
 
-namespace Mazhurnyy\Services\SiteLog;
+namespace Mazhurnyy\Services\Logs;
 
 use Mazhurnyy\Models\LogDelete as Delete;
 use Mazhurnyy\Models\LogDeleteData as DeleteData;

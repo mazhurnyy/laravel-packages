@@ -8,10 +8,10 @@
 
 namespace Mazhurnyy\FileProcessing\Traits;
 
-use App\Models\File;
-use App\Models\Fileable;
-use App\Models\FileVersion;
-
+use Mazhurnyy\Models\File;
+use Mazhurnyy\Models\Fileable;
+use Mazhurnyy\Models\FileVersion;
+use Mazhurnyy\Models\ObjectType;
 
 /**
  * Class SaveFile
@@ -21,6 +21,10 @@ use App\Models\FileVersion;
  */
 trait ModelTrait
 {
+    /**
+     * @var int ID расширения файла
+     */
+    protected $extensions_id;
     /**
      * добавляем запись о файле в базу
      */

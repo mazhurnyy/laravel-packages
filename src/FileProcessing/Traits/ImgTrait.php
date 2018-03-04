@@ -8,9 +8,8 @@
 
 namespace Mazhurnyy\FileProcessing\Traits;
 
-use App\Models\Prefix;
+use Mazhurnyy\Models\Prefix;
 use Intervention\Image\ImageManagerStatic as Image;
-
 
 /**
  * Class SaveFile
@@ -24,22 +23,10 @@ trait ImgTrait
      * @var object изображение
      */
     protected $img;
-
     /**
      * @var object характеристики изображения
      */
     public $img_settings;
-
-    /**
-     * @var array размеры сохраняемой картинки и сжатие
-     */
-
- /*   private $proportions = [
-        'width'   => '',
-        'height'  => '',
-        'quality' => '90',
-    ];
-*/
 
     /**
      * @return string
@@ -104,7 +91,6 @@ trait ImgTrait
 
         $this->size = $this->storage->saveFile($this->img,$url,$params);
 
-        \Log::info($this->size . '----' . $url);
         //$this->storage->container->uploadFromStream($url, $this->img, $params);
     }
 

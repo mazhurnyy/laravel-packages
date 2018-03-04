@@ -21,7 +21,6 @@
     "franzose/closure-table": "dev-master"
   },
   "require-dev": {
-
   },
   "autoload": {
     "psr-4": {
@@ -37,7 +36,10 @@
         "FileProcessing": "Mazhurnyy\\Facades\\FileProcessing",
         "Filters": "Mazhurnyy\\Facades\\Filters",
         "SiteBlade": "Mazhurnyy\\Facades\\SiteBlade",
-        "SiteMeta": "Mazhurnyy\\Facades\\SiteMeta"
+        "SiteMeta": "Mazhurnyy\\Facades\\SiteMeta",
+        // пакеты
+        "Image": "Intervention\\Image\\Facades\\Image",
+        "LaravelLocalization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization"
       }
     }
   },

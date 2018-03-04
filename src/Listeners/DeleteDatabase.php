@@ -3,7 +3,7 @@
 namespace Mazhurnyy\Listeners;
 
 use Mazhurnyy\Events\SomeEvent;
-use Mazhurnyy\Services\SiteLog\LogDelete;
+use Mazhurnyy\Services\Logs\LogDelete;
 
 /**
  * Class DeleteDatabase

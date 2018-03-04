@@ -11,7 +11,7 @@
 namespace Mazhurnyy\Listeners;
 
 use Mazhurnyy\Events\SomeEvent;
-use Mazhurnyy\Services\SiteLog\LogChanged;
+use Mazhurnyy\Services\Logs\LogChanged;
 
 /**
  * Class ChangeDatabase

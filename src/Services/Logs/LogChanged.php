@@ -8,7 +8,7 @@
  * Time: 12:45
  */
 
-namespace Mazhurnyy\Services\SiteLog;
+namespace Mazhurnyy\Services\Logs;
 
 use Mazhurnyy\Models\LogChanged as Changed;
 use Mazhurnyy\Models\LogChangedData as ChangedData;

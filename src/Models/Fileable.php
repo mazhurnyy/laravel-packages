@@ -39,7 +39,7 @@ class Fileable extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function essenceType()
+    public function objectType()
     {
         return $this->belongsTo('Mazhurnyy\Models\ObjectType');
     }

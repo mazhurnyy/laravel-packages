@@ -9,9 +9,7 @@
 namespace Mazhurnyy\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\File;
 use Mazhurnyy\Facades\FileProcessing;
-//use RobbieP\CloudConvertLaravel\Facades\CloudConvert;
 
 class FileProcessingController extends Controller
 {
@@ -99,23 +97,7 @@ class FileProcessingController extends Controller
 
         return back();
     }
-*/
-    /**
-     * @param array $data
-     *
-     * @return mixed
-     */
-/*
-    protected function validatorPresentation(array $data)
-    {
-        return Validator::make(
-            $data, [
-                'slide' => 'mimes:jpeg,bmp,png,gif,ppt,pptx,pdf',
-            ]
-        );
-    }
-*/
-    //--------------------------------------------
+
 
 
     /**

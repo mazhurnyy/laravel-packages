@@ -2,11 +2,11 @@
 
 namespace Mazhurnyy\Models;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Mazhurnyy\Events\FileDeleting;
 use Mazhurnyy\Events\FileSaved;
 use Mazhurnyy\FileProcessing\Traits\FileTraits;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class File
@@ -22,7 +22,7 @@ class File extends Model
     public $timestamps = false;
 
     protected $dispatchesEvents = [
-        'saved' => FileSaved::class,
+        'saved'    => FileSaved::class,
         'deleting' => FileDeleting::class,
     ];
     protected $dates            = ['deleted_at'];
@@ -61,9 +61,10 @@ class File extends Model
     {
         return $this->hasOne('Mazhurnyy\Models\FileVersion');
     }
-    public function galleries()
+
+    public function gallery()
     {
-        return $this->morphedByMany('App\Models\Gallery', 'fileable');
+        return $this->morphedByMany('Mazhurnyy\Models\Gallery', 'fileable')->withTrashed();
     }
 
     public function extension()
@@ -72,7 +73,7 @@ class File extends Model
     }
 
     // todo пути к файлам раскручавать в цикле
-    
+
     public function getSrcThumbAttribute($value)
     {
         return config('tznp.image_gallery') . $this->getTokenPath(
@@ -100,7 +101,7 @@ class File extends Model
      * @param $model
      * @param $model_id
      */
-    public function scopeFileEssence($query, $model, $model_id)
+    public function scopeFileObject($query, $model, $model_id)
     {
         $query->whereHas(
             'file', function ($q) use ($model, $model_id)

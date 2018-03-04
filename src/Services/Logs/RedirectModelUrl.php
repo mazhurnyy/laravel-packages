@@ -6,7 +6,7 @@
  * Time: 14:30
  */
 
-namespace Mazhurnyy\Services\SiteLog;
+namespace Mazhurnyy\Services\Logs;
 
 use Mazhurnyy\Models\PersonTypeActivity;
 

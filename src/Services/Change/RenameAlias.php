@@ -8,7 +8,7 @@
 
 namespace Mazhurnyy\Services\Change;
 
-use Mazhurnyy\Services\SiteLog\LogResponse;
+use Mazhurnyy\Services\Logs\LogResponse;
 use Mazhurnyy\Traits\Converter;
 
 

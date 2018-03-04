@@ -12,7 +12,6 @@ use ArgentCrusade\Selectel\CloudStorage\CloudStorage;
  */
 class StorageConnect
 {
-
     /**
      * @var object контейнер хранения файлов
      */
@@ -20,7 +19,7 @@ class StorageConnect
     /**
      * @var int
      */
-    private $size_img = 0;
+    private $size = 0;
     /**
      * @var string выбираем драйвер для записи файла
      */
@@ -43,7 +42,7 @@ class StorageConnect
     {
         $storage_driver = 'set' . config('mazhurnyy.storage_driver');
         $this->$storage_driver($file, $url, $params);
-        return $this->size_img;
+        return $this->size;
     }
 
     /**
@@ -58,7 +57,7 @@ class StorageConnect
         $this->getContainerSelectel();
         $this->container->uploadFromStream($url, $file, $params);
         $file           = $this->container->files()->find($url);
-        $this->size_img = $file->size();
+        $this->size = $file->size();
     }
 
 
