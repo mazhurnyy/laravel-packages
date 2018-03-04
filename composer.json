@@ -37,7 +37,6 @@
         "Filters": "Mazhurnyy\\Facades\\Filters",
         "SiteBlade": "Mazhurnyy\\Facades\\SiteBlade",
         "SiteMeta": "Mazhurnyy\\Facades\\SiteMeta",
-        // пакеты
         "Image": "Intervention\\Image\\Facades\\Image",
         "LaravelLocalization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization"
       }
