@@ -56,7 +56,7 @@ class MazhurnyyServiceProvider extends ServiceProvider
             return new \Mazhurnyy\FileProcessing\FileProcessing();
         });
 
-        $this->app->bind('SiteBlade', function () {
+        $this->app->bind('Filters', function () {
             return new \Mazhurnyy\Filters\Filters();
         });
 
@@ -64,7 +64,7 @@ class MazhurnyyServiceProvider extends ServiceProvider
             return new \Mazhurnyy\Site\Blade\SiteBlade();
         });
 
-        $this->app->bind('SiteBlade', function () {
+        $this->app->bind('SiteMeta', function () {
             return new \Mazhurnyy\Site\Meta\SiteMeta();
         });
 
