@@ -13,7 +13,7 @@ class StatusArticleSaved extends SomeEvent
     public $changed;
 
     /**
-     * StatusEssenceSaved constructor.
+     * StatusArticleSaved constructor.
      * @param StatusArticle $changed
      */
     public function __construct(StatusArticle $changed)

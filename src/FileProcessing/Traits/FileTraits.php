@@ -50,11 +50,19 @@ trait FileTraits
     }
 
     /**
-     * получаем экземпляр файла
+     * получаем экземпляр файла c Input
      */
     private function setFile()
     {
         $this->file = Input::file('file');
+    }
+
+    /**
+     * получаем экземпляр файла c Input
+     */
+    private function setFilePath($path = null)
+    {
+        $this->file = \File::get($path);
     }
 
     /**
@@ -101,12 +109,14 @@ trait FileTraits
         $this->token = $token;
     }
 
-    /*
+    /**
+     * генерируем токен для временного каталога
+     */
     protected function setDirTemp()
     {
         $this->dirTemp = strtoupper(md5(uniqid(rand(), true)));
     }
-*/
+
 
 
     /**

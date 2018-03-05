@@ -8,11 +8,15 @@
 
 namespace Mazhurnyy\FileProcessing;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Mazhurnyy\FileProcessing\Traits\FileTraits;
 use Mazhurnyy\FileProcessing\Traits\ImgTrait;
 use Mazhurnyy\FileProcessing\Traits\ModelTrait;
+use Mazhurnyy\Jobs\ResizeImg;
+use Mazhurnyy\Jobs\DeleteTempDir;
 use Mazhurnyy\Models\File;
+use RobbieP\CloudConvertLaravel\Facades\CloudConvert;
 
 /**
  * Class SaveFile
@@ -63,9 +67,9 @@ class FileProcessing
     public function fileAdd()
     {
         $this->setFile();
-        $ext = $this->getExt();
         $this->validatorFile(request()->all())->validate();
-
+        $this->setToken();
+        $ext = $this->getExt();
         foreach ($this->type_files AS $key => $type)
         {
             if (in_array($ext, $type))
@@ -113,9 +117,63 @@ class FileProcessing
     private function images()
     {
         $this->getExtensionId('jpg');
-        $this->setToken();
         $this->size = $this->imgProcessing();
     }
+
+    /**
+     * конвертируем файлы презентаций
+     * 'ppt','pptx','pdf'в jpg
+     */
+    private function presentation()
+    {
+        $this->setDirTemp();
+        $this->convertPresentation();
+        $this->jobsPresentation();
+    }
+
+
+    /**
+     * отправляем в очередь
+     * конвертация презентации в форматах ppt,pptx,pdf в jpg, запись на диск и в базу данных
+     */
+    private function jobsPresentation()
+    {
+//        ini_set('max_execution_time', 6000);
+
+        $files = Storage::disk('uploads')->files($this->dirTemp);
+        sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+        $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
+
+        foreach ($files As $file)
+        {
+            $path_file  = $path . $file;
+            $this->file = $path_file;
+            $data     = [
+                'path'    => $path_file,
+                'type'    => $this->type,
+                'id'      => $this->id,
+            ];
+            ResizeImg::dispatch($data);
+        }
+
+
+       DeleteTempDir::dispatch($this->dirTemp)->delay(now()->addMinutes(5));
+
+        //       Storage::disk('temp')->deleteDirectory($this->dirTemp);
+
+        // todo добавить вывод сообщениия - обработка займет ...... ????
+
+    }
+
+    private function convertPresentation()
+    {
+        Storage::disk('uploads')->makeDirectory($this->dirTemp, 0777, true);
+        $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
+        CloudConvert::file($this->file)->to(
+            $path . $this->dirTemp . '/temp.jpg'
+        );
+    }
+
 
     /**
      * сортировка файлов
@@ -129,20 +187,23 @@ class FileProcessing
             ->whereOrder($file->order + $shift)
             ->withTrashed()
             ->first();
-        if ($shift > 0)   // перемещаем вверх
+        if($file_beside)
         {
-            $file_beside->order = $file_beside->order - 1;
-            $file_beside->save();
-            $file->increment('order');
-        } else    // перемещаем вниз
-        {
-            $file_beside->order = $file_beside->order + 1;
-            $file_beside->save();
-            $file->decrement('order');
-        }
-        if (!empty($file_beside->deleted_at))
-        {
-            $this->shiftFile($file, $shift);
+            if ($shift > 0)   // перемещаем вверх
+            {
+                $file_beside->order = $file_beside->order - 1;
+                $file_beside->save();
+                $file->increment('order');
+            } else    // перемещаем вниз
+            {
+                $file_beside->order = $file_beside->order + 1;
+                $file_beside->save();
+                $file->decrement('order');
+            }
+            if (!empty($file_beside->deleted_at))
+            {
+                $this->shiftFile($file, $shift);
+            }
         }
     }
 
@@ -162,37 +223,4 @@ class FileProcessing
         );
     }
 
-
-
-
-
-    /**
-     * записываем файл с изображениеам на сервер
-     * $this->proportions - размеры изображения
-     */
-    /*
-        private function updatePhoto()
-        {
-
-            if (!empty($this->proportions['width']))
-            {
-                // todo сделать еще обрезку по ширине, если больше заданной
-
-    //            $this->img->heighten($this->proportions['height'])->fit($this->proportions['width'], $this->proportions['height']);
-                $this->img->heighten($this->proportions['height']);
-            }
-            $this->img->response('jpg', $this->proportions['quality']); // по умолчанию качество 90
-            $url = $this->proportions['prefix'] . $this->path;
-
-    // todo поменять путь хранения картинок
-
-            $params = [
-                'contentType'        => 'image/jpeg',
-                'contentDisposition' => 'inline',
-            ];
-            $this->storage->gallery->uploadFromStream($url, $this->img, $params);
-
-
-        }
-    */
 }

@@ -27,7 +27,7 @@ class Article extends Entity
 
     protected $table = 'articles';
 
-    public $translationModel = 'App\Models\ArticleTranslation';
+    public $translationModel = 'Mazhurnyy\Models\ArticleTranslation';
     public $translationForeignKey = 'article_id';
 
     protected $with = ['translations'];
@@ -88,11 +88,6 @@ class Article extends Entity
     {
     }
 
-    public function getTypeAttribute()
-    {
-  //      return $this->essenceType()->type;
-    }
-
     /**
      * выбираем только опубликованные статьи
      * @param $query
@@ -103,10 +98,6 @@ class Article extends Entity
         $query->whereHas('status', function ($q) {
             return $q->where('alias', '=', 'published');
         });
-
-// пока оставим для примера, может пригодится
-//      $status_id = StatusEssence::whereTitle('Опубликовано')->first()->id;
-//    return $query->whereStatusArticleId($status_id);
     }
 
     /**
@@ -118,18 +109,6 @@ class Article extends Entity
     {
         $query->whereHas('status', function ($q) {
             return $q->where('alias', '=', 'draft');
-        });
-    }
-
-    /**
-     * выбираем только статьи
-     * @param $query
-     * @return mixed
-     */
-    public function scopeArticle($query)
-    {
-        $query->whereHas('essenceType', function ($q) {
-            return $q->where('type', '=', 'article');
         });
     }
 

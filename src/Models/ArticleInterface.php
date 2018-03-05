@@ -4,7 +4,7 @@ namespace Mazhurnyy\Models;
 use Franzose\ClosureTable\Contracts\EntityInterface;
 
 /**
- * Interface EssenceInterface
+ * Interface ArticleInterface
  * @package App
  */
 interface ArticleInterface extends EntityInterface

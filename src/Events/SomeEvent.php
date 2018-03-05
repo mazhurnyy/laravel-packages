@@ -9,7 +9,6 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * для примера
  * Class SomeEvent
  * @package App\Events
  */

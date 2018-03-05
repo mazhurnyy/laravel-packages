@@ -13,7 +13,7 @@ class StatusTranslationDeleting extends SomeEvent
     public $changed;
 
     /**
-     * EssenceTranslationDeleting constructor.
+     * StatusTranslationDeleting constructor.
      * @param StatusTranslation $changed
      */
     public function __construct(StatusTranslation $changed)

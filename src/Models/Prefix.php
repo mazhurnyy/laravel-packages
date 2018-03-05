@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
- * @property int $essence_type_id
+ * @property int $object_type_id
  * @property int $width
  * @property int $height
  * @property int $quality
@@ -28,7 +28,7 @@ class Prefix extends Model
     /**
      * @var array
      */
-    protected $fillable = ['essence_type_id', 'width', 'height', 'quality', 'prefix'];
+    protected $fillable = ['object_type_id', 'width', 'height', 'quality', 'prefix'];
 
 
     protected $dates = ['deleted_at'];
@@ -37,9 +37,8 @@ class Prefix extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function essenceType()
+    public function objectType()
     {
-        return $this->belongsTo('Mazhurnyy\Models\ObjectType','essence_type_id','id');
+        return $this->belongsTo('Mazhurnyy\Models\ObjectType','object_type_id','id');
     }
-
 }

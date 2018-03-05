@@ -75,4 +75,9 @@ class Gallery extends Model
         return $query->whereUserId(\Auth::id());
     }
 
+    public function scopeOrderName($query)
+    {
+        return $query->orderBy('name','asc');
+    }
+
 }

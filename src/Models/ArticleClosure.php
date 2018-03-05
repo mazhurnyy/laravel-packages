@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Mazhurnyy\Models;
 
 use Franzose\ClosureTable\Models\ClosureTable;
 
@@ -45,13 +45,13 @@ class ArticleClosure extends ClosureTable implements ArticleClosureInterface
      */
     public function ancestor()
     {
-        return $this->belongsTo('App\Models\Article', 'id', 'ancestor');
+        return $this->belongsTo('Mazhurnyy\Models\Article', 'id', 'ancestor');
     }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function descendant()
     {
-        return $this->belongsTo('App\Models\Article', 'id', 'descendant');
+        return $this->belongsTo('Mazhurnyy\Models\Article', 'id', 'descendant');
     }
 }

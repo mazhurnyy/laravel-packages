@@ -12,11 +12,7 @@ class StatusTranslationSaved extends SomeEvent
 {
     public $changed;
 
-    /**
-     * EssenceTranslationSaved constructor.
-     *
-     * @param StatusTranslation $changed
-     */
+
     public function __construct(StatusTranslation $changed)
     {
         $this->changed = $changed;

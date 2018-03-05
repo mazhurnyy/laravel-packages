@@ -2,8 +2,8 @@
 
 namespace Mazhurnyy\FileProcessing;
 
-use ArgentCrusade\Selectel\CloudStorage\Api\ApiClient;
-use ArgentCrusade\Selectel\CloudStorage\CloudStorage;
+
+use Mazhurnyy\FileProcessing\Traits\StorageSelectel;
 
 /**
  * Подключение к хранилищу данных
@@ -12,6 +12,7 @@ use ArgentCrusade\Selectel\CloudStorage\CloudStorage;
  */
 class StorageConnect
 {
+    use StorageSelectel;
     /**
      * @var object контейнер хранения файлов
      */
@@ -20,17 +21,13 @@ class StorageConnect
      * @var int
      */
     private $size = 0;
-    /**
-     * @var string выбираем драйвер для записи файла
-     */
-//    protected $storage_driver;
 
     /**
      * StorageConnect constructor.
      */
     public function __construct()
     {
-//        $this->storage_driver = 'set' . config('mazhurnyy.storage_driver');
+        //
     }
 
     /**
@@ -46,35 +43,17 @@ class StorageConnect
     }
 
     /**
-     * записываем файл на диск селектел
-     *
-     * @param $url
-     * @param $file
-     * @param $params
+     * @param $url    путь к файлу
+     * @param $file   object
+     * @param $params параметры сохранения
      */
-    protected function setSelectel($url, $file, $params)
+    public function saveFileTemp($url, $file, $params = [])
     {
-        $this->getContainerSelectel();
-        $this->container->uploadFromStream($url, $file, $params);
-        $file           = $this->container->files()->find($url);
-        $this->size = $file->size();
+        $storage_driver = 'set' . config('mazhurnyy.storage_driver_temp');
+        $this->$storage_driver_temp($file, $url, $params);
+        return $this->size;
     }
 
 
-    private function getContainerSelectel()
-    {
-
-        /* todo
-        |  в файл vendor\argentcrusade\selectel-cloud-storage\src\FileUploader.php добавлены недостающие параметры заголовка
-        | 'contentLength'      => 'Content-Length',
-        | 'metaLocation'       => 'X-Object-Meta-Location',
-        */
-
-        $apiClient       = new ApiClient(
-            config('mazhurnyy.disks.selectel.username'), config('mazhurnyy.disks.selectel.password')
-        );
-        $storage         = new CloudStorage($apiClient);
-        $this->container = $storage->getContainer(config('mazhurnyy.disks.selectel.container'));
-    }
 
 }
