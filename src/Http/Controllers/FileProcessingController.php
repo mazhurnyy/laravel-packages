@@ -51,54 +51,6 @@ class FileProcessingController extends Controller
         return back();
     }
     
-    /**
-     * Изменение сортировки слайдов
-     */
-    /*
-    public function fileOrder()
-    {
-        // todo трабла с удаленными файлами
-
-        $this->setId();
-        $this->setFileId();
-        $this->setDirection();
-
-        $file    = File::whereId($this->file_id)->withTrashed()->first();
-        $essence = $this->essenceType->model::whereId($this->id)->firstOrFail();
-        if ($this->direction == 'left' && $file->order > 1)
-        {
-            $file_beside = File::fileEssence($this->essenceType->model, $this->id)
-                ->whereOrder($file->order - 1)
-                ->withTrashed()
-                ->first();
-            if ($file_beside)
-            {
-                $file_beside->increment('order');
-            }
-            if ($file)
-            {
-                $file->decrement('order');
-            }
-        } elseif ($this->direction == 'right' && $file->order < $essence->images)
-        {
-            $file_beside = File::fileEssence($this->essenceType->model, $this->id)
-                ->whereOrder($file->order + 1)
-                ->withTrashed()
-                ->first();
-            if ($file_beside)
-            {
-                $file_beside->decrement('order');
-            }
-            if ($file)
-            {
-                $file->increment('order');
-            }
-        }
-
-        return back();
-    }
-
-
 
     /**
      * конвертация презентации в форматах ppt,pptx,pdf в jpg, запись на диск и в базу данных

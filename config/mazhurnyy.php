@@ -6,12 +6,19 @@
 return [
 
     'storage_driver'=>'selectel',
+    'storage_driver_temp'=>'selectel',
 
     'disks' => [
         'selectel' => [
             'username' => env('SELECTEL_USERNAME'),
             'password' => env('SELECTEL_PASSWORD'),
             'container' => env('SELECTEL_CONTAINER'),
+            'url'=> env('SELECTEL_URL')
+        ],
+        'selectel_temp' => [
+            'username' => env('SELECTEL_USERNAME'),
+            'password' => env('SELECTEL_PASSWORD'),
+            'container_temp' => env('SELECTEL_CONTAINER'),
             'url'=> env('SELECTEL_URL')
         ],
     ],
@@ -28,6 +35,7 @@ return [
         // - изображение
         'images'=>[
             'jpg',
+            'jpeg',
             'gif',
             'png',
             'bmp'
