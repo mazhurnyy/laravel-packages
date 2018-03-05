@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Events;
+namespace Mazhurnyy\Events;
 
-use App\Models\ArticleTranslation;
+use Mazhurnyy\Models\ArticleTranslation;
 
 /**
  * Class ArticleTranslationSaved
- * @package App\Events
+ * @package Mazhurnyy\Events
  */
 class ArticleTranslationSaved extends SomeEvent
 {
