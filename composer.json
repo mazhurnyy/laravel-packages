@@ -3,6 +3,7 @@
   "description": "Laravel 5.*",
   "prefer-stable": true,
   "license": "MIT",
+  "prefer-stable": true,
   "authors": [
     {
       "name": "BBM",
