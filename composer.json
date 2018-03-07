@@ -2,7 +2,7 @@
   "name": "mazhurnyy/laravel-packages",
   "description": "Laravel 5.5.*",
   "license": "MIT",
-  "minimum-stability": "stable",
+  "prefer-stable": true,
   "authors": [
     {
       "name": "BBM",
