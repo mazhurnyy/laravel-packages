@@ -1,6 +1,6 @@
 {
   "name": "mazhurnyy/laravel-packages",
-  "description": "Laravel 5.*",
+  "description": "Laravel 5.5.*",
   "license": "MIT",
   "authors": [
     {
@@ -40,6 +40,5 @@
         "LaravelLocalization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization"
       }
     }
-  },
-  "minimum-stability": "dev"
+  }
 }
