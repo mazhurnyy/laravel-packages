@@ -1,7 +1,6 @@
 {
   "name": "mazhurnyy/laravel-packages",
   "description": "Laravel 5.*",
-  "version": "master",
   "license": "MIT",
   "authors": [
     {
