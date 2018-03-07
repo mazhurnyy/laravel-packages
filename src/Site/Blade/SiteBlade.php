@@ -8,6 +8,8 @@
 
 namespace Mazhurnyy\Site\Blade;
 
+use App\Traits\GetBasket;
+
 /**
  * Class SiteBlade
  * Установка параметров страницы для шаблона
@@ -16,6 +18,7 @@ namespace Mazhurnyy\Site\Blade;
  */
 class SiteBlade
 {
+    use GetBasket;
 
     /**
      * @var array заголовок страницы
@@ -196,5 +199,37 @@ class SiteBlade
     public function getBreadcrumbs()
     {
         return $this->breadcrumbs;
+    }
+    /**
+     * выравниваем H1 влево
+     */
+    public function setHeadingLeft()
+    {
+        $this->headingAlign = 'left';
+    }
+    /**
+     * выравниваем H1 по центру
+     */
+    public function setHeadingCenter()
+    {
+        $this->headingAlign = 'center';
+    }
+    /**
+     * @return string
+     */
+    public  function getHeadingAlign()
+    {
+        return $this->headingAlign;
+    }
+
+    // todo biatron вичистить и убрать
+
+    /**
+     * получаем количество позиций в корзине
+     * @return int
+     */
+    public function getCountPositions()
+    {
+        return count($this->getBasketPositions());
     }
 }

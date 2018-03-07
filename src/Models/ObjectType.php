@@ -9,6 +9,8 @@
 namespace Mazhurnyy\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Mazhurnyy\Events\ObjectTypeSaved;
+use Mazhurnyy\Events\ObjectTypeDeleting;
 
 class ObjectType extends Model
 {

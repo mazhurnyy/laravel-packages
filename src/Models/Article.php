@@ -28,6 +28,7 @@ class Article extends Entity
     protected $table = 'articles';
 
     public $translationModel = 'Mazhurnyy\Models\ArticleTranslation';
+    
     public $translationForeignKey = 'article_id';
 
     protected $with = ['translations'];

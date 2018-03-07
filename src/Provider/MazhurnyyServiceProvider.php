@@ -21,6 +21,7 @@ class MazhurnyyServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../routes.php');
         //Указываем, что файлы из папки config должны быть опубликованы при установке
         $this->publishes([__DIR__ . '/../../config/' => config_path() . '/']);
+
       }
 
 

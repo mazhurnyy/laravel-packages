@@ -7,7 +7,7 @@ protected $listen = [ ........
 // события пакета mazhurnyy/laravel-packages
 
         /** фиксируем время последнего просмотра страницы авторизованным пользователем */
-        'Illuminate\Auth\Events\Authenticated' => ['App\Listeners\LogAuthenticated',],
+        'Illuminate\Auth\Events\Authenticated' => ['Mazhurnyy\Listeners\LogAuthenticated',],
 
         'Mazhurnyy\Events\SomeEvent'                  => ['Mazhurnyy\Listeners\EventListener',],
 
@@ -25,10 +25,12 @@ protected $listen = [ ........
         'Mazhurnyy\Events\StatusArticleDeleting'      => ['Mazhurnyy\Listeners\DeleteDatabase',],
 
         /** Файловое хранилище */
-        'Mazhurnyy\Events\FileSaved'                  => ['Mazhurnyy\Listeners\ChangeDatabase',],
-        'Mazhurnyy\Events\FileDeleting'               => ['Mazhurnyy\Listeners\DeleteDatabase',],
+        'Mazhurnyy\Events\ObjectTypeSaved'            => ['Mazhurnyy\Listeners\ChangeDatabase',],
+        'Mazhurnyy\Events\ObjectTypeDeleting'         => ['Mazhurnyy\Listeners\DeleteDatabase',],
         'Mazhurnyy\Events\PrefixSaved'                => ['Mazhurnyy\Listeners\ChangeDatabase',],
         'Mazhurnyy\Events\PrefixDeleting'             => ['Mazhurnyy\Listeners\DeleteDatabase',],
+        'Mazhurnyy\Events\FileSaved'                  => ['Mazhurnyy\Listeners\ChangeDatabase',],
+        'Mazhurnyy\Events\FileDeleting'               => ['Mazhurnyy\Listeners\DeleteDatabase',],
         'Mazhurnyy\Events\FileTableSaved'             => ['Mazhurnyy\Listeners\ChangeDatabase',],
         'Mazhurnyy\Events\FileTableDeleting'          => ['Mazhurnyy\Listeners\DeleteDatabase',],
         'Mazhurnyy\Events\ExtensionSaved'             => ['Mazhurnyy\Listeners\ChangeDatabase',],
@@ -41,15 +43,14 @@ protected $listen = [ ........
         ],
         'Mazhurnyy\Events\GalleryDeleting' => ['Mazhurnyy\Listeners\DeleteDatabase',],
 
-        /** Объекты */
-        'Mazhurnyy\Events\FileSaved'                  => ['Mazhurnyy\Listeners\ChangeDatabase',],
-        'Mazhurnyy\Events\FileDeleting'               => ['Mazhurnyy\Listeners\DeleteDatabase',],
-
         /**  Status */
         'Mazhurnyy\Events\StatusSaved'                => ['Mazhurnyy\Listeners\ChangeDatabase',],
         'Mazhurnyy\Events\StatusDeleting'             => ['Mazhurnyy\Listeners\DeleteDatabase',],
         'Mazhurnyy\Events\StatusTranslationSaved'     => ['Mazhurnyy\Listeners\ChangeDatabase',],
         'Mazhurnyy\Events\StatusTranslationDeleting'  => ['Mazhurnyy\Listeners\DeleteDatabase',],
+        /**  StatusArticle */
+        'Mazhurnyy\Events\StatusArticleSaved'          => ['App\Listeners\ChangeDatabase',],
+        'Mazhurnyy\Events\StatusArticleDeleting'       => ['App\Listeners\DeleteDatabase',],
 
         /** Table */
         'Mazhurnyy\Events\TableSaved'                 => ['Mazhurnyy\Listeners\ChangeDatabase',],
