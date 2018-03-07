@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 
 /**
  * Class SomeEvent
- * @package App\Events
+ * @package Mazhurnyy\Events
  */
 class SomeEvent
 {
