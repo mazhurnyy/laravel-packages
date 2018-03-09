@@ -8,8 +8,6 @@
 
 namespace Mazhurnyy\Site\Blade;
 
-use App\Traits\GetBasket;
-
 /**
  * Class SiteBlade
  * Установка параметров страницы для шаблона
@@ -18,8 +16,6 @@ use App\Traits\GetBasket;
  */
 class SiteBlade
 {
-    use GetBasket;
-
     /**
      * @var array заголовок страницы
      */
