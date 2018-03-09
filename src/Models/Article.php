@@ -27,11 +27,7 @@ class Article extends Entity
 
     protected $table = 'articles';
 
-    public $translationModel = 'Mazhurnyy\Models\ArticleTranslation';
-    
-    public $translationForeignKey = 'article_id';
 
-    protected $with = ['translations'];
     /**
      * @var array
      */
@@ -45,8 +41,10 @@ class Article extends Entity
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
+    public $translationModel = 'Mazhurnyy\Models\ArticleTranslation';
+    public $translationForeignKey = 'article_id';
     public $translatedAttributes = ['title', 'preview', 'text', 'keywords', 'description'];
-
+    protected $with = ['translations'];
 
     public $timestamps = true;
 

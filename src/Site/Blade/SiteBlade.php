@@ -54,6 +54,8 @@ class SiteBlade
 
     public $menuSearch = false;
 
+    public $headingAlign;
+
     /**
      * устанавливаем заголовок страницы
      *
@@ -220,16 +222,5 @@ class SiteBlade
     public  function getHeadingAlign()
     {
         return $this->headingAlign;
-    }
-
-    // todo biatron вичистить и убрать
-
-    /**
-     * получаем количество позиций в корзине
-     * @return int
-     */
-    public function getCountPositions()
-    {
-        return count($this->getBasketPositions());
     }
 }

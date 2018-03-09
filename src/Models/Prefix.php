@@ -28,7 +28,7 @@ class Prefix extends Model
     /**
      * @var array
      */
-    protected $fillable = ['object_type_id', 'width', 'height', 'quality', 'prefix'];
+    protected $fillable = ['object_type_id', 'width', 'height', 'quality', 'prefix','alias'];
 
 
     protected $dates = ['deleted_at'];

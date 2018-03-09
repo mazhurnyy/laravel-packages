@@ -4,6 +4,7 @@
  */
 
 return [
+    'image_gallery' => '',
 
     'storage_driver'=>'selectel',
     'storage_driver_temp'=>'selectel',
@@ -42,7 +43,12 @@ return [
         ],
     ],
 
-
+    'images_alias' => [
+        '0'=>'',
+        'thumb' => 'thumb',
+        'preview'=>'preview',
+        'full'=>'full',
+    ],
 
 
 ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Mazhurnyy\Events;
 
 use Mazhurnyy\Models\Prefix;
 
