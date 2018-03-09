@@ -16,6 +16,7 @@ namespace Mazhurnyy\Site\Blade;
  */
 class SiteBlade
 {
+
     /**
      * @var array заголовок страницы
      */
@@ -219,4 +220,5 @@ class SiteBlade
     {
         return $this->headingAlign;
     }
+
 }

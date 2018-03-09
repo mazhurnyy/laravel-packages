@@ -102,7 +102,7 @@ class File extends Model
     public function scopeFileObject($query, $model, $model_id)
     {
         $query->whereHas('file', function ($q) use ($model, $model_id) {
-        return $q->where('fileable_type', '=', $model)->where('fileable_id', '=', $model_id);
+            return $q->where('fileable_type', '=', $model)->where('fileable_id', '=', $model_id);
         });
     }
 

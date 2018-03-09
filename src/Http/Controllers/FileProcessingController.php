@@ -50,43 +50,6 @@ class FileProcessingController extends Controller
 
         return back();
     }
-    
-
-    /**
-     * конвертация презентации в форматах ppt,pptx,pdf в jpg, запись на диск и в базу данных
-     */
-    /*
-    private function savePresentation()
-    {
-        ini_set('max_execution_time', 6000);
-        $this->setDirTemp();
-        $this->convertPresentation();
-        $files = Storage::disk('uploads')->files($this->dirTemp);
-        sort($files, SORT_NATURAL | SORT_FLAG_CASE);
-        $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
-
-        foreach ($files As $file)
-        {
-            $path_file = $path . $file;
-            $this->file = $path_file;
-            $this->file = \File::get($path_file);
-            $this->saveImg();
-        }
-
-        Storage::disk('uploads')->deleteDirectory($this->dirTemp);
-    }
-
-    private function convertPresentation()
-    {
-        Storage::disk('uploads')->makeDirectory($this->dirTemp);
-
-        $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
-
-        CloudConvert::file($this->file)->to(
-            $path . $this->dirTemp . '/temp.jpg'
-        );
-    }
-*/
 
 
 }
