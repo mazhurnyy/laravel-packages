@@ -41,6 +41,7 @@ class File extends Model
     ];
 
     protected $appends = [
+        'src_original',
         'src_thumb',
         'src_preview',
         'src_full',
@@ -79,6 +80,11 @@ class File extends Model
 
     // todo пути к файлам раскручавать в цикле
 
+    public function getSrcOriginalAttribute($value)
+    {
+        return $this->getSrcUrl();
+    }
+
     public function getSrcThumbAttribute($value)
     {
         return $this->getSrcUrl('thumb');
@@ -92,8 +98,6 @@ class File extends Model
     {
         return $this->getSrcUrl('full');
     }
-
-
     /**
      * @param $query
      * @param $model
@@ -107,7 +111,7 @@ class File extends Model
     }
 
 
-    private function getSrcUrl($alias)
+    private function getSrcUrl($alias = null)
     {
         return config('mazhurnyy.image_gallery') . $this->getTokenPath($this->token) . $this->token . '/' . $this->alias . $this->getPrefix($alias) .'.' . $this->extension->name;
     }
@@ -117,10 +121,10 @@ class File extends Model
      * @param $alias
      * @return string
      */
-    private function getPrefix($alias)
+    private function getPrefix($alias = null)
     {
         // todo как найти ненаходимое ???
-        return '-' . Prefix::whereAlias($alias)->whereObjectTypeId($this->getObjectTypeId())->first()->prefix;
+        return $alias ? '-' . Prefix::whereAlias($alias)->whereObjectTypeId($this->getObjectTypeId())->first()->prefix : null;
     }
 
     /**
