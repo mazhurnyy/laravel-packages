@@ -9,6 +9,7 @@
 namespace Mazhurnyy\Filters;
 
 use App\ModelFilters\FilterSettings;
+use Route;
 
 /**
  * Class Filters
@@ -100,7 +101,10 @@ class Filters extends FilterSettings
      */
     public function setSectionUrl($prefix = '')
     {
-        $this->sectionUrl = $prefix ?? '/' . $prefix;
+        $route = Route::current();
+ //       dump($route->action['prefix']);
+
+        $this->sectionUrl = $prefix ?? $route->action['prefix'] .'/'. $prefix;
     }
 
     /**
@@ -112,7 +116,7 @@ class Filters extends FilterSettings
     public function setFilters($filtersGroup = '')
     {
         $this->filtersGroup = $filtersGroup;
-        $this->sectionUrl = $filtersGroup;
+  //      $this->sectionUrl = $filtersGroup;
 
         $this->filters = $this->setFiltersGroup();
         $this->setInputFilters();                                  //  получаем значения фильтра с URL

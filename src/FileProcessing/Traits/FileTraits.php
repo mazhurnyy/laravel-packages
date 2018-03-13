@@ -62,7 +62,11 @@ trait FileTraits
      */
     private function setFilePath($path = null)
     {
-        $this->file = \File::get($path);
+        if (strstr($path, 'http')){
+            $this->file = $path;
+        }else {
+            $this->file = \File::get($path);
+        }
     }
 
     /**

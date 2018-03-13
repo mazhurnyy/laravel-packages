@@ -10,28 +10,28 @@ namespace Mazhurnyy\Services\Blade;
 
 /**
  * Class SrcFiles
- * возвращаем пути к файлам галереи
+ * возвращаем путm к первому файлу в галерее
  */
 
 class SrcFiles
 {
 
-    public function getSrcThumb($items)
+    public function thumb($items)
     {
         return $this->getFirstFile($items)->src_thumb;
     }
 
-    public function getSrcPreview($items)
+    public function preview($items)
     {
         return $this->getFirstFile($items)->src_preview;
     }
 
-    public function getSrcFull($items)
+    public function full($items)
     {
         return $this->getFirstFile($items)->src_full;
     }
 
-    public function getSrcOriginal($items)
+    public function original($items)
     {
         return $this->getFirstFile($items)->src_original;
     }

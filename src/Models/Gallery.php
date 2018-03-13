@@ -57,6 +57,11 @@ class Gallery extends Model
         return $this->morphToMany('Mazhurnyy\Models\File', 'fileable')->withTrashed();
     }
 
+    public function filesActual()
+    {
+        return $this->morphToMany('Mazhurnyy\Models\File', 'fileable');
+    }
+
     public function getDeletedAttribute($value)
     {
         if ($this->deleted_at)

@@ -22,10 +22,10 @@ class File extends Model
     public $timestamps = false;
 
     protected $dispatchesEvents = [
-        'saved'    => FileSaved::class,
+        'saved' => FileSaved::class,
         'deleting' => FileDeleting::class,
     ];
-    protected $dates = ['deleted_at'];
+    protected $dates            = ['deleted_at'];
     /**
      * @var array
      */
@@ -78,8 +78,6 @@ class File extends Model
         return $this->belongsTo('Mazhurnyy\Models\Extension');
     }
 
-    // todo пути к файлам раскручавать в цикле
-
     public function getSrcOriginalAttribute($value)
     {
         return $this->getSrcUrl();
@@ -92,12 +90,14 @@ class File extends Model
 
     public function getSrcPreviewAttribute($value)
     {
-        return $this->getSrcUrl('preview');    }
+        return $this->getSrcUrl('preview');
+    }
 
     public function getSrcFullAttribute($value)
     {
         return $this->getSrcUrl('full');
     }
+
     /**
      * @param $query
      * @param $model
@@ -105,30 +105,39 @@ class File extends Model
      */
     public function scopeFileObject($query, $model, $model_id)
     {
-        $query->whereHas('file', function ($q) use ($model, $model_id) {
+        $query->whereHas(
+            'file', function ($q) use ($model, $model_id)
+            {
             return $q->where('fileable_type', '=', $model)->where('fileable_id', '=', $model_id);
-        });
+            }
+        );
     }
 
 
     private function getSrcUrl($alias = null)
     {
-        return config('mazhurnyy.image_gallery') . $this->getTokenPath($this->token) . $this->token . '/' . $this->alias . $this->getPrefix($alias) .'.' . $this->extension->name;
+        return config('mazhurnyy.image_gallery') . $this->getTokenPath(
+                $this->token
+            ) . $this->token . '/' . $this->alias . $this->getPrefix($alias) . '.' . $this->extension->name;
     }
 
     /**
      * получаем префикс по алиасу
+     *
      * @param $alias
+     *
      * @return string
      */
     private function getPrefix($alias = null)
     {
         // todo как найти ненаходимое ???
-        return $alias ? '-' . Prefix::whereAlias($alias)->whereObjectTypeId($this->getObjectTypeId())->first()->prefix : null;
+        return $alias ? '-' . Prefix::whereAlias($alias)->whereObjectTypeId($this->getObjectTypeId())->first(
+            )->prefix : null;
     }
 
     /**
      * находим ид типа объекта КОРЯВО, как переделать???
+     *
      * @return mixed
      */
     private function getObjectTypeId()
