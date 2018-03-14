@@ -6,10 +6,10 @@
  * Time: 0:49
  */
 
-namespace App\Services\Change;
+namespace Mazhurnyy\Services\Change;
 
-use App\Services\SiteLog\LogResponse;
-use App\Traits\Converter;
+use Mazhurnyy\Services\Logs\LogResponse;
+use Mazhurnyy\Traits\Converter;
 
 
 /**
@@ -32,6 +32,8 @@ trait RenameAlias
         $items        = $class::find($model->getAttributeValue('id'));
         $items->alias = $this->str2url($model->getAttributeValue('name'));
         $items->save();
+        
+        // todo logResponse301 ???
   //      $this->logResponse301($model, $items->alias);
     }
 }

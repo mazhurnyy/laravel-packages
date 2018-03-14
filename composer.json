@@ -1,8 +1,9 @@
 {
   "name": "mazhurnyy/laravel-packages",
   "description": "Laravel 5.*",
-  "version": "master",
+  "prefer-stable": true,
   "license": "MIT",
+  "prefer-stable": true,
   "authors": [
     {
       "name": "BBM",
@@ -21,7 +22,6 @@
     "franzose/closure-table": "dev-master"
   },
   "require-dev": {
-
   },
   "autoload": {
     "psr-4": {
@@ -38,7 +38,8 @@
         "Filters": "Mazhurnyy\\Facades\\Filters",
         "SiteBlade": "Mazhurnyy\\Facades\\SiteBlade",
         "SiteMeta": "Mazhurnyy\\Facades\\SiteMeta",
-        "SiteLogs": "Mazhurnyy\\Facades\\SiteLogs"
+        "Image": "Intervention\\Image\\Facades\\Image",
+        "LaravelLocalization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization"
       }
     }
   },

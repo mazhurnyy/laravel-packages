@@ -4,8 +4,10 @@
  */
 
 return [
+    'image_gallery' => '',
 
     'storage_driver'=>'selectel',
+    'storage_driver_temp'=>'selectel',
 
     'disks' => [
         'selectel' => [
@@ -14,24 +16,38 @@ return [
             'container' => env('SELECTEL_CONTAINER'),
             'url'=> env('SELECTEL_URL')
         ],
+        'selectel_temp' => [
+            'username' => env('SELECTEL_USERNAME'),
+            'password' => env('SELECTEL_PASSWORD'),
+            'container_temp' => env('SELECTEL_CONTAINER'),
+            'url'=> env('SELECTEL_URL')
+        ],
     ],
-
-
-
-
 
 
     // типы обрабатываемых файлов
-    'types_file' => [
-        'gallery',      // - презентации
-        'img',          // - изображение
+    'type_files' => [
+        // - презентации
+        'presentation'=> [
+            'ppt',
+            'pptx',
+            'pdf'
+        ],
+        // - изображение
+        'images'=>[
+            'jpg',
+            'jpeg',
+            'gif',
+            'png',
+            'bmp'
+        ],
     ],
 
-    // типы поддерживаемых расширений презентаций
-    'presentation' => [
-        'ppt',
-        'pptx',
-        'pdf',
+    'images_alias' => [
+        '0'=>'',
+        'thumb' => 'thumb',
+        'preview'=>'preview',
+        'full'=>'full',
     ],
 
 

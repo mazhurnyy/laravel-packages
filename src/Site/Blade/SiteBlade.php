@@ -6,7 +6,7 @@
  * Time: 15:34
  */
 
-namespace App\Services;
+namespace Mazhurnyy\Site\Blade;
 
 /**
  * Class SiteBlade
@@ -50,6 +50,8 @@ class SiteBlade
     public $filters = [];
 
     public $menuSearch = false;
+
+    public $headingAlign;
 
     /**
      * устанавливаем заголовок страницы
@@ -197,4 +199,26 @@ class SiteBlade
     {
         return $this->breadcrumbs;
     }
+    /**
+     * выравниваем H1 влево
+     */
+    public function setHeadingLeft()
+    {
+        $this->headingAlign = 'left';
+    }
+    /**
+     * выравниваем H1 по центру
+     */
+    public function setHeadingCenter()
+    {
+        $this->headingAlign = 'center';
+    }
+    /**
+     * @return string
+     */
+    public  function getHeadingAlign()
+    {
+        return $this->headingAlign;
+    }
+
 }

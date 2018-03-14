@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Mazhurnyy\Site\Meta;
 
 /**
  * Class SiteMeta
@@ -31,9 +31,9 @@ class SiteMeta
      */
     public function __construct()
     {
-        $this->metaTitle = __('headers.meta.title');
-        $this->metaDescription = __('headers.meta.description');
-        $this->metaKeywords = __('headers.meta.keywords');
+        $this->metaTitle = __('headers.company.max');
+        $this->metaDescription = __('headers.company.description');
+        $this->metaKeywords = __('headers.company.keywords');
     }
 
     /**
