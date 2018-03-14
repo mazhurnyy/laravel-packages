@@ -2,8 +2,6 @@
 
 namespace Mazhurnyy\FileProcessing\Traits;
 
-use App\Models\ObjectType;
-use App\Models\Extension;
 use Illuminate\Support\Facades\Input;
 
 /**
@@ -14,14 +12,18 @@ use Illuminate\Support\Facades\Input;
  */
 trait FileTraits
 {
-
     /**
-     * @var object модель нового файла
+     * @var int ID файла
      */
-//    public $file_model;
+    protected $file_id;
 
-//    protected $dirTemp;
+    protected $file;
+    /**
+     * @var string направление сортировки
+     */
+    protected $direction;
 
+    protected $dirTemp;
 
     /**
      * устанавливаем тип объекта
@@ -30,6 +32,7 @@ trait FileTraits
     {
         $this->type = request()->input('type') ?? null;
     }
+
     /**
      * ID объекта
      */
@@ -37,18 +40,54 @@ trait FileTraits
     {
         $this->id = request()->input('id') ?? null;
     }
+
+    private function getId()
+    {
+        return $this->id;
+    }
+
+    private function setFileId()
+    {
+        $this->file_id = request()->input('file_id') ?? null;
+    }
+
     /**
-     * получаем экземпляр файла
+     * получаем экземпляр файла c Input
      */
     private function setFile()
     {
         $this->file = Input::file('file');
     }
 
+    /**
+     * получаем экземпляр файла c Input
+     */
+    private function setFilePath($path = null)
+    {
+        if (strstr($path, 'http')){
+            $this->file = $path;
+        }else {
+            $this->file = \File::get($path);
+        }
+    }
 
+    /**
+     * направление сортировки
+     */
+    private function setDirection()
+    {
+        $this->direction = request()->input('direction') ?? null;
+    }
 
-
-
+    /**
+     * получаем расширение текущего файла
+     *
+     * @return mixed
+     */
+    protected function getExt()
+    {
+        return $this->file->getClientOriginalExtension();
+    }
 
     /**
      * возвращаем путь (каталоги) к файлу по токену
@@ -62,66 +101,47 @@ trait FileTraits
         return '/' . substr($token, 0, 2) . '/' . substr($token, 2, 2) . '/' . substr($token, 4, 2) . '/';
     }
 
-
+    /**
+     * генерируем уникальный токен для имени файла
+     */
     protected function setToken()
     {
         $token = strtoupper(md5(uniqid(rand(), true)));
         if (substr($token, 0, 2) == 'AD' || substr($token, 2, 2) == 'AD' ||
-            substr($token, 4, 2) == 'AD') {
+            substr($token, 4, 2) == 'AD')
+        {
             $this->setToken();
         }
         $this->token = $token;
     }
 
+    /**
+     * генерируем токен для временного каталога
+     */
     protected function setDirTemp()
     {
         $this->dirTemp = strtoupper(md5(uniqid(rand(), true)));
     }
 
 
+
     /**
-     * получаем ID типа расширения
-     *
-     * @param $type
-     *
-     * @return mixed
+     * путь к файлу на диске
      */
-    protected function getExtensionId($type = null)
+    private function getPath()
     {
-        $this->extensions_id = Extension::whereTitle($type)->first()->id;
+        $this->path = $this->getTokenPath($this->token) . $this->token . '/' . $this->getAlias();
     }
 
     /**
-     * получаем модель типа сущности
-     * @param $type
+     * получить алиас объекта
      *
      * @return mixed
      */
-    protected function getObjectType($type)
+    private function getAlias()
     {
-        $this->objectType = ObjectType::whereType($type)->firstOrFail();
+        return $this->objectType->model::find($this->id)->alias;
     }
 
-
-
-
-
-/*
-    private function setDirection()
-    {
-        $this->direction = request()->input('direction') ?? null;
-    }
-*/
-    protected function setFileId()
-    {
-        // todo поменять на file_id, поле скрипта
-
-        $this->file_id = request()->input('file_id') ?? null;
-    }
-
-    private function getId()
-    {
-        return $this->id;
-    }
 
 }

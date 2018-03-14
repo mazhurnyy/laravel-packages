@@ -8,18 +8,15 @@
 
 namespace Mazhurnyy\FileProcessing;
 
-use App\Models\File;
-use App\Models\Prefix;
-//use App\Traits\File;
-
-use Mazhurnyy\FileProcessing\Storage\StorageConnect;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Mazhurnyy\FileProcessing\Traits\FileTraits;
 use Mazhurnyy\FileProcessing\Traits\ImgTrait;
 use Mazhurnyy\FileProcessing\Traits\ModelTrait;
-
-use Illuminate\Support\Facades\Storage;
-
-use Intervention\Image\ImageManagerStatic as Image;
+use Mazhurnyy\Jobs\ResizeImg;
+use Mazhurnyy\Jobs\DeleteTempDir;
+use Mazhurnyy\Models\File;
+use RobbieP\CloudConvertLaravel\Facades\CloudConvert;
 
 /**
  * Class SaveFile
@@ -39,23 +36,27 @@ class FileProcessing
      */
     protected $id;
     /**
-     * @var object объект типа сущности
+     * @var object объект текущего типа сущности
      */
     protected $objectType;
 
     /**
-     * типы возможных файлов
-     *
-     * @var array
+     * @var array типы возможных файлов
      */
     protected $type_files;
 
+    protected $storage;
+    /**
+     * @var int размер файла в байтах
+     */
+    protected $size;
+
     public function __construct()
     {
-        $storage = new StorageConnect();
+        $this->storage = new StorageConnect();
         $this->setType();
         $this->setId();
-        $this->getObjectType($this->type);
+        $this->getObjectType();
         $this->type_files = config('mazhurnyy.type_files');
     }
 
@@ -66,151 +67,152 @@ class FileProcessing
     public function fileAdd()
     {
         $this->setFile();
-        
-   dd($this->type_files);
-        
-  //      in_array($method = $this->type, $this->types_file) ? $this->$method() : abort(404);
-
-   //     return back();
-    }
-
-
-
-
-//    private $storage;
-    /**
-     * @var object изображение
-     */
-//    private $img;
-    /**
-     * @var string уникальное имя файла
-     */
-//    private $token;
-
-    /**
-     * Путь к файлу
-     */
-    //   private $path;
-
-    /**
-     * @var int ID текущей модели
-     */
-    /*
-       private $id;
-       private $type;
-       private $size = 0;
-       private $jpg_extensions_id;
-       private $essence_type_id;
-   */
-    /**
-     * @var array размеры сохраняемой картинки и сжатие
-     */
-    /*
-    private $proportions = [
-        'width'   => '',
-        'height'  => '',
-        'quality' => '90',
-    ];
-*/
-
-
-    /**
-     * @param $token string токен файла
-     * @param $file
-     *
-     * @return string
-     */
-
-    /*
-     public function handle($file, $token, $type_id)
-     {
-         $this->token = $token;
-
- //        $config      = 'bbmGallery.gallery';
- //        $this->types = config($config);
-
-         $this->proportions = Prefix::whereEssenceTypeId($type_id)->get();
-
-         $this->path = $this->getTokenPath($token) . $token . '.jpg';
-
-         $this->img = Image::make(\File::get($file));
-
-         $size = $this->img->filesize();
-
-         $this->changePhoto();
-
-   //     Storage::disk('temp')->deleteDirectory($this->getTokenPath($token));
-
-         return $size;
-     }
-
-     public function deletePhotoGallery($file_id)
-     {
-         $config      = 'bbmGallery.gallery';
-         $this->types = config($config);
-         $this->deleteFile($file_id);
-         return true;
-     }
- */
-
-    // todo переделать
-
-    /**
-     * @param $file_id
-     */
-    /*
-    private function deleteFile($file_id)
-    {
-        $token      = File::find($file_id)->token;
-        $this->path = $this->getTokenPath($token) . $token;
-
-        foreach ($this->proportions AS $key => $proportions)
+        $this->validatorFile(request()->all())->validate();
+        $this->setToken();
+        $ext = $this->getExt();
+        foreach ($this->type_files AS $key => $type)
         {
-            $url = $proportions['prefix'] . $this->path;
-            Storage::disk('galleries')->delete($url);
-        }
-    }
-
-    private function changePhoto()
-    {
-
-        $this->img->backup();
-        foreach ($this->proportions AS $key => $proportions)
-        {
-            $this->proportions = $proportions;
-            $this->img->reset();
-            $this->updatePhoto();
-        }
-        $this->img->destroy();
-    }
-*/
-    /**
-     * записываем файл с изображениеам на сервер
-     * $this->proportions - размеры изображения
-     */
-    /*
-        private function updatePhoto()
-        {
-
-            if (!empty($this->proportions['width']))
+            if (in_array($ext, $type))
             {
-                // todo сделать еще обрезку по ширине, если больше заданной
-
-    //            $this->img->heighten($this->proportions['height'])->fit($this->proportions['width'], $this->proportions['height']);
-                $this->img->heighten($this->proportions['height']);
+                $this->$key();
             }
-            $this->img->response('jpg', $this->proportions['quality']); // по умолчанию качество 90
-            $url = $this->proportions['prefix'] . $this->path;
-
-    // todo поменять путь хранения картинок
-
-            $params = [
-                'contentType'        => 'image/jpeg',
-                'contentDisposition' => 'inline',
-            ];
-            $this->storage->gallery->uploadFromStream($url, $this->img, $params);
-
-
         }
-    */
+
+        return back();
+    }
+
+    /**
+     * мягкое удаление файла
+     */
+    public function fileDelete()
+    {
+        $this->setFileId();
+        $this->deleteFile();
+
+        return back();
+    }
+
+    /**
+     * сортировка файлов сущности
+     */
+    public function fileOrder()
+    {
+        $this->setFileId();
+        $this->setDirection();
+        $file = $this->getFileInfo(); // информация о текущем файле
+
+        $images = $this->objectType->model::whereId($this->id)->firstOrFail()->images;
+        if ($this->direction == 'left' && $file->order > 1)
+        {
+            $this->shiftFile($file, -1);
+        } elseif ($this->direction == 'right' && $file->order < $images)
+        {
+            $this->shiftFile($file, 1);
+        }
+    }
+
+    /**
+     * обрабатывем рисунок, конвертируем в  jpg и сохраняем на диск и делаем запись в базу
+     */
+    private function images()
+    {
+        $this->getExtensionId('jpg');
+        $this->size = $this->imgProcessing();
+    }
+
+    /**
+     * конвертируем файлы презентаций
+     * 'ppt','pptx','pdf'в jpg
+     */
+    private function presentation()
+    {
+        $this->setDirTemp();
+        $this->convertPresentation();
+        $this->jobsPresentation();
+    }
+
+
+    /**
+     * отправляем в очередь
+     * конвертация презентации в форматах ppt,pptx,pdf в jpg, запись на диск и в базу данных
+     */
+    private function jobsPresentation()
+    {
+        $files = Storage::disk('uploads')->files($this->dirTemp);
+        sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+        $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
+
+        foreach ($files As $file)
+        {
+            $path_file  = $path . $file;
+            $this->file = $path_file;
+            $data     = [
+                'path'    => $path_file,
+                'type'    => $this->type,
+                'id'      => $this->id,
+            ];
+            ResizeImg::dispatch($data)->onQueue('presentation');
+        }
+
+       DeleteTempDir::dispatch($this->dirTemp)->delay(now()->addMinutes(45));
+    }
+
+    private function convertPresentation()
+    {
+        Storage::disk('uploads')->makeDirectory($this->dirTemp, 0777, true);
+        $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
+        CloudConvert::file($this->file)->to(
+            $path . $this->dirTemp . '/temp.jpg'
+        );
+    }
+
+
+    /**
+     * сортировка файлов
+     *
+     * @param $file
+     * @param $shift
+     */
+    private function shiftFile($file, $shift)
+    {
+        $file_beside = File::fileObject($this->objectType->model, $this->id)
+            ->whereOrder($file->order + $shift)
+            ->withTrashed()
+            ->first();
+        if($file_beside)
+        {
+            if ($shift > 0)   // перемещаем вверх
+            {
+                $file_beside->order = $file_beside->order - 1;
+                $file_beside->save();
+                $file->increment('order');
+            } else    // перемещаем вниз
+            {
+                $file_beside->order = $file_beside->order + 1;
+                $file_beside->save();
+                $file->decrement('order');
+            }
+            if (!empty($file_beside->deleted_at))
+            {
+                $this->shiftFile($file, $shift);
+            }
+        }
+    }
+
+    /**
+     * Проверка всех доступных типов файлов, указанных в конфиге
+     *
+     * @param array $data
+     *
+     * @return mixed
+     */
+    private function validatorFile(array $data)
+    {
+        return Validator::make(
+            $data, [
+                     'file' => 'mimes:' . implode(',', array_collapse($this->type_files)),
+                 ]
+        );
+    }
+
 }

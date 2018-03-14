@@ -8,10 +8,11 @@
 
 namespace Mazhurnyy\FileProcessing\Traits;
 
-use App\Models\File;
-use App\Models\Fileable;
-use App\Models\FileVersion;
-
+use Mazhurnyy\Models\Extension;
+use Mazhurnyy\Models\File;
+use Mazhurnyy\Models\Fileable;
+use Mazhurnyy\Models\FileVersion;
+use Mazhurnyy\Models\ObjectType;
 
 /**
  * Class SaveFile
@@ -21,49 +22,81 @@ use App\Models\FileVersion;
  */
 trait ModelTrait
 {
+    /**
+     * @var int ID расширения файла
+     */
+    protected $extensions_id;
 
     /**
-     *
+     * добавляем запись о файле в базу
      */
     protected function addFileInfo()
     {
-        $model = $this->essenceType->model::find($this->id);
+        $model = $this->objectType->model::find($this->id);
         $model->increment('images');
         $this->file_model = File::create(
             [
-                'token' => $this->token,
-                'size' => $this->size,
+                'token'        => $this->token,
+                'size'         => $this->size,
                 'extension_id' => $this->extensions_id,
-                'order' => $model->images,
-                'alias' => $model->alias,
+                'order'        => $model->images,
+                'alias'        => $model->alias,
             ]
         );
         Fileable::create(
             [
-                'file_id' => $this->file_model->id,
-                'fileable_type' => $this->essenceType->model,
-                'fileable_id' => $model->id,
+                'file_id'       => $this->file_model->id,
+                'fileable_type' => $this->objectType->model,
+                'fileable_id'   => $model->id,
             ]
         );
     }
 
+    /**
+     * добавляем информацию о версии файла с префиксом, для изображений
+     */
     protected function addFileVersion()
     {
         FileVersion::create(
             [
                 'file_id' => $this->file_model->id,
-                'prefix' => $this->img_settings->prefix,
+                'prefix'  => $this->img_settings->prefix,
+                'size'    => $this->size,
             ]
         );
     }
 
     protected function deleteFile()
     {
-
-// todo пока количество неуменьшаем, проблема с сортировкой
-        //       $model = $this->essenceType->model::find($this->id);
-        //       $model->decrement('images');
-
+        // todo дописать полноен удаление файла по крону
         File::destroy($this->file_id);
+    }
+
+    /**
+     * получаем информацию о текущем файле по его ид, включая удаленные
+     */
+    private function getFileInfo()
+    {
+        return File::whereId($this->file_id)->withTrashed()->first();
+    }
+
+    /**
+     * получаем ID типа расширения
+     *
+     * @param $type
+     *
+     * @return mixed
+     */
+    protected function getExtensionId($type = null)
+    {
+        $this->extensions_id = Extension::whereName($type)->first()->id;
+    }
+
+    /**
+     * получаем модель типа сущности
+     */
+    protected function getObjectType()
+    {
+        $this->objectType = ObjectType::whereType($this->type)->firstOrFail();
     }
 }
