@@ -1,0 +1,104 @@
+//
+// Badges
+// --------------------------------------------------
+
+
+// Base class
+.badge {
+  display: inline-block;
+  /* murloc87: Заменил
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: $font-size-small;*/
+  min-width: 12px;
+  padding: 4px 8px;
+  /* - */
+  font-size: 12px;
+  font-weight: $badge-font-weight;
+  /* murloc87: Убрал
+  color: $badge-color;*/
+  line-height: $badge-line-height;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  /* murloc87: Убрал
+  background-color: $badge-bg;*/
+  border-radius: $badge-border-radius;
+
+  // Empty badges collapse automatically (not available in IE8)
+  &:empty {
+    display: none;
+  }
+
+  // Quick fix for badges in buttons
+  .btn & {
+    position: relative;
+    top: -1px;
+  }
+
+  .btn-xs &,
+  .btn-group-xs > .btn & {
+    top: 0;
+    padding: 1px 5px;
+  }
+
+  // [converter] extracted a& to a.badge
+
+  // Account for badges in navs
+  .list-group-item.active > &,
+  .nav-pills > .active > a > & {
+    color: $badge-active-color;
+    background-color: $badge-active-bg;
+  }
+
+  .list-group-item > & {
+    float: right;
+  }
+
+  .list-group-item > & + & {
+    margin-right: 5px;
+  }
+
+  .nav-pills > li > a > & {
+    margin-left: 3px;
+  }
+}
+
+// Hover state, but only for links
+a.badge {
+  &:hover,
+  &:focus {
+    color: $badge-link-hover-color;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+/* murloc87: Добавил */
+@mixin badge-variant($background, $text-color) {
+  background-color: $background;
+  color: $text-color;
+}
+
+.badge-primary {
+  @include badge-variant($brand-primary, $white);
+}
+.badge-success {
+  @include badge-variant($brand-success, $white);
+}
+.badge-info {
+  @include badge-variant($brand-info, $white);
+}
+.badge-warning {
+  @include badge-variant($brand-warning, $white);
+}
+.badge-danger {
+  @include badge-variant($brand-danger, $white);
+}
+.badge-link {
+  @include badge-variant($link-color, $white);
+}
+.badge-heading {
+  @include badge-variant($headings-color, $white);
+}
+/* - */

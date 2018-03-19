@@ -23,8 +23,6 @@ trait FileTraits
      */
     protected $direction;
 
-    protected $dirTemp;
-
     /**
      * устанавливаем тип объекта
      */
@@ -64,11 +62,7 @@ trait FileTraits
      */
     private function setFilePath($path = null)
     {
-        if (strstr($path, 'http')){
-            $this->file = $path;
-        }else {
-            $this->file = \File::get($path);
-        }
+        $this->file = \File::get($path);
     }
 
     /**

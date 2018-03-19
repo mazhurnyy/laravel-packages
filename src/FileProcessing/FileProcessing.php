@@ -138,6 +138,8 @@ class FileProcessing
      */
     private function jobsPresentation()
     {
+//        ini_set('max_execution_time', 6000);
+
         $files = Storage::disk('uploads')->files($this->dirTemp);
         sort($files, SORT_NATURAL | SORT_FLAG_CASE);
         $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
@@ -151,10 +153,16 @@ class FileProcessing
                 'type'    => $this->type,
                 'id'      => $this->id,
             ];
-            ResizeImg::dispatch($data)->onQueue('presentation');
+            ResizeImg::dispatch($data);
         }
 
-       DeleteTempDir::dispatch($this->dirTemp)->delay(now()->addMinutes(45));
+
+       DeleteTempDir::dispatch($this->dirTemp)->delay(now()->addMinutes(5));
+
+        //       Storage::disk('temp')->deleteDirectory($this->dirTemp);
+
+        // todo добавить вывод сообщениия - обработка займет ...... ????
+
     }
 
     private function convertPresentation()

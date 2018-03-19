@@ -10,6 +10,7 @@ namespace Mazhurnyy\Provider;
 
 use Illuminate\Support\ServiceProvider;
 use App;
+
 //use Blade;
 
 
@@ -18,11 +19,22 @@ class MazhurnyyServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/../routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes.php');
         //Указываем, что файлы из папки config должны быть опубликованы при установке
         $this->publishes([__DIR__ . '/../../config/' => config_path() . '/']);
 
-      }
+        $this->loadViewsFrom(__DIR__ . '/../../default/resources/views', 'mazhurnyy');
+
+        $this->publishes([__DIR__ . '/../../default/resources/views' => resource_path('views/vendor/mazhurnyy'),]);
+
+        $this->loadTranslationsFrom(__DIR__ . '/../../default/resources/lang', 'mazhurnyy');
+
+        $this->publishes([__DIR__ . '/../../default/resources/lang' => resource_path('lang/vendor/mazhurnyy/lang')]);
+
+        $this->publishes([__DIR__ . '/../../default/resources/assets' => resource_path('lang/vendor/mazhurnyy/assets')]);
+
+
+    }
 
 
     public function register()
@@ -44,7 +56,6 @@ class MazhurnyyServiceProvider extends ServiceProvider
         $this->app->bind('SiteMeta', function () {
             return new \Mazhurnyy\Site\Meta\SiteMeta();
         });
-
 
 
     }

@@ -38,6 +38,8 @@ trait ImgTrait
         $this->img = Image::make($this->file);
         $this->size      = $this->img->filesize();
         $this->resizePhoto();
+
+        //     Storage::disk('temp')->deleteDirectory($this->getTokenPath($token));
     }
 
     /**

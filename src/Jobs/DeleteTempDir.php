@@ -8,13 +8,13 @@
 
 namespace Mazhurnyy\Jobs;
 
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
+use Mazhurnyy\FileProcessing\StorageConnect;
 
 /**
  * Class SaveImg
@@ -46,9 +46,7 @@ class DeleteTempDir extends StorageConnect implements ShouldQueue
      */
     public function handle()
     {
-
         Storage::disk('uploads')->deleteDirectory($this->dirTemp);
-
     }
 
 
