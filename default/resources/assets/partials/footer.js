@@ -22,16 +22,16 @@ function footerToBottom() {                         // Функция
 }
 
 $(window)
-    .load(function() {
-        footerToBottom();                           // Готовность документа
-    })
-    .resize(function () {                           // Изменение высоты окна
-        footerToBottom();
-    })
+    .bind("load", footerToBottom)                   // Готовность документа
+    .bind("resize", footerToBottom)                 // Изменение высоты окна
 ;
 
+var footer_timeout;
+
 $(document).bind("DOMSubtreeModified", function(){  // Изменение высоты textarea, догрузка элементов аяксом
-    setTimeout(function () {
+    if (typeof footer_timeout !== "undefined") { clearTimeout(footer_timeout); }
+
+    footer_timeout = setTimeout(function () {
         footerToBottom();
     }, 300);
 });
