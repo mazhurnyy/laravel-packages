@@ -17,7 +17,7 @@ class ArticleClosure extends ClosureTable implements ArticleClosureInterface
      * 
      * @var string
      */
-    protected $table = 'article_closure';
+    protected $table = 'articles_closure';
 
     /**
      * The primary key for the model.

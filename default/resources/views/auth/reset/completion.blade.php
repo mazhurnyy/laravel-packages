@@ -1,7 +1,7 @@
 @php
-    SiteMeta::setMetaTitle(__('meta.reset'));
-    SiteBlade::setTitle(__('meta.reset'));
-    SiteBlade::setHeadingLeft();
+    \SiteMeta::setMetaTitle(__('meta.reset'));
+    \SiteBlade::setTitle(__('meta.reset'));
+    \SiteBlade::setHeadingLeft();
 @endphp
 
 {{-- Завершение сброса пароля при переходе по ссылке --}}

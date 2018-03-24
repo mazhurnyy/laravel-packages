@@ -2,18 +2,18 @@
 
 namespace Mazhurnyy\Models;
 
-use Mazhurnyy\Events\ArticleDeleting;
-use Mazhurnyy\Events\ArticleSaved;
 use Dimsav\Translatable\Translatable;
 use Franzose\ClosureTable\Models\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mazhurnyy\Events\ArticleDeleting;
+use Mazhurnyy\Events\ArticleSaved;
 use SleepingOwl\Admin\Traits\OrderableModel;
 
 /**
  * Модель сущности универсальная
  *
- * @property int $id
- * @property int $status_id
+ * @property int    $id
+ * @property int    $status_id
  * @property string $name
  * @property string $alias
  * @property string $note
@@ -27,12 +27,22 @@ class Article extends Entity
 
     protected $table = 'articles';
 
-
     /**
      * @var array
      */
-    protected $fillable = ['parent_id','status_id', 'position', 'real_depth','images','name', 'alias', 'note',
-                           'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = [
+        'parent_id',
+        'status_id',
+        'position',
+        'real_depth',
+        'images',
+        'name',
+        'alias',
+        'note',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     protected $dispatchesEvents = [
         'saved'    => ArticleSaved::class,
@@ -41,14 +51,14 @@ class Article extends Entity
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-    public $translationModel = 'Mazhurnyy\Models\ArticleTranslation';
-    public $translationForeignKey = 'article_id';
-    public $translatedAttributes = ['title', 'preview', 'text', 'keywords', 'description'];
-    protected $with = ['translations'];
+    public    $translationModel      = 'Mazhurnyy\Models\ArticleTranslation';
+    public    $translationForeignKey = 'article_id';
+    public    $translatedAttributes  = ['title', 'preview', 'text', 'keywords', 'description'];
+    protected $with                  = ['translations'];
 
     public $timestamps = true;
 
-    protected $appends = ['photo','type'];
+//    protected $appends = ['photo', 'type'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -76,40 +86,51 @@ class Article extends Entity
 
     /**
      * Get order field name.
+     *
      * @return string
      */
     public function getOrderField()
     {
         return 'position';
     }
-
+/*
     public function getPhotoAttribute()
     {
+        return '*';
     }
-
+*/
     /**
      * выбираем только опубликованные статьи
+     *
      * @param $query
+     *
      * @return mixed
      */
     public function scopePublished($query)
     {
-        $query->whereHas('status', function ($q) {
+        $query->whereHas(
+            'status', function ($q)
+            {
             return $q->where('alias', '=', 'published');
-        });
+            }
+        );
     }
 
     /**
      * выбираем только статьи в архиве
+     *
      * @param $query
+     *
      * @return mixed
      */
     public function scopeArchive($query)
     {
-        $query->whereHas('status', function ($q) {
+        $query->whereHas(
+            'status', function ($q)
+            {
             return $q->where('alias', '=', 'draft');
-        });
+            }
+        );
     }
-
 
 }

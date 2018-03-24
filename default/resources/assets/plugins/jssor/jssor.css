@@ -1,0 +1,165 @@
+.jssor_slider {
+    position: relative;
+}
+
+.jssor_loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.jssor_loading_img {
+    margin-top: -19px;
+    position: relative;
+    top: 50%;
+    width: 38px;
+    height: 38px;
+}
+
+.jssor_slides {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+}
+
+.jssor_arrow_left {
+    width: 50px;
+    height: 50px;
+    top: 0;
+}
+
+.jssor_arrow_right {
+    width: 50px;
+    height: 50px;
+    top: 0;
+}
+
+.arrow_svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.jssor_thumbnails {
+    position: absolute;
+    top: 0;
+}
+
+.jssor_bullets {
+    position: absolute;
+}
+
+.bullet_svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/**********************************************************************************************************************/
+/* jssor slider loading skin circles css */
+.jssorl-005-circles img {
+    animation-name: jssorl-005-circles;
+    animation-duration: 2.4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes jssorl-005-circles {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* jssor slider arrows css */
+.jssora073 {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+}
+
+.jssora073 .a {
+    fill: #ddd;
+    fill-opacity: .7;
+    stroke: #000;
+    stroke-width: 160;
+    stroke-miterlimit: 10;
+    stroke-opacity: .7;
+}
+
+.jssora073:hover {
+    opacity: .8;
+}
+
+.jssora073.jssora073dn {
+    opacity: .4;
+}
+
+.jssora073.jssora073ds {
+    opacity: .3;
+    pointer-events: none;
+}
+
+/* jssor slider thumbnails css */
+.jssort051 .p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000;
+}
+
+.jssort051 .t {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    opacity: .45;
+}
+
+.jssort051 .p:hover .t {
+    opacity: .8;
+}
+
+.jssort051 .pav .t, .jssort051 .pdn .t, .jssort051 .p:hover.pdn .t {
+    opacity: 1;
+}
+
+/* jssor slider bullet css */
+.jssorb051 .i {
+    position: absolute;
+    cursor: pointer;
+}
+
+.jssorb051 .i .b {
+    fill: #fff;
+    fill-opacity: 0.5;
+    stroke: #000;
+    stroke-width: 400;
+    stroke-miterlimit: 10;
+    stroke-opacity: 0.5;
+}
+
+.jssorb051 .i:hover .b {
+    fill-opacity: .7;
+}
+
+.jssorb051 .iav .b {
+    fill-opacity: 1;
+}
+
+.jssorb051 .i.idn {
+    opacity: .3;
+}

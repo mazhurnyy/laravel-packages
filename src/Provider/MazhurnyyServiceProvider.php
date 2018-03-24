@@ -32,8 +32,6 @@ class MazhurnyyServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../../default/resources/lang' => resource_path('lang/vendor/mazhurnyy')]);
 
         $this->publishes([__DIR__ . '/../../default/resources/assets' => resource_path('assets/vendor/mazhurnyy')]);
-
-
     }
 
 

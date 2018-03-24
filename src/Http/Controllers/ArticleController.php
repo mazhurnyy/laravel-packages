@@ -49,7 +49,7 @@ class ArticleController extends Controller
         $this->setParam();
 
         // todo облагородить построение крошек
-        $this->getBreadcrumbs();
+ //       $this->getBreadcrumbs();
 
         return view('section.article', [
             'article' => $this->article,

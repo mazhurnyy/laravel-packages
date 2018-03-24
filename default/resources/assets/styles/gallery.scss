@@ -1,0 +1,28 @@
+/* Универсальная галерея */
+.image_table {
+  display: table;
+  height: 90px;
+  width: 100%;
+  max-height: 90px;
+  box-sizing: border-box;
+  margin: 0 0 16px;
+
+  .image_cell {
+    display: table-cell;
+    vertical-align: bottom;
+    text-align: center;
+    max-height: inherit;
+
+    .img-responsive {
+      max-height: inherit;
+    }
+  }
+}
+.image_buttons {
+  width: 144px;
+  margin: 0 auto;
+
+  .p_none {
+    padding: 0;
+  }
+}

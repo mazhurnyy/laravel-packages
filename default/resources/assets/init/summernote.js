@@ -31,8 +31,7 @@ if (
                     contents = "<p>" + contents + "</p>";
                 }
 
-                $(this).parent().find("textarea").html(contents);
-                $(this).parent().find("textarea").change();
+                $(this).parent().find("textarea").html(contents).change();
             }
         }
     });

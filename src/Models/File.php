@@ -148,4 +148,8 @@ class File extends Model
         return ObjectType::whereModel($fileable_type)->first()->id;
     }
 
+    public function scopeOrder($query)
+    {
+        return $query->orderBy('order','asc');
+    }
 }
