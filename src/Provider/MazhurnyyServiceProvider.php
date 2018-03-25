@@ -25,13 +25,13 @@ class MazhurnyyServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/../../default/resources/views', 'mazhurnyy');
 
-        $this->publishes([__DIR__ . '/../../default/resources/views' => resource_path('views/vendor/mazhurnyy'),]);
+        $this->publishes([__DIR__ . '/../../default/resources/views' => resource_path('views/vendor/mazhurnyy'),], 'views');
 
         $this->loadTranslationsFrom(__DIR__ . '/../../default/resources/lang', 'mazhurnyy');
 
-        $this->publishes([__DIR__ . '/../../default/resources/lang' => resource_path('lang/vendor/mazhurnyy')]);
+        $this->publishes([__DIR__ . '/../../default/resources/lang' => resource_path('lang/vendor/mazhurnyy')], 'lang');
 
-        $this->publishes([__DIR__ . '/../../default/resources/assets' => resource_path('assets/vendor/mazhurnyy')]);
+        $this->publishes([__DIR__ . '/../../default/resources/assets' => resource_path('assets/vendor/mazhurnyy')], 'assets');
     }
 
 

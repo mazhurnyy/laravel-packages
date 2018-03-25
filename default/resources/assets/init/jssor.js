@@ -1,6 +1,7 @@
 var jssor_slider = new $JssorSlider$("jssor_slider", {
     $PlayOrientation: 1,
     $LazyLoading: 0,
+    $FillMode: 5,
     $DragOrientation: 1,                            //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $Cols is greater than 1, or parking position is not 0)
 
     $ArrowNavigatorOptions: {                       //[Optional] Options to specify and enable arrow navigator or not

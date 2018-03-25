@@ -39,12 +39,12 @@ return [
             'jpeg',
             'gif',
             'png',
-            'bmp'
+            'bmp',
         ],
     ],
 
     'images_alias' => [
-        '0'=>'',
+        'origin'=>'',
         'thumb' => 'thumb',
         'preview'=>'preview',
         'full'=>'full',
