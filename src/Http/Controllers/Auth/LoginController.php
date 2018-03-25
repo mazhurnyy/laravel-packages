@@ -37,14 +37,11 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->redirectTo = '/' . \LaravelLocalization::getCurrentLocale() . '/profile';
-
-        // todo хвост? $this->middleware('guest', ['except' => 'logout']);
     }
 
     protected function redirectTo()
     {
         request()->session()->forget('email');
-        request()->session()->forget('password');
 
         if (request()->session()->has('back')) {
             $back = request()->session()->get('back');
@@ -72,11 +69,7 @@ class LoginController extends Controller
             request()->session()->put('back', url()->previous());
         }
 
-        if (!session()->has('email')) {
-            request()->session()->forget('password');
-        }
-
-        return view('auth.login');
+        return view('mazhurnyy::auth.login');
     }
 
     /**
@@ -88,7 +81,7 @@ class LoginController extends Controller
     protected function sendFailedLoginResponse(Request $request)
     {
         request()->session()->put('email', request()->input('email'));
-        request()->session()->put('password', request()->input('password'));
+        request()->session()->flash('password', request()->input('password'));
 
         $errors = [$this->username() => trans('auth.failed')];
 

@@ -38,8 +38,6 @@ trait ImgTrait
         $this->img = Image::make($this->file);
         $this->size      = $this->img->filesize();
         $this->resizePhoto();
-
-        //     Storage::disk('temp')->deleteDirectory($this->getTokenPath($token));
     }
 
     /**
@@ -49,8 +47,9 @@ trait ImgTrait
     {
         $this->proportions = Prefix::whereObjectTypeId($this->objectType->id)->get();
         $this->img->backup();
-        $this->updatePhoto(); // записываем оригинал
         $this->size = $this->img->filesize();
+        $this->updatePhoto(); // записываем оригинал
+
         $this->addFileInfo();
         foreach ($this->proportions AS $key => $proportion)
         {

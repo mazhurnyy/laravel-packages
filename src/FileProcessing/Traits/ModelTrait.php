@@ -72,6 +72,11 @@ trait ModelTrait
         File::destroy($this->file_id);
     }
 
+    protected function restoreFile()
+    {
+        File::withTrashed()->whereId($this->file_id)->restore();
+    }
+
     /**
      * получаем информацию о текущем файле по его ид, включая удаленные
      */

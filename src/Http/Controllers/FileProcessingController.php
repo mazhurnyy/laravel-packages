@@ -40,6 +40,15 @@ class FileProcessingController extends Controller
 
         return back();
     }
+    /**
+     * Воостановление удалённого файла из корзины
+     */
+    public function fileRestore()
+    {
+        FileProcessing::fileRestore();
+
+        return back();
+    }
 
     /**
      * Изменение сортировки слайдов
@@ -51,5 +60,15 @@ class FileProcessingController extends Controller
         return back();
     }
 
+    /**
+     * Установка сессии с фильтром галереи
+     */
+    public function fileFilter()
+    {
+        $filter = request()->input('filter');
 
+        request()->session()->put('gallery_filter', $filter);
+
+        return request()->ajax() ? 1 : back();
+    }
 }

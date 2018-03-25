@@ -122,17 +122,14 @@ class RegisterController extends Controller
      */
     public function concluding()
     {
-        request()->session()->put('password', request()->input('password'));
-        request()->session()->put('password_confirmation', request()->input('password_confirmation'));
+        request()->session()->flash('password', request()->input('password'));
+        request()->session()->flash('password_confirmation', request()->input('password_confirmation'));
 
         $this->validatorConcluding(request()->all())->validate();
 
         $register = Register::whereToken(request()->input('token'))->first();
 
         if ($register) {
-            request()->session()->forget('password');
-            request()->session()->forget('password_confirmation');
-
             $this->email = $register->email;
             $user = $this->create(request()->all());
 

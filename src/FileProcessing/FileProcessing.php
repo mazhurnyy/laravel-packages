@@ -60,7 +60,6 @@ class FileProcessing
         $this->type_files = config('mazhurnyy.type_files');
     }
 
-
     /**
      * добавление файла
      */
@@ -91,6 +90,18 @@ class FileProcessing
 
         return back();
     }
+
+    /**
+     * Восстанавливаем удалённый файл
+     */
+    public function fileRestore()
+    {
+        $this->setFileId();
+        $this->restoreFile();
+
+        return back();
+    }
+
 
     /**
      * сортировка файлов сущности
@@ -138,8 +149,6 @@ class FileProcessing
      */
     private function jobsPresentation()
     {
-//        ini_set('max_execution_time', 6000);
-
         $files = Storage::disk('uploads')->files($this->dirTemp);
         sort($files, SORT_NATURAL | SORT_FLAG_CASE);
         $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
@@ -153,16 +162,10 @@ class FileProcessing
                 'type'    => $this->type,
                 'id'      => $this->id,
             ];
-            ResizeImg::dispatch($data);
+            ResizeImg::dispatch($data)->onQueue('presentation');
         }
 
-
-       DeleteTempDir::dispatch($this->dirTemp)->delay(now()->addMinutes(5));
-
-        //       Storage::disk('temp')->deleteDirectory($this->dirTemp);
-
-        // todo добавить вывод сообщениия - обработка займет ...... ????
-
+       DeleteTempDir::dispatch($this->dirTemp)->delay(now()->addMinutes(45));
     }
 
     private function convertPresentation()

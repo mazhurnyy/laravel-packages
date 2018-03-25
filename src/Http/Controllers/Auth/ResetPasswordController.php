@@ -146,8 +146,8 @@ class ResetPasswordController extends Controller
      */
     public function concluding(Request $request)
     {
-        request()->session()->put('password', request()->input('password'));
-        request()->session()->put('password_confirmation', request()->input('password_confirmation'));
+        request()->session()->flash('password', request()->input('password'));
+        request()->session()->flash('password_confirmation', request()->input('password_confirmation'));
 
         $this->validate($request, $this->rules(), $this->validationErrorMessages());
 
@@ -174,9 +174,6 @@ class ResetPasswordController extends Controller
     protected function sendResetResponse($response)
     {
         // todo какая то магия разлогинивает и кидает на вход
-
-        request()->session()->forget('password');
-        request()->session()->forget('password_confirmation');
 
         return redirect($this->redirectPath())
             ->with('status', trans($response))
