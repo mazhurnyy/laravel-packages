@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: BBM
- * Date: 02.12.2017
- * Time: 13:16
+ * Date: 27.03.2018
+ * Time: 22:29
  */
 
 namespace Mazhurnyy\Jobs;
@@ -18,7 +18,6 @@ use Mazhurnyy\FileProcessing\Traits\FileTraits;
 use Mazhurnyy\FileProcessing\Traits\ImgTrait;
 use Mazhurnyy\FileProcessing\Traits\ModelTrait;
 use Mazhurnyy\Traits\Converter;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class SaveImg
@@ -26,7 +25,7 @@ use Illuminate\Support\Facades\Log;
  *
  * @package App\Services
  */
-class ResizeImg extends StorageConnect implements ShouldQueue
+class PrefixImgNew extends StorageConnect implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Converter, ImgTrait, ModelTrait, FileTraits;
 
@@ -49,16 +48,10 @@ class ResizeImg extends StorageConnect implements ShouldQueue
     public function handle()
     {
         $this->storage = new StorageConnect();
-        $this->type    = $this->data['type'];
         $this->id      = $this->data['id'];
         $this->setFilePath($this->data['path']);
-
-        $this->getObjectType();
-        $this->type_files = config('mazhurnyy.type_files');
-        $this->setToken();
-
-        $this->imgProcessing();
-
+        $this->prefix_id = $this->data['prefix_id'];
+        $this->prefixImgNew();
     }
 
 

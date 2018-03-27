@@ -25,6 +25,8 @@ trait FileTraits
 
     protected $dirTemp;
 
+    protected $path;
+
     /**
      * устанавливаем тип объекта
      */
@@ -64,9 +66,11 @@ trait FileTraits
      */
     private function setFilePath($path = null)
     {
-        if (strstr($path, 'http')){
+        if (strstr($path, 'http'))
+        {
             $this->file = $path;
-        }else {
+        } else
+        {
             $this->file = \File::get($path);
         }
     }
@@ -124,13 +128,22 @@ trait FileTraits
     }
 
 
-
     /**
      * путь к файлу на диске
      */
     private function getPath()
     {
         $this->path = $this->getTokenPath($this->token) . $this->token . '/' . $this->getAlias();
+    }
+
+    /**
+     * поиск пути к файлу по объекту файла
+     */
+    private function getPathFile()
+    {
+        $this->path = $this->getTokenPath(
+                $this->file_model->token
+            ) . $this->file_model->token . '/' . $this->file_model->alias;
     }
 
     /**

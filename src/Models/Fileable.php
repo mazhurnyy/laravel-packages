@@ -46,7 +46,7 @@ class Fileable extends Model
 
     public function file()
     {
-        return $this->belongsTo('Mazhurnyy\Models\File');
+        return $this->belongsTo('Mazhurnyy\Models\File')->withTrashed();
     }
 
 }

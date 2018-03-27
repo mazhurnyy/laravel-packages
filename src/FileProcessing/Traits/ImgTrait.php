@@ -8,8 +8,8 @@
 
 namespace Mazhurnyy\FileProcessing\Traits;
 
-use Mazhurnyy\Models\Prefix;
 use Intervention\Image\ImageManagerStatic as Image;
+use Mazhurnyy\Models\Prefix;
 
 /**
  * Class SaveFile
@@ -35,9 +35,10 @@ trait ImgTrait
     {
         $this->getExtensionId('jpg');
         $this->getPath();
-        $this->img = Image::make($this->file);
-        $this->size      = $this->img->filesize();
+        $this->img  = Image::make($this->file);
+        $this->size = $this->img->filesize();
         $this->resizePhoto();
+        $this->img->destroy();
     }
 
     /**
@@ -56,8 +57,23 @@ trait ImgTrait
             $this->img_settings = $proportion;
             $this->img->reset();
             $this->updatePhoto();
-            $this->addFileVersion();
         }
+    }
+
+    /**
+     * Генерируем новый размер для изображений сущности
+     */
+    protected function prefixImgNew()
+    {
+        $this->img_settings = Prefix::find($this->prefix_id);
+        $this->getExtensionId('jpg');
+        $this->img  = Image::make($this->file);
+        $this->size = $this->img->filesize();
+        $this->file_id = $this->id;
+        $this->file_model = $this->getFileInfo();
+        $this->getPathFile();
+
+        $this->updatePhoto();
         $this->img->destroy();
     }
 
@@ -69,9 +85,10 @@ trait ImgTrait
     {
         if (isset($this->img_settings->width))
         {
-             $this->img->heighten($this->img_settings->height);
-            if ($this->img->width() > $this->img_settings->width) {
-                $this->img->fit($this->img_settings->width,$this->img_settings->height);
+            $this->img->heighten($this->img_settings->height);
+            if ($this->img->width() > $this->img_settings->width)
+            {
+                $this->img->fit($this->img_settings->width, $this->img_settings->height);
             }
             $path    = $this->path . '-' . $this->img_settings->prefix;
             $quality = $this->img_settings->quality;
@@ -88,9 +105,8 @@ trait ImgTrait
             'contentDisposition' => 'inline',
         ];
 
-        $this->size = $this->storage->saveFile($this->img,$url,$params);
-
-        //$this->storage->container->uploadFromStream($url, $this->img, $params);
+        $this->size = $this->storage->saveFile($this->img, $url, $params);
+        $this->addFileVersion();
     }
 
 }
