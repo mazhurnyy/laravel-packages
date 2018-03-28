@@ -140,6 +140,8 @@ class FileProcessing
         $this->setDirTemp();
         $this->convertPresentation();
         $this->jobsPresentation();
+
+        request()->session()->flash('message', 'Task was successful!');
     }
 
 
@@ -152,7 +154,6 @@ class FileProcessing
         $files = Storage::disk('uploads')->files($this->dirTemp);
         sort($files, SORT_NATURAL | SORT_FLAG_CASE);
         $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
-
         foreach ($files As $file)
         {
             $path_file  = $path . $file;

@@ -35,7 +35,7 @@ trait ImgTrait
     {
         $this->getExtensionId('jpg');
         $this->getPath();
-        $this->img  = Image::make($this->file);
+        $this->img = Image::make($this->file);
         $this->size = $this->img->filesize();
         $this->resizePhoto();
         $this->img->destroy();
@@ -52,11 +52,11 @@ trait ImgTrait
         $this->updatePhoto(); // записываем оригинал
 
         $this->addFileInfo();
-        foreach ($this->proportions AS $key => $proportion)
-        {
+        foreach ($this->proportions AS $key => $proportion) {
             $this->img_settings = $proportion;
             $this->img->reset();
             $this->updatePhoto();
+            $this->addFileVersion();
         }
     }
 
@@ -67,13 +67,13 @@ trait ImgTrait
     {
         $this->img_settings = Prefix::find($this->prefix_id);
         $this->getExtensionId('jpg');
-        $this->img  = Image::make($this->file);
+        $this->img = Image::make($this->file);
         $this->size = $this->img->filesize();
         $this->file_id = $this->id;
         $this->file_model = $this->getFileInfo();
         $this->getPathFile();
-
         $this->updatePhoto();
+        $this->addFileVersion();
         $this->img->destroy();
     }
 
@@ -83,30 +83,27 @@ trait ImgTrait
      */
     protected function updatePhoto()
     {
-        if (isset($this->img_settings->width))
-        {
+        if (isset($this->img_settings->width)) {
             $this->img->heighten($this->img_settings->height);
-            if ($this->img->width() > $this->img_settings->width)
-            {
+            if ($this->img->width() > $this->img_settings->width) {
                 $this->img->fit($this->img_settings->width, $this->img_settings->height);
             }
-            $path    = $this->path . '-' . $this->img_settings->prefix;
+            $path = $this->path . '-' . $this->img_settings->prefix;
             $quality = $this->img_settings->quality;
-        } else
-        {
-            $path    = $this->path;
+        } else {
+            $path = $this->path;
             $quality = 100;
         }
         $this->img->response('jpg', $quality); // по умолчанию качество 90
         $url = $path . '.jpg';
 
         $params = [
-            'contentType'        => 'image/jpeg',
+            'contentType' => 'image/jpeg',
             'contentDisposition' => 'inline',
         ];
 
         $this->size = $this->storage->saveFile($this->img, $url, $params);
-        $this->addFileVersion();
+
     }
 
 }
