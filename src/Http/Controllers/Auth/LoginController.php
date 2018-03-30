@@ -42,6 +42,7 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         request()->session()->forget('email');
+        request()->session()->forget('password');
 
         if (request()->session()->has('back')) {
             $back = request()->session()->get('back');

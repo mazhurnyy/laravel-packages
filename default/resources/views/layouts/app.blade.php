@@ -18,9 +18,37 @@
     @include('partials.header')
 
     <div class="container">
-        @include('partials.breadcrumbs')
-        @include('partials.title')
-        @yield('content')
+        <div class="row">
+
+            @if (SiteBlade::getSidebarLeft())
+                <div class="col-sm-2 col-md-3"></div>
+            @endif
+
+            @if (SiteBlade::getSidebarLeft() && SiteBlade::getSidebarRight())
+                <div class="col-sm-8 col-md-6">
+            @elseif (SiteBlade::getSidebarLeft() || SiteBlade::getSidebarRight())
+                <div class="col-sm-10 col-md-9">
+            @else
+                <div class="col-xs-12">
+            @endif
+
+                    @include('partials.breadcrumbs')
+                    @include('partials.title')
+                    @yield('content')
+
+            @if (SiteBlade::getSidebarLeft() && SiteBlade::getSidebarRight())
+                </div>
+            @elseif (SiteBlade::getSidebarLeft() || SiteBlade::getSidebarRight())
+                </div>
+            @else
+                </div>
+            @endif
+
+            @if (SiteBlade::getSidebarLeft())
+                <div class="col-sm-2 col-md-3"></div>
+            @endif
+
+        </div>
     </div>
 
     @include('partials.footer')

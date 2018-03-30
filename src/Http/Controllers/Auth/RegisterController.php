@@ -107,6 +107,7 @@ class RegisterController extends Controller
 
         if ($register) {
             Auth::logout();
+
             return view('auth.register.completion', ['email' => $register->email, 'token' => $token]);
         } else {
             return redirect()
@@ -130,6 +131,9 @@ class RegisterController extends Controller
         $register = Register::whereToken(request()->input('token'))->first();
 
         if ($register) {
+            request()->session()->forget('password');
+            request()->session()->forget('password_confirmation');
+
             $this->email = $register->email;
             $user = $this->create(request()->all());
 

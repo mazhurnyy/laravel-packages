@@ -1,5 +1,9 @@
 {{-- Поле ввода password --}}
 
+@push('scripts')
+    <script src="{{ mix('frontend/partials/password.js') }}" defer></script>
+@endpush
+
 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
     <label for="password">@lang('form.password.label'):</label>
 

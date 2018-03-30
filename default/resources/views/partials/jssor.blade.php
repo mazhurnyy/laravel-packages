@@ -11,7 +11,7 @@
 <div id="jssor_slider" class="jssor_slider">
 
     {{--#region Loading Screen Begin --}}
-     <div data-u="loading" class="jssorl-005-circles jssor_loading">
+    <div data-u="loading" class="jssorl-005-circles jssor_loading">
         <img class="jssor_loading_img" src="{{ asset('frontend/plugins/jssor/circles.svg') }}" />
     </div>
     {{--#endregion Loading Screen End --}}
@@ -19,7 +19,7 @@
     {{-- Slides Container Begin --}}
     <div data-u="slides" class="jssor_slides">
         @foreach($slides as $slide)
-            <div >
+            <div>
                 <img data-u="image" alt="{{ $slide->name }}" data-src2="{{ $slide->src_preview }}"  />
                 <img data-u="thumb" alt="{{ $slide->name }}" data-src2="{{ $slide->src_thumb }}" />
             </div>

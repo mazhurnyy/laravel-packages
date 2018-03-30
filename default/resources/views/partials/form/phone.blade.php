@@ -1,5 +1,9 @@
 {{-- Поле ввода phone --}}
 
+@push('scripts')
+    <script src="{{ mix('frontend/plugins/inputmask/inputmask.js') }}" defer></script>
+@endpush
+
 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
     <label for="phone">@lang('form.phone.label'):</label>
 

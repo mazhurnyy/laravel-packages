@@ -6,21 +6,21 @@
 return [
     'image_gallery' => '',
 
-    'storage_driver'=>'selectel',
-    'storage_driver_temp'=>'selectel',
+    'storage_driver'      => 'selectel',
+    'storage_driver_temp' => 'selectel',
 
     'disks' => [
         'selectel' => [
-            'username' => env('SELECTEL_USERNAME'),
-            'password' => env('SELECTEL_PASSWORD'),
+            'username'  => env('SELECTEL_USERNAME'),
+            'password'  => env('SELECTEL_PASSWORD'),
             'container' => env('SELECTEL_CONTAINER'),
-            'url'=> env('SELECTEL_URL')
+            'url'       => env('SELECTEL_URL'),
         ],
         'selectel_temp' => [
-            'username' => env('SELECTEL_USERNAME'),
-            'password' => env('SELECTEL_PASSWORD'),
+            'username'       => env('SELECTEL_USERNAME'),
+            'password'       => env('SELECTEL_PASSWORD'),
             'container_temp' => env('SELECTEL_CONTAINER'),
-            'url'=> env('SELECTEL_URL')
+            'url'            => env('SELECTEL_URL'),
         ],
     ],
 
@@ -28,13 +28,13 @@ return [
     // типы обрабатываемых файлов
     'type_files' => [
         // - презентации
-        'presentation'=> [
+        'presentation' => [
             'ppt',
             'pptx',
-            'pdf'
+            'pdf',
         ],
         // - изображение
-        'images'=>[
+        'images' => [
             'jpg',
             'jpeg',
             'gif',
@@ -44,10 +44,10 @@ return [
     ],
 
     'images_alias' => [
-        'origin'=>'',
-        'thumb' => 'thumb',
-        'preview'=>'preview',
-        'full'=>'full',
+        'origin'  => '',
+        'thumb'   => 'thumb',
+        'preview' => 'preview',
+        'full'    => 'full',
     ],
 
 

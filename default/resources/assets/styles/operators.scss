@@ -1,0 +1,36 @@
+/*
+ * ---------------------------
+ * Иконки мобильных операторов
+ * ---------------------------
+ */
+
+/* http://mobo.masscode.ru/index.html */
+
+[class*=mobo-] {
+  text-indent: 8px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align:middle;
+}
+
+/*Vodafone*/
+.mobo-vodafone-16{
+  line-height:16px;
+  padding-left:16px;
+  background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACh0lEQVQ4jX2Ty08aYRTFPx9oICEm1dh04cbErf8EW+PGrUtdu3HFpmka0tiH2Boz8ykkYFKdYoN2tKHIWK02UEIYRUsJFYfEzhQqozMEQwIETxc+Ckh6k7O7v3Pvzc0hpKEEQehOpVLPNU0Tz1VVUS8ufp/o+v5nn2/a6/X2NvbX1eHh4ZNSqVTSdR3a+TmOUilELBakzGYkZBnxeLwsCMJUU1iW5Y/FYhGapqFQLGJrdBRVmw2V/n5EczmIoohwOIzd3V1sbGwIdXAikXh8C+uFAr4NDwPr60BPD9KDg/h+cnIHb25ugud5LC4uviSEEOJwOB5UKpWyrutQVRURmw3VQADo7ARaW5E3m/F1YgL+ZBKCzwee5+HxeOB2uyszMzMPSTqdnsrn88jlcsheXiI7Pg50dQEGA0DInQpGI95vb8PDcXC5XGBZFgzDzBJd10VVVZHJZPBDFFEaGQFMpjoYhOCKEOT6+uDiebAsC0opWJY9Irquy9lsFr9kGQeBADAwcA++NZBbWvB2aanW4A85OztTTk9PIUkSxFAI1YbVa5Vob4fX5QJL6T8DRVFESZLwM5mEqCjQjMamcJUQBA0GLHg89SfEYrEXx8fHiMfj2I9G4bdacdUEDptMOBgawtzNdEop5ufn3xC3290tSVI5Go0iGAziSyQCfmwMRUJQJARKWxtiHR04sFgwu7JyB1NKr99ICCF7e3tPQ6EQdnZ24PP58GFtDQteL9xWK95NToI6nZhzOmthUEqnG0P0ye/3Y3V1FcvLy3A6HNd3Ugp6c3PN6ltN88Bx3DOO48rO+9NuVWZZ9tV/E8kwTC/LsnZKaYxSmqGUZimlMYZhXtvt9keN/X8BgEpV67RFYUMAAAAASUVORK5CYII=);
+}
+
+/*Київстар*/
+.mobo-kievstar-16{
+  line-height:16px;
+  padding-left:16px;
+  background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABT0lEQVQ4jc2SPy9kURjGf4hsoaFgIz4AiUaiodtefA2h2EZEsVGIRCRDzLh/zUjuYDvN1vsdfIBNSBRIdJLBcO+d8z4qCnfvkI1in+798/zec95zoJv81gTe01LXnq6q2xWBiWON/Cvggkgi0fD/DJiu9xO6IxbPi/es5adUTEQaKtR8t0rYmQffHdKUaEh4JsLOT6oPowXDunqpZgvE1iKQOJSIrQ2c9BF3fDx3RsNEIlExFQBRukYi0TARq4Vvv4iymTdNT+MEbpl6Z64AWLkZYCffJM6/sa7e8p18inYvx9jLFl7j+G6ESvb9Y+aD+6/sWcq+jJWbAQBqdk1iIkp/vA/w7A9HEmH++zXXzKaIJfblaKST5eZqukEiUXPFV6g/btGUiF2LE/X9ZbK+EJgRWPnPC901Bya227MlJ2jPEuQlRaB5O4jnlkA9L6lns7m9r4VopxYAAAAASUVORK5CYII=);
+}
+
+/*Lifecell*/
+.mobo-lifecell-16{
+  line-height:16px;
+  padding-left:16px;
+  background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB3klEQVQ4jX2SP4sTURTFf+6yip2VYCOChQpWYuMX0O0tLSy0FdnGbjEfQVTEwtIqLoJYiIYljUmc9y8gbiGLoIigjZmZTObduxrGYpMxyYa9cKt3z3nnnHthSUXH7WhoqcGroS+Gbelzt2qwsmy+rqzLulgKdeTaJ1dPNteWcpRwaym4dNxRR9TAQC2DoscNDbzSQKGedIYolpZHc+A84Yo6RD2pWPYGfU7UxIbXB5R4Yp5wsyYQQ6aBVB3DwnKvgiP1m+Wx+uV2Gg1WKAPX1VNES6fqchxAHE8Acss59RMLgVQC3yTwQjxjdeTi2aA0bInlGUDlWIsJXyY5jDXs21JPJo5PU1XpNmc1IGJ5hwa2ZoKc9xvINLAnltawx4XZ3MQwFstnqiarAHmb8+qIMwQqljfRcRqgMKzvPuQYQDRsqicXy+5/xj4/JnJTsfzJulybvqljRwND8YgaBtNPxNKek6SBVCxx2OEkQLXDUUn4unAHdcfAJgCDNmfUo+opiw9cnZJGQ2sZcLLG+L25vzXSHpfUo9HzfAoevefyQiaz4Q5Hlvtz1yiel5VjrfZ98IRrcLS85bCqmqyq5e8COFdHWXgeHAoG+N3hoiaEGPgpgV9q+Rg9T0eOU4uz/wDTnMCen6pShQAAAABJRU5ErkJggg==);
+}

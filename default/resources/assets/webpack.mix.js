@@ -58,12 +58,12 @@ mix
 // Общее App v3, объеденяем массив JS файлов в один
 mix
     .scripts([
-        'resources/assets/vendor/mazhurnyy/plugins/bootswatch-gh-pages/bower_components/bootstrap-sass-official' +
-        '/assets/javascripts/bootstrap/transition.js',
-        'resources/assets/vendor/mazhurnyy/plugins/bootswatch-gh-pages/bower_components/bootstrap-sass-official' +
-        '/assets/javascripts/bootstrap/dropdown.js',
-        'resources/assets/vendor/mazhurnyy/plugins/bootswatch-gh-pages/bower_components/bootstrap-sass-official' +
-        '/assets/javascripts/bootstrap/collapse.js',
+        'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
+            '/assets/javascripts/bootstrap/transition.js',
+        'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
+            '/assets/javascripts/bootstrap/dropdown.js',
+        'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
+            '/assets/javascripts/bootstrap/collapse.js',
         'resources/assets/vendor/mazhurnyy/partials/empty-links.js',
         'resources/assets/vendor/mazhurnyy/partials/footer.js',
         'resources/assets/vendor/mazhurnyy/partials/search.js',
@@ -76,13 +76,23 @@ mix
 // Bootstrap v3 Modal
 mix
     .scripts([
-        'resources/assets/vendor/mazhurnyy/plugins/bootswatch-gh-pages/bower_components/bootstrap-sass-official' +
+        'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
             '/assets/javascripts/bootstrap/modal.js',
     ], 'public/frontend/plugins/bootstrap-v3/modal.js')
 ;
 //----------------------------------------------------------------------------------------------------------------------
 // Плагины
 
+// Phone Inputmask
+mix
+    .scripts([
+        'resources/assets/vendor/mazhurnyy/plugins/inputmask/dist/inputmask/inputmask.js',
+        'resources/assets/vendor/mazhurnyy/plugins/inputmask/dist/inputmask/inputmask.phone.extensions.js',
+        'resources/assets/vendor/mazhurnyy/plugins/inputmask/dist/inputmask/jquery.inputmask.js',
+        'resources/assets/vendor/mazhurnyy/plugins/inputmask/dist/inputmask/phone-codes/phone.js',
+        'resources/assets/vendor/mazhurnyy/init/inputmask.js',
+    ], 'public/frontend/plugins/inputmask/inputmask.js')
+;
 // Editor Summernote
 mix
     .copy('resources/assets/vendor/mazhurnyy/plugins/summernote/font',
@@ -91,7 +101,7 @@ mix
         'resources/assets/vendor/mazhurnyy/plugins/summernote/summernote.css'
     ], 'public/frontend/plugins/summernote/summernote.css')
     .scripts([
-        'resources/assets/vendor/mazhurnyy/plugins/bootswatch-gh-pages/bower_components/bootstrap-sass-official' +
+        'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
         '/assets/javascripts/bootstrap/tooltip.js',
         'resources/assets/vendor/mazhurnyy/plugins/summernote/summernote.js',
         'resources/assets/vendor/mazhurnyy/plugins/summernote/lang/summernote-ru-RU.js',
@@ -118,7 +128,6 @@ mix
         'public/frontend/styles/gallery.css')
     .scripts([
         'resources/assets/vendor/mazhurnyy/partials/gallery.js',
-        'resources/assets/partials/gallery.js',
     ], 'public/frontend/partials/gallery.js')
     .scripts([
         'resources/assets/vendor/mazhurnyy/partials/password.js',

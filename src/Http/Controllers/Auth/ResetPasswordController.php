@@ -175,6 +175,9 @@ class ResetPasswordController extends Controller
     {
         // todo какая то магия разлогинивает и кидает на вход
 
+        request()->session()->forget('password');
+        request()->session()->forget('password_confirmation');
+
         return redirect($this->redirectPath())
             ->with('status', trans($response))
             ->with('alert', 'success');
