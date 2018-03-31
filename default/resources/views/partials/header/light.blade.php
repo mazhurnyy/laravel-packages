@@ -11,8 +11,8 @@
     <div class="col-sm-9 col-md-4">
 
         <div class="paragraph_fix"></div>
-        @include('partials.phones.row')
-        @include('partials.phones.dropdown')
+        @include('partials.header.phones.row')
+        @include('partials.header.phones.dropdown')
 
     </div>
 </div>

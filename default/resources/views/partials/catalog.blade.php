@@ -5,7 +5,10 @@
 
     @if (count($catalog['results']) > 0)
 
-        @include('partials.catalog.cards')
+        <div class="row mb_base" id="catalog">
+            @include('partials.catalog.cards')
+        </div>
+
         @include('partials.catalog.more')
 
     @elseif (!empty(Filters::getFilters()))

@@ -1,5 +1,13 @@
 {{-- Поле ввода message --}}
 
+@push('styles')
+    <link rel="stylesheet" href="{{ mix('frontend/plugins/summernote/summernote.css') }}" />
+@endpush
+
+@push('scripts')
+    <script src="{{ mix('frontend/plugins/summernote/summernote.js') }}" defer></script>
+@endpush
+
 <div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
     <label for="message">@lang('form.message.label'):</label>
 

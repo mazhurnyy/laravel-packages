@@ -1,5 +1,13 @@
 {{-- Поле ввода additionally --}}
 
+@push('styles')
+    <link rel="stylesheet" href="{{ mix('frontend/plugins/summernote/summernote.css') }}" />
+@endpush
+
+@push('scripts')
+    <script src="{{ mix('frontend/plugins/summernote/summernote.js') }}" defer></script>
+@endpush
+
 <div class="form-group{{ $errors->has('additionally') ? ' has-error' : '' }}">
     <label for="additionally">@lang('form.additionally.label'):</label>
 

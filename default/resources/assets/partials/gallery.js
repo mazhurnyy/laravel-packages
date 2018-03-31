@@ -17,7 +17,7 @@ $("body")
  * ----------------------
  */
     .on("click", ".c_zoom", function() {
-        $("#current_image").attr("src", $(this).data("src")).attr("alt", $(this).data("alt"));
+        $("#current_image").attr("src", $(this).data("src")).attr("alt", $(this).attr("alt"));
         $("#current_link").text($(this).data("src"));
     })
 /*

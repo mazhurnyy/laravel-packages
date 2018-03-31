@@ -130,14 +130,14 @@ mix
         'resources/assets/vendor/mazhurnyy/partials/gallery.js',
     ], 'public/frontend/partials/gallery.js')
     .scripts([
-        'resources/assets/vendor/mazhurnyy/partials/password.js',
-    ], 'public/frontend/partials/password.js')
+        'resources/assets/vendor/mazhurnyy/partials/more-scroll.js',
+    ], 'public/frontend/partials/more-scroll.js')
     .scripts([
         'resources/assets/vendor/mazhurnyy/partials/more-button.js',
     ], 'public/frontend/partials/more-button.js')
     .scripts([
-        'resources/assets/vendor/mazhurnyy/partials/more-scroll.js',
-    ], 'public/frontend/partials/more-scroll.js')
+        'resources/assets/vendor/mazhurnyy/partials/password.js',
+    ], 'public/frontend/partials/password.js')
 ;
 //----------------------------------------------------------------------------------------------------------------------
 // Версионирование

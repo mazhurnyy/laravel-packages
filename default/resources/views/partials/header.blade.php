@@ -20,7 +20,7 @@
                 @include('partials.header.light')
             </div>
             <div class="col-md-4">
-                @include('partials.search.form')
+                @include('partials.header.search.form')
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
 
     <div class="collapse" id="contactsWide">
         <div class="container mb_base">
-            @include('partials.phones.row')
+            @include('partials.header.phones.row')
         </div>
     </div>
 
