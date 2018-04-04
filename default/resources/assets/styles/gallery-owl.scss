@@ -1,0 +1,52 @@
+/* Универсальная галерея для owl */
+$margin-bottom-base: 16px;
+$margin-bottom-half:  8px;
+
+#gallery-owl {
+  .img-responsive {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn {
+    display: block;
+    width:100%;
+    margin-bottom: $margin-bottom-base;
+  }
+
+  .c_zoom {
+    cursor: zoom-in;
+  }
+
+  .mb_half {
+    margin-bottom: $margin-bottom-half;
+  }
+
+  .nav-pills {
+    margin-bottom: $margin-bottom-base;
+
+    > li {
+      float: left;
+
+      > a {
+        padding: $margin-bottom-half $margin-bottom-base;
+        border: 1px solid rgb(54, 127, 169);
+        border-radius: 3px;
+      }
+      + li {
+        margin-left: $margin-bottom-half;
+      }
+      &.active > h2 {
+        color: #fff;
+        background-color: #3c8dbc;
+        padding: $margin-bottom-half $margin-bottom-base;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: inherit;
+        line-height: inherit;
+      }
+    }
+  }
+}

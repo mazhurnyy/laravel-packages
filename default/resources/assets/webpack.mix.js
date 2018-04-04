@@ -126,6 +126,8 @@ mix
 mix
     .sass('resources/assets/vendor/mazhurnyy/styles/gallery.scss',
         'public/frontend/styles/gallery.css')
+    .sass('resources/assets/vendor/mazhurnyy/styles/gallery-owl.scss',
+        'public/frontend/styles/gallery-owl.css')
     .scripts([
         'resources/assets/vendor/mazhurnyy/partials/gallery.js',
     ], 'public/frontend/partials/gallery.js')
