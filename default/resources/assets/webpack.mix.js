@@ -83,6 +83,18 @@ mix
 //----------------------------------------------------------------------------------------------------------------------
 // Плагины
 
+// Calendar Datetimepicker
+mix
+    .scripts([
+        'resources/assets/vendor/mazhurnyy/plugins/moment-with-locales.min.js',
+        'resources/assets/vendor/mazhurnyy/plugins/datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+        'resources/assets/vendor/mazhurnyy/init/datetimepicker-time.js',
+        // 'resources/assets/init/datetimepicker-date.js', в каждом проекте свой
+    ], 'public/frontend/plugins/calendar/calendar.js')
+    .styles([
+        'resources/assets/vendor/mazhurnyy/plugins/datetimepicker/build/css/bootstrap-datetimepicker.css',
+    ], 'public/frontend/plugins/calendar/calendar.css')
+;
 // Phone Inputmask
 mix
     .scripts([
@@ -98,7 +110,7 @@ mix
     .copy('resources/assets/vendor/mazhurnyy/plugins/summernote/font',
         'public/frontend/plugins/summernote/font', false)
     .styles([
-        'resources/assets/vendor/mazhurnyy/plugins/summernote/summernote.css'
+        'resources/assets/vendor/mazhurnyy/plugins/summernote/summernote.css',
     ], 'public/frontend/plugins/summernote/summernote.css')
     .scripts([
         'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
