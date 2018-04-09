@@ -137,11 +137,10 @@ class FileProcessing
      */
     private function presentation()
     {
+        set_time_limit(300);
         $this->setDirTemp();
         $this->convertPresentation();
         $this->jobsPresentation();
-
-        request()->session()->flash('message', 'Task was successful!');
     }
 
 
