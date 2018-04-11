@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ mix('frontend/styles/gallery-owl.css') }}" />
     <script src="{{ mix('frontend/plugins/bootstrap-v3/modal.js') }}" defer></script>
     <script src="{{ mix('frontend/partials/gallery.js') }}" defer></script>
+
+    {{-- owl - пожиратель модали --}}
     <script>
         $("#modalImage").on("shown.bs.modal", function () {
             $(this).css("display", "block");
@@ -17,6 +19,14 @@
 
 <div id="gallery-owl">
     @include('mazhurnyy::partials.gallery.filter')
+
+    {{-- owl - пожиратель форм --}}
+    <div class="hidden">
+        @php
+            $item = $results[0];
+        @endphp
+        @include('mazhurnyy::partials.gallery.card')
+    </div>
 
     <div class="row">
         @foreach ($results as $item)
