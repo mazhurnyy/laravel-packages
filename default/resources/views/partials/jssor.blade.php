@@ -20,6 +20,8 @@
     <div data-u="slides" class="jssor_slides">
         @foreach($slides as $slide)
             <div>
+                {{-- todo alt из файлохранилища, name - не локализован, нужен title которого нет --}}
+                {{-- todo размеры префиксов tznp и biatron не совпадают --}}
                 <img data-u="image" alt="{{ $slide->name }}" data-src2="{{ $slide->src_preview }}"  />
                 <img data-u="thumb" alt="{{ $slide->name }}" data-src2="{{ $slide->src_thumb }}" />
             </div>

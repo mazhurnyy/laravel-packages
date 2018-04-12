@@ -1,7 +1,5 @@
 {{-- Модальное окно для одной фотографии --}}
 
-{{-- todo @lang('headers.basket.photo') --}}
-
 @push('scripts')
     <script src="{{ mix('frontend/plugins/bootstrap-v3/modal.js') }}" defer></script>
     <script src="{{ mix('frontend/partials/modal-photo.js') }}" defer></script>
@@ -17,7 +15,10 @@
                 <h4 class="modal-title" id="photoModal">{{ $title }}</h4>
             </div>
             <div class="modal-body">
-                <img src="#" alt="{{ $title }}" class="img-responsive" />
+                <img src="#"
+                     alt="{{ $title }}"
+                     class="img-responsive"
+                />
             </div>
         </div>
     </div>
