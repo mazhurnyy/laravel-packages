@@ -17,16 +17,11 @@
     </script>
 @endpush
 
+{{-- owl - пожиратель форм --}}
+<form action="#"></form>
+
 <div id="gallery-owl">
     @include('mazhurnyy::partials.gallery.filter')
-
-    {{-- owl - пожиратель форм --}}
-    <div class="hidden">
-        @php
-            $item = $results[0];
-        @endphp
-        @include('mazhurnyy::partials.gallery.card')
-    </div>
 
     <div class="row">
         @foreach ($results as $item)
