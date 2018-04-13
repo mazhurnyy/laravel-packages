@@ -71,6 +71,14 @@ class Article extends Entity
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function statusArticle()
+    {
+        return $this->belongsTo('Mazhurnyy\Models\StatusArticle');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function objectType()
     {
         return $this->belongsTo('Mazhurnyy\Models\ObjectType');
