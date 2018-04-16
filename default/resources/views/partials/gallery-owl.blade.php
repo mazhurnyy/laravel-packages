@@ -17,9 +17,6 @@
     </script>
 @endpush
 
-{{-- owl - пожиратель форм --}}
-<form action="#"></form>
-
 <div id="gallery-owl">
     @include('mazhurnyy::partials.gallery.filter')
 

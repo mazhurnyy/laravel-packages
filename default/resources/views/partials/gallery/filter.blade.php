@@ -6,7 +6,7 @@ $current = request()->session()->has('gallery_filter') ? request()->session()->g
 @endphp
 
 <div class="mb_half">
-    <ul class="nav nav-pills" data-action="{{ route('file.filter') }}")>
+    <ul class="nav nav-pills" data-action="{{ route('file.filter') }}">
 
         @foreach($filters as $filter)
 
