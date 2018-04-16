@@ -90,7 +90,7 @@ trait FileTraits
      */
     protected function getExt()
     {
-        return $this->file->getClientOriginalExtension();
+        return strtolower($this->file->getClientOriginalExtension());
     }
 
     /**

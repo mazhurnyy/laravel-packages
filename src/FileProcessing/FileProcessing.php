@@ -69,6 +69,8 @@ class FileProcessing
         $this->validatorFile(request()->all())->validate();
         $this->setToken();
         $ext = $this->getExt();
+
+//        dd($ext);
         foreach ($this->type_files AS $key => $type)
         {
             if (in_array($ext, $type))
