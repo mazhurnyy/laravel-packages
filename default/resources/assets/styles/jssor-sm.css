@@ -1,0 +1,29 @@
+.jssor_sm {
+  width: 368px;
+  height: 208px;
+  /* todo проверить высоту */
+  border-bottom: 1px solid transparent;
+}
+
+.jssor_sm .jssor_slides {
+  width: 368px;
+  height: 207px;
+}
+
+.jssor_sm .jssor_arrow_left {
+  left: 0;
+}
+
+.jssor_sm .jssor_arrow_right {
+  right: 0;
+}
+
+.jssor_bullets {
+  bottom: 8px;
+  right: 8px;
+}
+
+.jssor_bullet {
+  width: 16px;
+  height: 16px;
+}

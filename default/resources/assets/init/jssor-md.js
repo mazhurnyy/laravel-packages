@@ -1,4 +1,4 @@
-var jssor_slider = new $JssorSlider$("jssor_slider", {
+var jssor_md = new $JssorSlider$("jssor_md", {
     $PlayOrientation: 1,
     $LazyLoading: 0,
     $FillMode: 5,
@@ -21,11 +21,11 @@ var jssor_slider = new $JssorSlider$("jssor_slider", {
     },
 });
 
-function scaleSlider() {
-    jssor_slider.$ScaleWidth($("#jssor_slider").parent().width());
+function scaleSliderMd() {
+    jssor_md.$ScaleWidth($("#jssor_md").parent().width());
 }
 
 $(window)
-    .bind("load", scaleSlider)                   	// Готовность документа
-    .bind("resize", scaleSlider)                 	// Изменение высоты окна
+    .bind("load", scaleSliderMd)                   	// Готовность документа
+    .bind("resize", scaleSliderMd)                 	// Изменение высоты окна
 ;

@@ -126,11 +126,13 @@ mix
         'public/frontend/plugins/jssor/circles.svg')
     .scripts([
         'resources/assets/vendor/mazhurnyy/plugins/jssor/jssor.slider.min.js',
-        'resources/assets/vendor/mazhurnyy/init/jssor.js',
+        'resources/assets/vendor/mazhurnyy/init/jssor-md.js',
+        'resources/assets/vendor/mazhurnyy/init/jssor-sm.js',
     ], 'public/frontend/plugins/jssor/jssor.js')
     .styles([
         'resources/assets/vendor/mazhurnyy/plugins/jssor/jssor.css',
-        'resources/assets/vendor/mazhurnyy/styles/jssor.css',
+        'resources/assets/vendor/mazhurnyy/styles/jssor-md.css',
+        'resources/assets/vendor/mazhurnyy/styles/jssor-sm.css',
     ], 'public/frontend/plugins/jssor/jssor.css')
 ;
 //----------------------------------------------------------------------------------------------------------------------
