@@ -11,9 +11,11 @@
     {{-- Slides Container Begin --}}
     <div data-u="slides" class="jssor_slides">
         @foreach($slides as $slide)
-            {{-- todo alt из файлохранилища, name - не локализован, нужен title которого нет --}}
-            {{-- todo размеры префиксов tznp и biatron не совпадают --}}
-            <img data-u="image" alt="{{ $slide->name }}" data-src2="{{ $slide->src_preview }}"  />
+            <div>
+                {{-- todo alt из файлохранилища, name - не локализован, нужен title которого нет --}}
+                {{-- todo размеры префиксов tznp и biatron не совпадают --}}
+                <img data-u="image" alt="{{ $slide->name }}" data-src2="{{ $slide->src_preview }}"  />
+            </div>
         @endforeach
     </div>
 
@@ -31,8 +33,8 @@
     </div>
     {{--#endregion Arrow Navigator Skin End --}}
 
-    <!--#region Bullet Navigator Skin Begin -->
-    <!-- Help: https://www.jssor.com/development/slider-with-bullet-navigator.html -->
+    {{--#region Bullet Navigator Skin Begin --}}
+    {{-- Help: https://www.jssor.com/development/slider-with-bullet-navigator.html --}}
     <div data-u="navigator" class="jssorb051 jssor_bullets" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
         <div data-u="prototype" class="i jssor_bullet">
             <svg viewBox="0 0 16000 16000" class="bullet_svg">
@@ -40,5 +42,6 @@
             </svg>
         </div>
     </div>
-    <!--#endregion Bullet Navigator Skin End -->
+    {{--#endregion Bullet Navigator Skin End --}}
+
 </div>

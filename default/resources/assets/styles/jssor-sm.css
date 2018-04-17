@@ -1,11 +1,11 @@
 .jssor_sm {
   width: 368px;
   height: 208px;
-  /* todo проверить высоту */
   border-bottom: 1px solid transparent;
 }
 
 .jssor_sm .jssor_slides {
+  left: 0;
   width: 368px;
   height: 207px;
 }
