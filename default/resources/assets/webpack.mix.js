@@ -126,14 +126,35 @@ mix
         'public/frontend/plugins/jssor/circles.svg')
     .scripts([
         'resources/assets/vendor/mazhurnyy/plugins/jssor/jssor.slider.min.js',
-        'resources/assets/vendor/mazhurnyy/init/jssor-md.js',
-        'resources/assets/vendor/mazhurnyy/init/jssor-sm.js',
     ], 'public/frontend/plugins/jssor/jssor.js')
     .styles([
         'resources/assets/vendor/mazhurnyy/plugins/jssor/jssor.css',
-        'resources/assets/vendor/mazhurnyy/styles/jssor-md.css',
-        'resources/assets/vendor/mazhurnyy/styles/jssor-sm.css',
     ], 'public/frontend/plugins/jssor/jssor.css')
+// Маленький слайдер
+    .scripts([
+        'resources/assets/vendor/mazhurnyy/init/jssor-sm.js',
+    ], 'public/frontend/plugins/jssor/jssor-sm.js')
+    .styles([
+        'resources/assets/vendor/mazhurnyy/styles/jssor-sm.css',
+    ], 'public/frontend/plugins/jssor/jssor-sm.css')
+// Большой слайдер
+    .scripts([
+        'resources/assets/vendor/mazhurnyy/init/jssor-md.js',
+    ], 'public/frontend/plugins/jssor/jssor-md.js')
+    .styles([
+        'resources/assets/vendor/mazhurnyy/styles/jssor-md.css',
+    ], 'public/frontend/plugins/jssor/jssor-md.css')
+// Маленький слайдер + большой в модали
+    .scripts([
+        'resources/assets/vendor/mazhurnyy/init/jssor-sm.js',
+        'resources/assets/vendor/mazhurnyy/init/jssor-md.js',
+        'resources/assets/vendor/mazhurnyy/init/jssor-modal.js',
+    ], 'public/frontend/plugins/jssor/jssor-modal.js')
+    .styles([
+        'resources/assets/vendor/mazhurnyy/styles/jssor-sm.css',
+        'resources/assets/vendor/mazhurnyy/styles/jssor-md.css',
+        'resources/assets/vendor/mazhurnyy/styles/jssor-modal.css',
+    ], 'public/frontend/plugins/jssor/jssor-modal.css')
 ;
 //----------------------------------------------------------------------------------------------------------------------
 // Наши фрагменты
