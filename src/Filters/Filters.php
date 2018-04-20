@@ -102,9 +102,7 @@ class Filters extends FilterSettings
     public function setSectionUrl($prefix = '')
     {
         $route = Route::current();
- //       dump($route->action['prefix']);
-
-        $this->sectionUrl = $prefix ?? $route->action['prefix'] .'/'. $prefix;
+        $this->sectionUrl =  $route->action['prefix'] .'/'. $prefix;
     }
 
     /**
@@ -306,9 +304,7 @@ class Filters extends FilterSettings
                 $string_url .= $this->currentUrl[$i];
             }
         }
-
         return $string_url;
-
     }
 
     /**
@@ -320,13 +316,10 @@ class Filters extends FilterSettings
     private function getTitleCurrentValue($items, $value)
     {
         foreach ($items as $item) {
-            //          dump($item['value'].'==');
-            //          dump(  $value);
             if ($item['value'] == $value) {
                 return $item['title'];
             }
         }
-
     }
 
 }

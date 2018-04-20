@@ -10,7 +10,12 @@
                 <h4 class="modal-title" id="imageModal">@lang('gallery.image')</h4>
             </div>
             <div class="modal-body">
-                <img src="#" alt="#" id="current_image" class="img-responsive mb_half" />
+                <img src="#"
+                     alt="@lang('gallery.image')"
+                     class="img-responsive mb_half"
+                />
+
+                {{-- todo в модаль на biatron в подпись под картинкой должен попадать путь к средней картинке 368 --}}
 
                 @if (Auth::user()->isModerator())
                     <div id="current_link">#</div>

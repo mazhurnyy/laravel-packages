@@ -140,7 +140,9 @@ class RegisterController extends Controller
             Auth::loginUsingId($user->id, true);
             Register::whereToken(request()->input('token'))->delete();
 
-            return redirect($this->redirectPath());
+            return redirect($this->redirectPath())
+                ->with('status', __('status.register_success'))
+                ->with('alert', 'success');
         } else {
             return redirect()
                 ->route('register.completion', ['token' => request()->input('token')])

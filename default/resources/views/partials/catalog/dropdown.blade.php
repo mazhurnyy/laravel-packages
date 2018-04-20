@@ -13,12 +13,11 @@
         >
             {{ $filter['selected']['name'] }} <span class="caret"></span>
         </span>
-
         <ul class="dropdown-menu" aria-labelledby="{{ $filter['alias'] }}">
             @foreach ($filter['meanings'] as $meanings)
                 @if (!in_array($meanings['value'], $filter['selected']['value']))
                     <li>
-                        <a href="{{ \Filters::getSectionUrl(). '/' . $meanings['url'] }}">{{ $meanings['title'] }}</a>
+                        <a href="{{ '/'. \Filters::getSectionUrl(). '/' . $meanings['url'] }}">{{ $meanings['title'] }}</a>
                     </li>
                 @endif
             @endforeach

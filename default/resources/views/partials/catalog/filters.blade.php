@@ -5,14 +5,14 @@
 @else
 
     @foreach(Filters::getFilters() as $filter)
-        @include('partials.catalog.dropdown')
+        @include('mazhurnyy::partials.catalog.dropdown')
     @endforeach
 
     <div class="d_ib mb_half">
         <strong>@lang('headers.all'):</strong>
         <div class="d_ib filter_item">
             @if ($catalog['amount'] > $catalog['selected'])
-                <a href="{{ Filters::getSectionUrl() }}">{{ $catalog['amount'] }}</a>
+                <a href="{{'/' . Filters::getSectionUrl() }}">{{ $catalog['amount'] }}</a>
             @else
                 {{ $catalog['amount'] }}
             @endif
