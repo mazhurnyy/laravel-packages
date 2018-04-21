@@ -16,6 +16,32 @@ namespace Mazhurnyy\Services\Blade;
 class SrcFiles
 {
 
+    public function original($items)
+    {
+        return count($items->filesActual) > 0 ? $this->getFirstFile($items)->src_original : null;
+    }
+
+    public function xs($items)
+    {
+        return count($items->filesActual) > 0 ?  $this->getFirstFile($items)->src_xs : null ;
+    }
+
+    public function sm($items)
+    {
+        return count($items->filesActual) > 0 ?  $this->getFirstFile($items)->src_sm : null;
+    }
+
+    public function md($items)
+    {
+        return count($items->filesActual) > 0 ? $this->getFirstFile($items)->src_md : null;
+    }
+
+    public function lg($items)
+    {
+        return count($items->filesActual) > 0 ? $this->getFirstFile($items)->src_lg : null;
+    }
+
+// old
     public function thumb($items)
     {
         return count($items->filesActual) > 0 ?  $this->getFirstFile($items)->src_thumb : null ;
@@ -30,11 +56,8 @@ class SrcFiles
     {
         return count($items->filesActual) > 0 ? $this->getFirstFile($items)->src_full : null;
     }
+// end old
 
-    public function original($items)
-    {
-        return count($items->filesActual) > 0 ? $this->getFirstFile($items)->src_original : null;
-    }
 
     private function getFirstFile($items)
     {
