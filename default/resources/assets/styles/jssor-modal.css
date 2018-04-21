@@ -1,0 +1,12 @@
+@media (max-width: 1199px) {
+  .modal-dialog.jssor_modal{
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+@media (min-width: 1200px) {
+  .modal-dialog.jssor_modal {
+    width: 1152px;
+  }
+}

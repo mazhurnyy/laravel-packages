@@ -1,14 +1,6 @@
-{{-- Слайдер со слайдами справа столбиком --}}
+{{-- Слайдер маленький --}}
 
-@push('styles')
-    <link rel="stylesheet" href="{{ mix('frontend/plugins/jssor/jssor.css') }}" />
-@endpush
-
-@push('scripts')
-    <script src="{{ mix('frontend/plugins/jssor/jssor.js') }}" defer></script>
-@endpush
-
-<div id="jssor_md" class="jssor_slider jssor_md">
+<div id="jssor_sm" class="jssor_slider jssor_sm">
 
     {{--#region Loading Screen Begin --}}
     <div data-u="loading" class="jssorl-005-circles jssor_loading">
@@ -20,10 +12,12 @@
     <div data-u="slides" class="jssor_slides">
         @foreach($slides as $slide)
             <div>
-                {{-- todo alt из файлохранилища, name - не локализован, нужен title которого нет --}}
-                {{-- todo размеры префиксов tznp и biatron не совпадают --}}
-                <img data-u="image" alt="{{ $slide->name }}" data-src2="{{ $slide->src_preview }}"  />
-                <img data-u="thumb" alt="{{ $slide->name }}" data-src2="{{ $slide->src_thumb }}" />
+                <img data-u="image" alt="{{ $title }}" data-src2="{{ $slide->src_sm }}"
+                     @if($type == 'modal')
+                        data-toggle="modal"
+                        data-target="#modal"
+                     @endif
+                />
             </div>
         @endforeach
     </div>
@@ -42,15 +36,15 @@
     </div>
     {{--#endregion Arrow Navigator Skin End --}}
 
-    {{--#region Thumbnail Navigator Skin Begin --}}
-    {{-- Help: https://www.jssor.com/development/slider-with-thumbnail-navigator.html --}}
-    <div data-u="thumbnavigator" class="jssort051 jssor_thumbnails">
-        <div data-u="slides">
-            <div data-u="prototype" class="p jssor_thumbnail">
-                <div data-u="thumbnailtemplate" class="t"></div>
-            </div>
+    <!--#region Bullet Navigator Skin Begin -->
+    <!-- Help: https://www.jssor.com/development/slider-with-bullet-navigator.html -->
+    <div data-u="navigator" class="jssorb051 jssor_bullets" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+        <div data-u="prototype" class="i jssor_bullet">
+            <svg viewBox="0 0 16000 16000" class="bullet_svg">
+                <circle class="b" cx="8000" cy="8000" r="5800"></circle>
+            </svg>
         </div>
     </div>
-    {{--#endregion Thumbnail Navigator Skin End --}}
+    <!--#endregion Bullet Navigator Skin End -->
 
 </div>
