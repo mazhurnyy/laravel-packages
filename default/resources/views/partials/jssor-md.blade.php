@@ -8,7 +8,7 @@
     <script src="{{ mix('frontend/plugins/jssor/jssor.js') }}" defer></script>
 @endpush
 
-<div id="jssor_slider" class="jssor_slider">
+<div id="jssor_md" class="jssor_slider jssor_md">
 
     {{--#region Loading Screen Begin --}}
     <div data-u="loading" class="jssorl-005-circles jssor_loading">

@@ -1,19 +1,19 @@
-.jssor_slider {
+.jssor_md {
   width: 1136px;
   height: 512px;
 }
 
-.jssor_slides {
+.jssor_md .jssor_slides {
   left: 222px;
   width: 914px;
   height: 512px;
 }
 
-.jssor_arrow_left {
+.jssor_md .jssor_arrow_left {
   left: 252px;
 }
 
-.jssor_arrow_right {
+.jssor_md .jssor_arrow_right {
   right: 30px;
 }
 
@@ -27,14 +27,4 @@
 .jssor_thumbnail {
   width: 190px;
   height: 108px;
-}
-
-.jssor_bullets {
-  bottom: 8px;
-  right: 8px;
-}
-
-.jssor_bullet {
-  width: 16px;
-  height: 16px;
 }
