@@ -18,6 +18,7 @@
 
     <div class="image_table">
         <div class="image_cell">
+
             <img src="{{ $item->src_xs }}"
                  class="img-responsive c_zoom"
                  data-toggle="modal"
