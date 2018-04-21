@@ -6,7 +6,7 @@
  * Time: 23:03
  */
 
-namespace App\Http\Sections;
+namespace Mazhurnyy\Http\Sections;
 
 use AdminColumn;
 use AdminColumnEditable;

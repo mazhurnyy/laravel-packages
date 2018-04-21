@@ -45,6 +45,10 @@ class File extends Model
         'src_thumb',
         'src_preview',
         'src_full',
+        'src_xs',
+        'src_sm',
+        'src_md',
+        'src_lg',
     ];
 
     public function filetables()
@@ -83,6 +87,25 @@ class File extends Model
         return $this->getSrcUrl();
     }
 
+    public function getSrcXsAttribute($value)
+    {
+        return $this->getSrcUrl('xs');
+    }
+    public function getSrcSmAttribute($value)
+    {
+        return $this->getSrcUrl('sm');
+    }
+    public function getSrcMdAttribute($value)
+    {
+        return $this->getSrcUrl('md');
+    }
+
+    public function getSrcLgAttribute($value)
+    {
+        return $this->getSrcUrl('lg');
+    }
+
+    // old
     public function getSrcThumbAttribute($value)
     {
         return $this->getSrcUrl('thumb');
@@ -97,6 +120,9 @@ class File extends Model
     {
         return $this->getSrcUrl('full');
     }
+
+
+
 
     /**
      * @param $query

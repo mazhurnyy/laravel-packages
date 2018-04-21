@@ -18,13 +18,11 @@
 
     <div class="image_table">
         <div class="image_cell">
-
-            {{-- todo размеры префиксов tznp и biatron не совпадают --}}
-            <img src="{{ $item->src_thumb }}"
+            <img src="{{ $item->src_xs }}"
                  class="img-responsive c_zoom"
                  data-toggle="modal"
                  data-target="#modalImage"
-                 data-src="{{ $item->src_preview}}"
+                 data-src="{{ $item->src_md}}"
             />
 
         </div>

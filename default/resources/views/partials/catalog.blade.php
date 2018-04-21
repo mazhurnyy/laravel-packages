@@ -1,7 +1,7 @@
 {{-- Универсальный каталог --}}
 
 @isset($catalog)
-    @include('partials.catalog.filters')
+    @include('mazhurnyy::partials.catalog.filters')
 
     @if (count($catalog['results']) > 0)
 

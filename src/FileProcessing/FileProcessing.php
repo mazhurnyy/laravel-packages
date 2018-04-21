@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Validator;
 use Mazhurnyy\FileProcessing\Traits\FileTraits;
 use Mazhurnyy\FileProcessing\Traits\ImgTrait;
 use Mazhurnyy\FileProcessing\Traits\ModelTrait;
-use Mazhurnyy\Jobs\ResizeImg;
 use Mazhurnyy\Jobs\DeleteTempDir;
+use Mazhurnyy\Jobs\ResizeImg;
 use Mazhurnyy\Models\File;
 use RobbieP\CloudConvertLaravel\Facades\CloudConvert;
 
@@ -137,7 +137,7 @@ class FileProcessing
      */
     private function presentation()
     {
-        set_time_limit(300);
+        set_time_limit(400);
         $this->setDirTemp();
         $this->convertPresentation();
         $this->jobsPresentation();
@@ -157,24 +157,22 @@ class FileProcessing
         {
             $path_file  = $path . $file;
             $this->file = $path_file;
-            $data     = [
-                'path'    => $path_file,
-                'type'    => $this->type,
-                'id'      => $this->id,
+            $data       = [
+                'path' => $path_file,
+                'type' => $this->type,
+                'id'   => $this->id,
             ];
             ResizeImg::dispatch($data)->onQueue('presentation');
         }
 
-       DeleteTempDir::dispatch($this->dirTemp)->delay(now()->addMinutes(45));
+        DeleteTempDir::dispatch($this->dirTemp)->delay(now()->addMinutes(45));
     }
 
     private function convertPresentation()
     {
         Storage::disk('uploads')->makeDirectory($this->dirTemp, 0777, true);
         $path = Storage::disk('uploads')->getDriver()->getAdapter()->getPathPrefix();
-        CloudConvert::file($this->file)->to(
-            $path . $this->dirTemp . '/temp.jpg'
-        );
+        CloudConvert::file($this->file)->quality(90)->dpi(200)->to($path . $this->dirTemp . '/temp.jpg');
     }
 
 
@@ -190,7 +188,7 @@ class FileProcessing
             ->whereOrder($file->order + $shift)
             ->withTrashed()
             ->first();
-        if($file_beside)
+        if ($file_beside)
         {
             if ($shift > 0)   // перемещаем вверх
             {
