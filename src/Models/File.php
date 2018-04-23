@@ -25,7 +25,7 @@ class File extends Model
         'saved' => FileSaved::class,
         'deleting' => FileDeleting::class,
     ];
-    protected $dates            = ['deleted_at'];
+    protected $dates = ['deleted_at'];
     /**
      * @var array
      */
@@ -42,9 +42,9 @@ class File extends Model
 
     protected $appends = [
         'src_original',
-        'src_thumb',
-        'src_preview',
-        'src_full',
+        //       'src_thumb',
+        //       'src_preview',
+        //       'src_full',
         'src_xs',
         'src_sm',
         'src_md',
@@ -91,10 +91,12 @@ class File extends Model
     {
         return $this->getSrcUrl('xs');
     }
+
     public function getSrcSmAttribute($value)
     {
         return $this->getSrcUrl('sm');
     }
+
     public function getSrcMdAttribute($value)
     {
         return $this->getSrcUrl('md');
@@ -104,25 +106,23 @@ class File extends Model
     {
         return $this->getSrcUrl('lg');
     }
+    /*
+        // old
+        public function getSrcThumbAttribute($value)
+        {
+            return $this->getSrcUrl('thumb');
+        }
 
-    // old
-    public function getSrcThumbAttribute($value)
-    {
-        return $this->getSrcUrl('thumb');
-    }
+        public function getSrcPreviewAttribute($value)
+        {
+            return $this->getSrcUrl('preview');
+        }
 
-    public function getSrcPreviewAttribute($value)
-    {
-        return $this->getSrcUrl('preview');
-    }
-
-    public function getSrcFullAttribute($value)
-    {
-        return $this->getSrcUrl('full');
-    }
-
-
-
+        public function getSrcFullAttribute($value)
+        {
+            return $this->getSrcUrl('full');
+        }
+    */
 
     /**
      * @param $query
@@ -132,10 +132,9 @@ class File extends Model
     public function scopeFileObject($query, $model, $model_id)
     {
         $query->whereHas(
-            'file', function ($q) use ($model, $model_id)
-            {
+            'file', function ($q) use ($model, $model_id) {
             return $q->where('fileable_type', '=', $model)->where('fileable_id', '=', $model_id);
-            }
+        }
         );
     }
 
@@ -154,11 +153,15 @@ class File extends Model
      *
      * @return string
      */
-    private function getPrefix($alias = null)
+    private function getPrefix($alias = null, $prefix = null)
     {
-        // todo как найти ненаходимое ???
-        return $alias ? '-' . Prefix::whereAlias($alias)->whereObjectTypeId($this->getObjectTypeId())->first(
-            )->prefix : null;
+        if ($alias) {
+            $model = Prefix::whereAlias($alias)->whereObjectTypeId($this->getObjectTypeId())->first();
+            if ($model) {
+                $prefix = '-' . $model->prefix;
+            }
+        }
+        return $prefix;
     }
 
     /**
@@ -176,6 +179,6 @@ class File extends Model
 
     public function scopeOrder($query)
     {
-        return $query->orderBy('order','asc');
+        return $query->orderBy('order', 'asc');
     }
 }
