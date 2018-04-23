@@ -23,7 +23,8 @@
                  class="img-responsive c_zoom"
                  data-toggle="modal"
                  data-target="#modalImage"
-                 data-src="{{ $item->src_md}}"
+                 data-md="{{ $item->src_md }}"
+                 data-sm="{{ isset($item->src_sm) ? $item->src_sm : '' }}"
             />
 
         </div>

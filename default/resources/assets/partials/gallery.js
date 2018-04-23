@@ -17,8 +17,8 @@ $("body")
  * ----------------------
  */
     .on("click", ".c_zoom", function() {
-        $("#modalImage").find("img").attr("src", $(this).data("src"));
-        $("#current_link").text($(this).data("src"));
+        $("#modalImage").find("img").attr("src", $(this).data("md"));
+        $("#current_link").text($(this).data("sm"));
     })
 /*
  * -------
