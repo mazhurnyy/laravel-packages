@@ -33,6 +33,7 @@ class Article extends Entity
     protected $fillable = [
         'parent_id',
         'status_id',
+        'sheet_id',
         'position',
         'real_depth',
         'images',
@@ -74,6 +75,15 @@ class Article extends Entity
     public function statusArticle()
     {
         return $this->belongsTo('Mazhurnyy\Models\StatusArticle');
+    }
+
+    // todo что делать с универсальность? перенести все в пакет?
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sheet()
+    {
+        return $this->belongsTo('App\Models\Sheet');
     }
 
     /**
