@@ -22,7 +22,11 @@ th {
 .table {
   width: 100%;
   max-width: 100%;
-  margin-bottom: $line-height-computed;
+  /* murloc87: Заменил
+  margin-bottom: $line-height-computed;*/
+  margin-bottom: $margin-bottom-base;
+  /* - */
+
   // Cells
   > thead,
   > tbody,
@@ -32,7 +36,8 @@ th {
       > td {
         padding: $table-cell-padding;
         line-height: $line-height-base;
-        vertical-align: top;
+        /* murloc87: Убрал
+        vertical-align: top;*/
         border-top: 1px solid $table-border-color;
       }
     }
@@ -100,7 +105,10 @@ th {
   > thead > tr {
     > th,
     > td {
-      border-bottom-width: 2px;
+      /* murloc87: Заменил
+      border-bottom-width: 2px;*/
+      border-bottom-width: 1px;
+      /* - */
     }
   }
 }
@@ -174,11 +182,15 @@ table {
 
   @media screen and (max-width: $screen-xs-max) {
     width: 100%;
-    margin-bottom: ($line-height-computed * 0.75);
+    /* murloc87: Заменил
+    margin-bottom: ($line-height-computed * 0.75);*/
+    margin-bottom: $margin-bottom-base;
+    /* - */
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     border: 1px solid $table-border-color;
 
+/* murloc87: Убрал
     // Tighten up spacing
     > .table {
       margin-bottom: 0;
@@ -229,6 +241,6 @@ table {
         }
       }
 
-    }
+    }*/
   }
 }
