@@ -36,6 +36,9 @@ class Sheet extends Model
         'images',
         'note',
         'order',
+        'object_type_id',
+        'parent_type_id',
+        'parent_id',
     ];
 
     protected $dispatchesEvents = [
@@ -48,6 +51,11 @@ class Sheet extends Model
     public function article()
     {
         return $this->hasMany('Mazhurnyy\Models\Article');
+    }
+
+    public function objectType()
+    {
+        return $this->belongsTo('Mazhurnyy\Models\ObjectType');
     }
 
     /**

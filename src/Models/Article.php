@@ -33,7 +33,6 @@ class Article extends Entity
     protected $fillable = [
         'parent_id',
         'status_id',
-        'sheet_id',
         'position',
         'real_depth',
         'images',

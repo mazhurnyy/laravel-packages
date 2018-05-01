@@ -49,6 +49,7 @@ class File extends Model
         'src_sm',
         'src_md',
         'src_lg',
+        'src_map',
     ];
 
     public function filetables()
@@ -106,6 +107,11 @@ class File extends Model
     {
         return $this->getSrcUrl('lg');
     }
+
+    public function getSrcMapAttribute($value)
+    {
+        return $this->getSrc('sm');
+    }
     /*
         // old
         public function getSrcThumbAttribute($value)
@@ -138,10 +144,24 @@ class File extends Model
         );
     }
 
-
+    /**
+     * полный путь к картинке
+     * @param null $alias
+     * @return string
+     */
     private function getSrcUrl($alias = null)
     {
-        return config('mazhurnyy.image_gallery') . $this->getTokenPath(
+        return config('mazhurnyy.image_gallery') . $this->getSrc($alias);
+    }
+
+    /**
+     * путь к картинке, без домена
+     * @param null $alias
+     * @return string
+     */
+    private function getSrc($alias = null)
+    {
+        return $this->getTokenPath(
                 $this->token
             ) . $this->token . '/' . $this->alias . $this->getPrefix($alias) . '.' . $this->extension->name;
     }
