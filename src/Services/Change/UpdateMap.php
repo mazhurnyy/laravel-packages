@@ -68,7 +68,7 @@ trait UpdateMap
                 'alias'      => $this->getAlias(),
                 'real_depth' => $this->getRealDepth(),
                 'parent_id'  => $this->getParentId(),
-                'scr'        => $this->smMap($this->model),
+                'src'        => $this->smMap($this->model),
             ]
         );
         $map->{'title:ru'}   = $this->model->{'title:ru'};

@@ -26,9 +26,9 @@ class Map extends Entity
         'object_type_id',
         'object_id',
         'real_depth',
-        'parent_id',
         'position',
-        'scr',
+        'parent_id',
+        'src',
         'route',
         'alias',
     ];
