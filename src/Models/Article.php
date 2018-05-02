@@ -76,8 +76,7 @@ class Article extends Entity
         return $this->belongsTo('Mazhurnyy\Models\StatusArticle');
     }
 
-    // todo что делать с универсальность? перенести все в пакет?
-    /**
+     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function sheet()

@@ -58,8 +58,6 @@ trait UpdateMap
         $this->getSheetId();
         $this->getObjectTypeId();
         $this->getParent();
-
-        dump($this->model);
         $map                 = Map::updateOrCreate(
             [
                 'object_type_id' => $this->object_type_id,
