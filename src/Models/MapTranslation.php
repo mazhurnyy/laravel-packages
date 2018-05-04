@@ -21,12 +21,14 @@ class MapTranslation extends Model
 
     public $timestamps = false;
 
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    /*
     public function catalog()
-    {
-        return $this->belongsTo('Mazhurnyy\Models\Map', 'id', 'map_id');
-    }
-
+      {
+          return $this->belongsTo('Mazhurnyy\Models\Map', 'id', 'map_id');
+      }
+  */
 }

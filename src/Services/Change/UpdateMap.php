@@ -10,7 +10,7 @@ namespace Mazhurnyy\Services\Change;
 
 use App\Models\Map;
 use App\Models\Sheet;
-use Mazhurnyy\Models\ObjectType;
+use Mazhurnyy\Services\Blade\MapTrait;
 use Mazhurnyy\Services\Blade\SrcTrait;
 
 /**
@@ -21,7 +21,7 @@ use Mazhurnyy\Services\Blade\SrcTrait;
  */
 trait UpdateMap
 {
-    use SrcTrait;
+    use MapTrait, SrcTrait;
 
     /**
      * Изменился title в модели - меняем алиас (alias) модели
@@ -55,24 +55,23 @@ trait UpdateMap
     public function changeMap($model)
     {
         $this->model = $model;
-        $this->getSheetId();
-        $this->getObjectTypeId();
+        $this->sheet_object_type_id = $this->getObjectSheetId();
         $this->getParent();
-        $map                 = Map::updateOrCreate(
+        $map = Map::updateOrCreate(
             [
-                'object_type_id' => $this->object_type_id,
-                'object_id'      => $this->model->id,
+                'object_type_id' => $this->getObjectTypeId(),
+                'object_id' => $this->model->id,
             ],
             [
-                'route'      => $this->getRoute(),
-                'alias'      => $this->getAlias(),
+                'route' => $this->getRoute(),
+                'alias' => $this->getAlias(),
                 'real_depth' => $this->getRealDepth(),
-                'parent_id'  => $this->getParentId(),
-                'src'        => $this->smMap($this->model),
+                'parent_id' => $this->getParentId(),
+                'src' => $this->smMap($this->model),
             ]
         );
-        $map->{'title:ru'}   = $this->model->{'title:ru'};
-        $map->{'title:uk'}   = $this->model->{'title:uk'};
+        $map->{'title:ru'} = $this->model->{'title:ru'};
+        $map->{'title:uk'} = $this->model->{'title:uk'};
         $map->{'preview:ru'} = $this->model->{'preview:ru'};
         $map->{'preview:uk'} = $this->model->{'preview:uk'};
 
@@ -87,18 +86,16 @@ trait UpdateMap
     public function deleteMap($model)
     {
         $this->model = $model;
-        $this->getObjectTypeId();
-            Map::where('object_type_id', $this->object_type_id)->where('object_id', $model->id)->delete();
+        Map::where('object_type_id', $this->getObjectTypeId())->where('object_id', $model->id)->delete();
 
     }
 
     public function restoreMap($model)
     {
         $this->model = $model;
-        $this->getObjectTypeId();
 
-            Map::withTrashed()->where('object_type_id', $this->object_type_id)->where('object_id', $model->id)
-                ->restore();
+        Map::withTrashed()->where('object_type_id', $this->getObjectTypeId())->where('object_id', $model->id)
+            ->restore();
     }
 
     /**
@@ -106,12 +103,10 @@ trait UpdateMap
      */
     protected function getParent()
     {
+        $this->object_type_id = $this->getObjectTypeId();
         $sheet = Sheet::whereObjectTypeId($this->object_type_id)->first();
-
-        if (isset($this->model->parent_id))
-        {
-            if ($this->object_type_id == $this->sheet_object_type_id)
-            {
+        if (isset($this->model->parent_id)) {
+            if ($this->object_type_id == $this->sheet_object_type_id) {
                 $this->parent = Map::whereObjectTypeId($sheet->object_type_id)
                     ->whereObjectId($this->model->parent_id)
                     ->first();
@@ -122,93 +117,74 @@ trait UpdateMap
                     ->whereObjectId($this->model->parent_id)
                     ->first();
             }
-        } else
-        { //  к примеру каталог, нет вложений, строго один родитель, ищем по Sheet
-            if ($this->object_type_id <> $this->sheet_object_type_id)
-            {
-                $this->parent = Map::whereObjectTypeId($sheet->parent_type_id)
-                    ->whereObjectId($sheet->id)
-                    ->first();
+        } else { //  к примеру каталог,  строго один родитель, ищем по Sheet
+            if (empty($this->model->parent_id)) {  // корневая статья,
+                $sheet = Sheet::find($sheet->parent_id);
             }
+            $this->parent = Map::whereObjectTypeId($sheet->parent_type_id)
+                ->whereObjectId($sheet->id)
+                ->first();
         }
-
     }
 
-    /**
-     *
-     */
-    protected function getObjectTypeId()
-    {
-        $this->object_type_id = ObjectType::whereModel($this->model->getMorphClass())->first()->id;
+
+/**
+ * возвращаем роут модели
+ */
+private
+function getRoute($route = null)
+{
+    if (isset($this->model->route)) {
+        $route = $this->model->route;
+    } elseif (empty($this->model->sheet_id)) {
+        $route = Sheet::whereObjectTypeId($this->object_type_id)->first()->route;
+
+    } else {
+        $route = Sheet::find($this->model->sheet_id)->route;
     }
 
-    /**
-     * возвращаем роут модели
-     */
-    private function getRoute($route = null)
-    {
-        if (isset($this->model->route))
-        {
-            $route = $this->model->route;
-        } elseif (empty($this->model->sheet_id))
-        {
-            $route = Sheet::whereObjectTypeId($this->object_type_id)->first()->route;
+    return $route;
+}
 
-        } else
-        {
-            $route = Sheet::find($this->model->sheet_id)->route;
+/**
+ * Алиас раздела
+ *
+ * @return null
+ */
+protected
+function getAlias()
+{
+    return $this->model->alias ? $this->model->alias : null;
+}
+
+protected
+function getRealDepth()
+{
+    $real_depth = $this->getParentRealDepth();
+
+    if (isset($this->model->real_depth)) {
+        if (empty($this->model->sheet_id)) {
+            $real_depth += $this->model->real_depth;
+        } else {
+            $real_depth += $this->model->real_depth + 1;
         }
-
-        return $route;
     }
 
-    /**
-     * Алиас раздела
-     *
-     * @return null
-     */
-    private function getAlias()
-    {
-        return $this->model->alias ? $this->model->alias : null;
-    }
+    return $real_depth;
+}
 
-    private function getRealDepth()
-    {
-        $real_depth = $this->getParentRealDepth();
+private
+function getParentId()
+{
+    return $this->parent ? $this->parent->id : null;
 
-        if (isset($this->model->real_depth))
-        {
-            if (empty($this->model->sheet_id))
-            {
-                $real_depth += $this->model->real_depth;
-            } else
-            {
-                $real_depth += $this->model->real_depth + 1;
-            }
-        }
+}
 
-        return $real_depth;
-    }
+private
+function getParentRealDepth()
+{
+    return $this->parent ? $this->parent->real_depth : 0;
 
-
-    private function getParentId()
-    {
-        return $this->parent ? $this->parent->id : null;
-
-    }
-
-    private function getParentRealDepth()
-    {
-        return $this->parent ? $this->parent->real_depth : 0;
-
-    }
-
-    /**
-     * находим ид модели уникальных разделов
-     */
-    private function getSheetId()
-    {
-        $this->sheet_object_type_id = ObjectType::whereType('sheet')->first()->id;
-    }
+}
 
 }

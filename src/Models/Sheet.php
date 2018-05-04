@@ -39,6 +39,7 @@ class Sheet extends Model
         'object_type_id',
         'parent_type_id',
         'parent_id',
+        'visibility',
     ];
 
     protected $dispatchesEvents = [
