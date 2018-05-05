@@ -46,15 +46,10 @@ trait UpdateMap
      */
     private $parent = null;
 
-    public function changeModel($model)
-    {
-        $this->changeMap($model);
-    }
-
-
     public function changeMap($model)
     {
-        $this->model = $model;
+        $this->getModel($model);
+        //       $this->model                = $model;
         $this->sheet_object_type_id = $this->getObjectSheetId();
         $this->getParent();
         $map = Map::updateOrCreate(
@@ -65,6 +60,7 @@ trait UpdateMap
             [
                 'route' => $this->getRoute(),
                 'alias' => $this->getAlias(),
+                'visibility' => $this->getVisibility(),
                 'real_depth' => $this->getRealDepth(),
                 'parent_id' => $this->getParentId(),
                 'src' => $this->smMap($this->model),
@@ -85,17 +81,26 @@ trait UpdateMap
      */
     public function deleteMap($model)
     {
-        $this->model = $model;
+        $this->getModel($model);
         Map::where('object_type_id', $this->getObjectTypeId())->where('object_id', $model->id)->delete();
 
     }
 
     public function restoreMap($model)
     {
-        $this->model = $model;
+        $this->getModel($model);
 
         Map::withTrashed()->where('object_type_id', $this->getObjectTypeId())->where('object_id', $model->id)
             ->restore();
+    }
+
+    private function getModel($model)
+    {
+        if (isset($model->fileable_type)) { //  для нового файла
+            $this->model = $model->fileable_type::find($model->fileable_id);
+        } else {
+            $this->model = $model;
+        }
     }
 
     /**
@@ -119,72 +124,88 @@ trait UpdateMap
             }
         } else { //  к примеру каталог,  строго один родитель, ищем по Sheet
             if (empty($this->model->parent_id)) {  // корневая статья,
-                $sheet = Sheet::find($sheet->parent_id);
+                if (isset($this->model->sheet_id)) {
+                    $sheet = Sheet::find($this->model->sheet_id);
+                } else {
+                    $sheet = Sheet::find($sheet->parent_id);
+                }
             }
-            $this->parent = Map::whereObjectTypeId($sheet->parent_type_id)
-                ->whereObjectId($sheet->id)
-                ->first();
+            if ($this->object_type_id <> $this->sheet_object_type_id) { // костыль для главной
+                $this->parent = Map::whereObjectTypeId($sheet->parent_type_id)
+                    ->whereObjectId($sheet->id)
+                    ->first();
+            }
         }
     }
 
+    /**
+     * возвращаем роут модели
+     */
+    protected function getRoute($route = null)
+    {
+        if (isset($this->model->route)) {
+            $route = $this->model->route;
+        } elseif (empty($this->model->sheet_id)) {
+            $route = Sheet::whereObjectTypeId($this->object_type_id)->first()->route;
 
-/**
- * возвращаем роут модели
- */
-private
-function getRoute($route = null)
-{
-    if (isset($this->model->route)) {
-        $route = $this->model->route;
-    } elseif (empty($this->model->sheet_id)) {
-        $route = Sheet::whereObjectTypeId($this->object_type_id)->first()->route;
-
-    } else {
-        $route = Sheet::find($this->model->sheet_id)->route;
-    }
-
-    return $route;
-}
-
-/**
- * Алиас раздела
- *
- * @return null
- */
-protected
-function getAlias()
-{
-    return $this->model->alias ? $this->model->alias : null;
-}
-
-protected
-function getRealDepth()
-{
-    $real_depth = $this->getParentRealDepth();
-
-    if (isset($this->model->real_depth)) {
-        if (empty($this->model->sheet_id)) {
-            $real_depth += $this->model->real_depth;
+        } elseif ($this->object_type_id == $this->sheet_object_type_id) {
+            $route = Sheet::find($this->model->sheet_id)->route;
         } else {
-            $real_depth += $this->model->real_depth + 1;
+            $route = Sheet::whereObjectTypeId($this->object_type_id)->first()->route;
+        }
+
+        return $route;
+    }
+
+    /**
+     * Алиас раздела
+     *
+     * @return null
+     */
+    protected function getAlias()
+    {
+        return $this->model->alias ? $this->model->alias : null;
+    }
+
+    /**
+     * Видимость раздела в хледных крошках, глобальной карте сайта
+     *
+     * @return null
+     */
+    protected function getVisibility()
+    {
+        if (isset($this->model->visibility)) {
+            return $this->model->visibility;
+        } else {
+            return 1;
         }
     }
 
-    return $real_depth;
-}
+    protected function getRealDepth()
+    {
+        $real_depth = $this->getParentRealDepth();
 
-private
-function getParentId()
-{
-    return $this->parent ? $this->parent->id : null;
+        if (isset($this->model->real_depth)) {
+            if (empty($this->model->sheet_id)) {
+                $real_depth += $this->model->real_depth;
+            } else {
+                $real_depth += $this->model->real_depth + 1;
+            }
+        }
 
-}
+        return $real_depth;
+    }
 
-private
-function getParentRealDepth()
-{
-    return $this->parent ? $this->parent->real_depth : 0;
+    private function getParentId()
+    {
+        return $this->parent ? $this->parent->id : null;
 
-}
+    }
+
+    private function getParentRealDepth()
+    {
+        return $this->parent ? $this->parent->real_depth : 0;
+
+    }
 
 }

@@ -33,7 +33,9 @@ trait ModelTrait
     protected function addFileInfo()
     {
         $model = $this->objectType->model::find($this->id);
+        // метод increment не вызывает событие saved
         $model->increment('images');
+
         $this->file_model = File::create(
             [
                 'token'        => $this->token,
