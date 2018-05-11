@@ -3,17 +3,13 @@
 @push('footer-scripts')
     <link rel="stylesheet" href="{{ mix('frontend/styles/gallery.css') }}" />
     <link rel="stylesheet" href="{{ mix('frontend/styles/gallery-owl.css') }}" />
-    <script src="{{ mix('frontend/plugins/bootstrap-v3/modal.js') }}" defer></script>
     <script src="{{ mix('frontend/partials/gallery.js') }}" defer></script>
+    <script>{{-- запоминаем вкладку --}}
+        $("a[role=tab]").click(function () {
+            localStorage.setItem("tab-" + window.location.href, $(this).attr("href"));
+        });
 
-    {{-- owl - пожиратель модали --}}
-    <script>
-        $("#modalImage").on("shown.bs.modal", function () {
-            $(this).css("display", "block");
-        });
-        $("button.close").click(function () {
-            $("#modalImage").removeAttr("style").removeClass("in");
-        });
+        $("a[href='" + localStorage.getItem("tab-" + window.location.href) + "']").click();
     </script>
 @endpush
 
