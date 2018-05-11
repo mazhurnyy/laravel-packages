@@ -15,8 +15,6 @@
                      class="img-responsive mb_half"
                 />
 
-                {{-- todo в модаль на biatron в подпись под картинкой должен попадать путь к средней картинке 368 --}}
-
                 @if (Auth::user()->isModerator())
                     <div id="current_link">#</div>
                 @endif
