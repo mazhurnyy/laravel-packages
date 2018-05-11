@@ -76,6 +76,14 @@ class Article extends Entity
         return $this->belongsTo('Mazhurnyy\Models\StatusArticle');
     }
 
+     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sheet()
+    {
+        return $this->belongsTo('App\Models\Sheet');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

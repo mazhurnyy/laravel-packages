@@ -34,6 +34,16 @@ class ObjectType extends Model
         return $this->hasMany('Mazhurnyy\Models\Prefix','object_type_id');
     }
 
+    public function sheet()
+    {
+        return $this->hasMany('Mazhurnyy\Models\Sheet','object_type_id');
+    }
+
+    public function map()
+    {
+        return $this->hasMany('Mazhurnyy\Models\Map','object_type_id');
+    }
+
     /**
      * выбираем только статьи
      * @param $query
