@@ -64,6 +64,8 @@ mix
             '/assets/javascripts/bootstrap/dropdown.js',
         'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
             '/assets/javascripts/bootstrap/collapse.js',
+        'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
+            '/assets/javascripts/bootstrap/modal.js',
         'resources/assets/vendor/mazhurnyy/partials/empty-links.js',
         'resources/assets/vendor/mazhurnyy/partials/footer.js',
         'resources/assets/vendor/mazhurnyy/partials/search.js',
@@ -71,14 +73,6 @@ mix
 // Компилируем файл sass (в нем подключаются файлы темы, стилей)
     .sass('resources/assets/styles/init-v3.scss',
         'public/frontend/app-v3.css')
-;
-//----------------------------------------------------------------------------------------------------------------------
-// Bootstrap v3 Modal
-mix
-    .scripts([
-        'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
-            '/assets/javascripts/bootstrap/modal.js',
-    ], 'public/frontend/plugins/bootstrap-v3/modal.js')
 ;
 //----------------------------------------------------------------------------------------------------------------------
 // Плагины
@@ -114,9 +108,10 @@ mix
     ], 'public/frontend/plugins/summernote/summernote.css')
     .scripts([
         'resources/assets/vendor/mazhurnyy/plugins/bootswatch/bower_components/bootstrap-sass-official' +
-        '/assets/javascripts/bootstrap/tooltip.js',
+            '/assets/javascripts/bootstrap/tooltip.js',
         'resources/assets/vendor/mazhurnyy/plugins/summernote/summernote.js',
         'resources/assets/vendor/mazhurnyy/plugins/summernote/lang/summernote-ru-RU.js',
+        'resources/assets/vendor/mazhurnyy/plugins/summernote/lang/summernote-uk-UA.js',
         'resources/assets/vendor/mazhurnyy/init/summernote.js',
     ], 'public/frontend/plugins/summernote/summernote.js')
 ;
@@ -130,21 +125,18 @@ mix
     .styles([
         'resources/assets/vendor/mazhurnyy/plugins/jssor/jssor.css',
     ], 'public/frontend/plugins/jssor/jssor.css')
-// Маленький слайдер
     .scripts([
         'resources/assets/vendor/mazhurnyy/init/jssor-sm.js',
     ], 'public/frontend/plugins/jssor/jssor-sm.js')
     .styles([
         'resources/assets/vendor/mazhurnyy/styles/jssor-sm.css',
     ], 'public/frontend/plugins/jssor/jssor-sm.css')
-// Большой слайдер
     .scripts([
         'resources/assets/vendor/mazhurnyy/init/jssor-md.js',
     ], 'public/frontend/plugins/jssor/jssor-md.js')
     .styles([
         'resources/assets/vendor/mazhurnyy/styles/jssor-md.css',
     ], 'public/frontend/plugins/jssor/jssor-md.css')
-// Маленький слайдер + большой в модали
     .scripts([
         'resources/assets/vendor/mazhurnyy/init/jssor-sm.js',
         'resources/assets/vendor/mazhurnyy/init/jssor-md.js',

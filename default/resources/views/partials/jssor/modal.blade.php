@@ -1,9 +1,5 @@
 {{-- Слайдер маленький + большой в модали --}}
 
-@push('scripts')
-    <script src="{{ mix('frontend/plugins/bootstrap-v3/modal.js') }}" defer></script>
-@endpush
-
 <div class="c_zoom mb_base">
     @include('mazhurnyy::partials.jssor.sm')
 </div>

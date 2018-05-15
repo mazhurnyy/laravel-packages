@@ -11,18 +11,27 @@ if (
     && navigator.userAgent.indexOf("Opera Mini") === -1
     || navigator.userAgent.indexOf("MSIE 10.") > -1
 ) {
-    var editor = $(".summernote");
+    var editor = $(".summernote"),
+        attr = $("html").attr("lang"),
+        lang = "en-US"
+    ;
+
+    if (attr === "ru") {
+        lang = "ru-RU";
+    }
+    else if (attr === "uk") {
+        lang = "uk-UA";
+    }
 
     editor.html(editor.html().trim());
     editor.parent().find("textarea").addClass("hidden");
 
     editor.summernote({
         minHeight: 200,
-        lang: "ru-RU",
+        lang: lang,
         toolbar: [
-            /*['fontsize', ['fontsize']],*/
-            ["style", ["bold", "italic", "underline"]],
-            ["air", ["ul", "ol"]],
+            ["font", ["bold", "underline", "ul"]],
+        //    ["air", ["picture", "fullscreen", "blockquote"]],
         ],
         callbacks: {
             onChange: function (contents) {

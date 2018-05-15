@@ -1,7 +1,6 @@
 {{-- Управление изображениями галереи --}}
 
 @push('scripts')
-    <script src="{{ mix('frontend/plugins/bootstrap-v3/modal.js') }}" defer></script>
     <script src="{{ mix('frontend/partials/gallery.js') }}" defer></script>
 @endpush
 
