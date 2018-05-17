@@ -1,36 +1,36 @@
-{{-- Карточка анонсов статей --}}
+{{-- Карточка анонсов дочерних статей --}}
 
-{{-- todo ну и как теперь в статье Товары и услуги вывести анонсы каталогов и анонс статьи Услуги? --}}
-{{-- todo route (x3) ===> $item->type --}}
+@inject('src', 'Mazhurnyy\Services\Blade\SrcFiles')
 
 <div class="col-xs-12 i">
     <div class="card">
 
-        <div class="preview_left">
-            <a href="{{ route('catalog', ['alias' => $item->alias]) }}"
-               title="{{ $item->title }}"
-            >
-                <img src="{{ $item->firstImage[0]->src_preview }}"
-                     alt="{{ $item->title }}"
-                     {{-- class="img-responsive" --}}
-                     height="207" width="368"
-                />
-            </a>
-        </div>
-
-        <div class="h3">
+        <div class="h2 visible-xs-block">
             <a href="{{ route('catalog', ['alias' => $item->alias]) }}">{{ $item->title }}</a>
         </div>
 
-        {!! $item->preview !!}
+        @if (!empty($src->sm($item)))
+            <div class="card_img card_img_left">
+                <a href="{{ route('article', ['alias' => $item->alias]) }}" title="{{ $item->title }}">
+                    <img src="{{ $src->sm($item) }}"
+                         alt="{{ $item->title }}"
+                         class="img-responsive"
+                    />
+                </a>
+            </div>
+        @endif
 
-        <div class="paragraph_fix"></div>
+        <div class="h2 hidden-xs">
+            <a href="{{ route('article', ['alias' => $item->alias]) }}">{{ $item->title }}</a>
+        </div>
+
+        {!! $item->preview !!}
 
         <a href="{{ route('article', ['alias' => $item->alias]) }}" title="{{ $item->title }}">
             @lang('button.detailed')
         </a>
 
-        <div class="clearfix"></div>
+        <div class="clearfix mb_half"></div>
 
     </div>
 </div>

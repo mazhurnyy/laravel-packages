@@ -14,7 +14,7 @@
             @include('partials.form.email')
         @endif
 
-        @include('partials.form.message')
+        @include('partials.form.editor', ['editor' => ['type' => 'message']])
         @include('partials.form.submit', ['submit' => __('button.send')])
     </form>
 

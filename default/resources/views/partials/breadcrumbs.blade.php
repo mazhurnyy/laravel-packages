@@ -1,14 +1,16 @@
 {{-- Хлебные крошки --}}
 
-{{-- todo Все универсальные сущности должны наследоваться от главной и раскручиваться одим циклом --}}
-{{-- todo Как сделать крошки в заказе (служебная страница) - вопрос --}}
-
-@if (count(\SiteBlade::getBreadcrumbs()) > 0)
+@if (count(SiteBlade::getBreadcrumbs()) > 1)
     <ol class="breadcrumb">
-        <li><a href="{{ route('home') }}">@lang('meta.home.title')</a></li>
-
-        @foreach(\SiteBlade::getBreadcrumbs() as $breadcrumb)
-            <li><a href="{{ $breadcrumb['link'] }}">{{ $breadcrumb['title'] }}</a></li>
+        @foreach(SiteBlade::getBreadcrumbs() as $breadcrumb)
+            <li>
+                <a href="{{ $breadcrumb['link'] }}">
+                    @if ($loop->iteration == 1)
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    @endif
+                    {{ $breadcrumb['title'] }}
+                </a>
+            </li>
         @endforeach
     </ol>
 @endif

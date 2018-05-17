@@ -8,7 +8,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- <img src="#" alt="@lang('meta.401')" class="img-responsive mb_base" /> --}}
+    {{-- <img src="#" alt="@lang('meta.401')" class="img-responsive" /> --}}
 
     <div class="login_401"></div>
 
